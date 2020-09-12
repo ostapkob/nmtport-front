@@ -8,39 +8,46 @@ export default new Vuex.Store({
   state: {
       count: 0,
       last_data: [],
-      endpoint: 'http://94.154.99.107/api/v1.0/all_last_data',
+      krans_data: [],
+      endpoint: 'http://94.154.76.136/api/v1.0/all_last_data',
+      // kran_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/kran',
+      // usm_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/usm',
+      kran_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_now/kran',
+      usm_now_api:  'http://127.0.0.1:5000/api/v1.0/get_data_now/usm',
       errored: false,
       tt: "tt",
   },
   mutations: {
-      SET_LAST_DATA_TO_STATE: (state, products) => {
-        state.last_data = products;
-        console.log('mutations');
+      SET_LAST_DATA_TO_STATE: (state, values) => {
+        state.last_data = values;
+        console.log('store mutations');
+      },
+      SET_KRANS_DATA_TO_STATE: (state, values) => {
+        state.krans_data = values;
       }
-        // get_data(state, value=1) {
-        //     axios
-        //         .get(state.endpoint)
-        //         .then(response => {
-        //             state.last_data = response.data
-        //             })
-        //         // .catch(error =>  console.log(error));
-        //        .catch(error => {
-        //                    console.log(error);
-        //                    state.errored = true;
-        //                  })
-        //         state.count+=value;
-        //       }
   },
   actions: {
       GET_LAST_DATA({commit}) {
-        console.log('actions');
-        return axios('http://94.154.99.107/api/v1.0/all_last_data', {
-        // return axios('http://192.168.99.107/api/v1.0/all_last_data', {
+        console.log('store actions');
+        return axios(this.state.endpoint, {
             method: "GET"
         })
-        .then(products => {
-            commit('SET_LAST_DATA_TO_STATE', products.data);
-            return products;
+        .then(args => {
+            commit('SET_LAST_DATA_TO_STATE', args.data);
+            return args;
+        })
+        .catch(error => {
+            console.log(error)
+            return error;
+        })
+    },   
+      GET_KRANS_DATA({commit}) {
+        return axios(this.state.kran_now_api, {
+            method: "GET"
+        })
+        .then(args => {
+            commit('SET_KRANS_DATA_TO_STATE', args.data);
+            return args;
         })
         .catch(error => {
             console.log(error)
@@ -52,8 +59,11 @@ export default new Vuex.Store({
   },
   getters: {
     LAST_DATA(state) {
-        console.log('getters');
+        console.log('store getters');
         return state.last_data;
+    },
+    KRANS_DATA(state) {
+        return state.krans_data;
     }
   }
 })

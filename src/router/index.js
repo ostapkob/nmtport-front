@@ -22,6 +22,11 @@ Vue.use(VueRouter)
     path: '/json',
     name: 'Json',
     component: () => import('../views/json.vue')
+  },
+  {
+    path: '/krans',
+    name: 'Krans',
+    component: () => import('../views/krans.vue')
   }
 ]
 
