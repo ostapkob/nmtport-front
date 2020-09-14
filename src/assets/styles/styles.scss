@@ -1,0 +1,48 @@
+@import "variables.scss";
+*{ 
+ padding:0; 
+ margin:0; 
+ font-family: 'Roboto', sans-serif, times new roman; 
+} 
+
+.test {
+    color: $cl;
+    background-color: blue;
+}
+
+.date-header {
+    font-size: 1em;
+    color: #555;
+    // padding: 0px 0px 0px 0px;
+    // margin:: 0px 0px 10px 0px;
+}
+.name-mech {
+    font-size: 1.3em;
+    font-weight:: bold;
+}
+
+.time-line-mech{
+    color: #444;    
+    font-size: .8em;
+    display: flex;
+    justify-content: space-between;
+}
+.time-in-progress {
+    visibility: visible;
+}
+
+@media screen and (max-width: 765px) {
+    .time-line-mech{
+        color: #222222;    
+        font-size: 0.6em;
+    }
+    .time-in-progress {
+        visibility: hidden;
+    }
+    .name-mech {
+        font-size: 1em;
+    }
+    .date-header {
+        font-size: .8em;
+    }
+}

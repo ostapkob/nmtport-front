@@ -27,6 +27,11 @@ Vue.use(VueRouter)
     path: '/krans',
     name: 'Krans',
     component: () => import('../views/krans.vue')
+  },
+  {
+    path: '/map',
+    name: 'Map',
+    component: () => import('../views/map.vue')
   }
 ]
 

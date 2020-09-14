@@ -1,6 +1,6 @@
 <template>
     <div class="kran-progress text-left">
-        <div class="h5 font-weight-bold"> {{mech.name}} 
+        <div class="name-mech"> {{mech.name}} 
             <b-badge variant="primary"> 
                 {{ mech.total_180 }}
             </b-badge>
@@ -17,15 +17,16 @@
             :value=item.step 
             :variant="colorProgress(item.value)"
             :striped="stripedProgress(item.value)"
+            :title="'start ' + item.time"
             >
-            <div v-show="item.step>25" class="text-left">
+
+            <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}
             </div>
         </b-progress-bar>
     </b-progress>
-    <hr />
-</div>
 
+</div>
 </template>
 
 <script>
@@ -68,10 +69,18 @@ export default {
 </script>
 
 <style lang="scss">
-.bg-mech {
-    margin-top: 20px;
-    width: 300px;
-    padding:  2px 2px 0px 0px;
-    border-radius: 5px;
-}
+
+    .tab-title-class {
+        color: #FF0000 !important;  
+    }
+    .bg-tit {
+        background-color: #blue;
+        background: #blue;
+        color: #red;
+    }
+    .bg-title {
+        background-color: #blue;
+    }
+
 </style>
+

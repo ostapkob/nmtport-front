@@ -6,6 +6,7 @@
       <div class="bg-mech" :class="bgMech(mech.value)" v-for="(mech, key) in $store.state.last_data" :key=key>
         <h5>{{ mech.name}} <b-badge variant="light">{{mech.value}}</b-badge></h5>
         <p>{{mech.time}} </p>
+        <div> {{mech.latitude}} : {{mech.longitude}} </div>
         <hr />
     </div>
 

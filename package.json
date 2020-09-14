@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue2-google-maps": "^0.10.7",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -28,5 +29,17 @@
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.2",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "description": "## Project setup ``` npm install ```",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ostapkob/tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ostapkob/tests/issues"
+  },
+  "homepage": "https://github.com/ostapkob/tests#readme"
 }
