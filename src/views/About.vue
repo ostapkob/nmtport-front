@@ -1,6 +1,9 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
+  <div class="h2 mb-0">
+    <b-icon icon="arrow-up"  animation="throb" ></b-icon>
+  </div>
   </div>
 </template>
 

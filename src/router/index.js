@@ -32,6 +32,16 @@ Vue.use(VueRouter)
     path: '/map',
     name: 'Map',
     component: () => import('../views/map.vue')
+  },
+  {
+    path: '/map2',
+    name: 'Map2',
+    component: () => import('../views/map2.vue')
+  },
+  {
+    path: '/map3',
+    name: 'Map3',
+    component: () => import('../views/map3.vue')
   }
 ]
 
