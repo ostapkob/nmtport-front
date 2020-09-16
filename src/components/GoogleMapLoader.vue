@@ -10,6 +10,7 @@
         :map="map"
       />
     </template>
+    <b-button @click=initializeMap>iiiii</b-button>
   </div>
 </template>
 
@@ -41,6 +42,7 @@ export default {
     initializeMap() {
       const mapContainer = this.$refs.googleMap;
       this.map = new this.google.maps.Map(mapContainer, this.mapConfig);
+      this.map.setTilt(45);
     }
   }
 };

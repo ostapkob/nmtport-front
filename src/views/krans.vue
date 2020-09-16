@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import kranProgress from '@/components/kran_progress.vue'
+import kranProgress from '@/components/ProgressKran.vue'
 import {mapActions, mapGetters} from 'vuex'
 import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
 

@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-'vue/require-render-return': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+'vue/require-render-return': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+ 'vue/no-template-key':       process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
 }

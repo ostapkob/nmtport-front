@@ -38,11 +38,6 @@ Vue.use(VueRouter)
     name: 'Map2',
     component: () => import('../views/map2.vue')
   },
-  {
-    path: '/map3',
-    name: 'Map3',
-    component: () => import('../views/map3.vue')
-  }
 ]
 
 const router = new VueRouter({

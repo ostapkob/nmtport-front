@@ -10,12 +10,11 @@ export default new Vuex.Store({
       last_data: [],
       krans_data: [],
       endpoint: 'http://94.154.76.136/api/v1.0/all_last_data',
-      // kran_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/kran',
-      // usm_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/usm',
-      kran_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_now/kran',
-      usm_now_api:  'http://127.0.0.1:5000/api/v1.0/get_data_now/usm',
+      kran_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/kran',
+      usm_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/usm',
+      // kran_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_now/kran',
+      // usm_now_api:  'http://127.0.0.1:5000/api/v1.0/get_data_now/usm',
       errored: false,
-      tt: "tt",
   },
   mutations: {
       SET_LAST_DATA_TO_STATE: (state, values) => {

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {test, poligons } from '@/components/map_paths.js'
+import {test, poligons } from '@/components/MapPaths.js'
 export default {
   name: "GoogleMap",
   data() {

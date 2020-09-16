@@ -1,12 +1,11 @@
+import { day } from "@/constants/mapDay";
+import {night} from "@/constants/mapNight.js";
+
 export function shiftNow() {
     let date = new Date(); 
     if (date.getHours()<20 &&  date.getHours()>8 ) {
-        console.log(2)
-        console.log(date.getHours())
         return 1
     }
-    console.log(2)
-    console.log(date.getHours())
     return 2
     }
 export function dateNow() {
@@ -23,6 +22,12 @@ export function hoursProgress(shift) {
 }
 
 
+export function themeMap(shift) {
+        if (shift == 1) {
+            return day
+        }
+        return night
+    }
                 
 
 

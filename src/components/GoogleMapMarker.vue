@@ -1,5 +1,5 @@
 <script>
-import { POINT_MARKER_ICON_CONFIG } from "@/constants/mapSettings";
+//import { POINT_MARKER_ICON_CONFIG } from "@/constants/mapSettings";
 
 export default {
   props: {
@@ -20,13 +20,16 @@ export default {
   methods: {
   },
   mounted() {
+
     new this.google.maps.Marker({
       position: this.marker.position,
       marker: this.marker,
       map: this.map,
-      animation: this.google.maps.Animation.BOUNCE,
-      icon: POINT_MARKER_ICON_CONFIG,
-      title: "hi i am title",
+      animation: this.marker.alarm,
+//      animation: this.toggleAnimation(this.marker.animation),
+//      icon: POINT_MARKER_ICON_CONFIG,
+      icon: this.marker.icon,
+      title: this.marker.title,
     })
 
   },

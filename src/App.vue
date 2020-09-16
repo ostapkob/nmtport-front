@@ -7,7 +7,6 @@
       <router-link to="/krans">Krans</router-link> |
       <router-link to="/map">Map</router-link> |
       <router-link to="/map2">Map2</router-link> |
-      <router-link to="/map3">Map3</router-link>
     </div>
     <router-view/>
   </div>

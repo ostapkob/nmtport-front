@@ -1,9 +1,8 @@
 <template>
   <GoogleMapLoader
-    :mapConfig="mapConfig"
+    :mapConfig=mapConfig
     apiKey="AIzaSyDEEA8HUpeyr66BT6arigNEcKgqckkSDUg"
   >
-  // insert your google maps api key to render styled map
     <template slot-scope="{ google, map }">
       <GoogleMapMarker
         v-for="marker in markers"
@@ -11,7 +10,6 @@
         :marker="marker"
         :google="google"
         :map="map"
-        title="www"
       />
       <GoogleMapLine
         v-for="line in lines"
@@ -21,18 +19,19 @@
         :map="map"
       />
     <div>
-        <button @click="clearMarkers()">adfasdf</button>
+        <b-button @click="dayNight()" class=mt-2 > Day / Night </b-button>
     </div>
     </template>
   </GoogleMapLoader>
 </template>
-
 <script>
-import GoogleMapLoader from "./GoogleMapLoader";
-import { mapSettings } from "@/constants/mapSettings";
-import GoogleMapMarker from "./GoogleMapMarker";
-import GoogleMapLine from "./GoogleMapLine";
-import {markers, lines } from '@/components/map_paths.js'
+
+import GoogleMapLoader   from "./GoogleMapLoader";
+import GoogleMapMarker   from "./GoogleMapMarker";
+import GoogleMapLine     from "./GoogleMapLine";
+import { mapSettings }   from "@/constants/mapSettings";
+import { markers, lines } from '@/components/MapPaths.js'
+import { themeMap } from '@/functions/functions';
 
 export default {
   components: {
@@ -45,49 +44,46 @@ export default {
     return {
       lines: [],
       markers: [],
-      aa: 1
+      shift: 1
     };
   },
 
   methods: {
-    plus: function () {
-      this.aa++
-       console.log(this.aa)
+    clearMarkers:  function() {
+        for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+        }
+        this.markers = [];
     },
 
- clearMarkers:  function() {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
-  }
 
- this.markers = [];
-}
-
-
-
-
-
-
-
-
+    dayNight: function() {
+       this.shift = 2
+        console.log(this.shift)
+    },
 
   },
-    
   computed: {
     mapConfig() {
       return {
         ...mapSettings,
-        center: this.mapCenter
+        center: this.mapCenter,
+        styles: themeMap(this.shift)
       };
     },
     mapCenter() {
         return {lat: 42.8150, lng: 132.8907}
-    }
+    },
   },
   mounted() {
     this.markers = markers 
     this.lines = lines 
-  }
+    
+  },
+    watch: {
+        
+
+    }
 };
 </script>
 
