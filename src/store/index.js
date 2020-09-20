@@ -6,15 +6,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      count: 0,
+      count: 1,
       last_data: [],
       krans_data: [],
-      endpoint: 'http://94.154.76.136/api/v1.0/all_last_data',
-      kran_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/kran',
-      usm_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/usm',
-      // kran_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_now/kran',
-      // usm_now_api:  'http://127.0.0.1:5000/api/v1.0/get_data_now/usm',
-      errored: false,
+      // endpoint: 'http://94.154.76.136/api/v1.0/all_last_data',
+      // kran_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/kran',
+      // usm_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/usm',
+      endpoint: 'http://127.0.0.1:5000/api/v1.0/all_last_data',
+      kran_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_now/kran',
+      usm_now_api:  'http://127.0.0.1:5000/api/v1.0/get_data_now/usm',
+      errored_last_data: false,
   },
   mutations: {
       SET_LAST_DATA_TO_STATE: (state, values) => {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
       },
       SET_KRANS_DATA_TO_STATE: (state, values) => {
         state.krans_data = values;
+      },
+      ERROR_STATE_LAST_DATA: (state) => {
+        state.errored_last_data = true;
       }
   },
   actions: {
@@ -36,6 +40,7 @@ export default new Vuex.Store({
             return args;
         })
         .catch(error => {
+            commit('ERROR_STATE_LAST_DATA' );
             console.log(error)
             return error;
         })
@@ -58,10 +63,11 @@ export default new Vuex.Store({
   },
   getters: {
     LAST_DATA(state) {
-        console.log('store getters');
+        console.log('store last_data getters');
         return state.last_data;
     },
     KRANS_DATA(state) {
+        console.log('store kran  getters');
         return state.krans_data;
     }
   }

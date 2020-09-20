@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import PortMap from "@/components/MapPort";
+import PortMap from "@/components/GoogleMapPort";
 
 export default {
   name: "App",

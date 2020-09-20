@@ -1,9 +1,8 @@
 <template>
   <div class="json">
-      <h2 v-if="$store.state.errored"> Error... </h2>
-    <h4> {{ $store.tt }}</h4>
+      <h2 v-if="this.$store.state.errored_last_data"> Error... </h2>
       <hr />
-      <div class="bg-mech" :class="bgMech(mech.value)" v-for="(mech, key) in $store.state.last_data" :key=key>
+      <div class="bg-mech" :class="bgMech(mech.value)" v-for="(mech, key) in mechanisms_last_data" :key=key>
         <h5>{{ mech.name}} <b-badge variant="light">{{mech.value}}</b-badge></h5>
         <p>{{mech.time}} </p>
         <div> {{mech.latitude}} : {{mech.longitude}} </div>
@@ -18,7 +17,8 @@
 export default {
   name: 'Json',
   props: {
-    msg: String
+    msg: String,
+    mechanisms_last_data: Object
   },
     methods: {
         bgMech: function(val) {
@@ -27,7 +27,6 @@ export default {
                resultColor='bg-mech-yellow'
             }
             else if (val<=1) {
-
                resultColor='bg-mech-teal'
             }
             else {
@@ -40,7 +39,9 @@ export default {
     },
     mounted() {
         console.log('component mounted')
-        console.log()
+    },
+   created () {
+        console.log(typeof(this.mechanisms_last_data))
     }
 }
 </script>

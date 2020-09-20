@@ -3,9 +3,9 @@
     :mapConfig=mapConfig
     apiKey="AIzaSyDEEA8HUpeyr66BT6arigNEcKgqckkSDUg"
   >
-    <template slot-scope="{ google, map }">
+    <template v-slot="{ google, map }">
       <GoogleMapMarker
-        v-for="marker in markers"
+        v-for="marker in LAST_DATA"
         :key="marker.id"
         :marker="marker"
         :google="google"
@@ -18,8 +18,10 @@
         :google="google"
         :map="map"
       />
+
     <div>
-        <b-button @click="dayNight()" class=mt-2 > Day / Night </b-button>
+        <!-- <b-button @click="dayNight()" class=mt-2 > Day / Night </b-button> -->
+        <p v-for="mech in LAST_DATA" :key=mech.id> {{mech}} --- </p>
     </div>
     </template>
   </GoogleMapLoader>
@@ -30,8 +32,9 @@ import GoogleMapLoader   from "./GoogleMapLoader";
 import GoogleMapMarker   from "./GoogleMapMarker";
 import GoogleMapLine     from "./GoogleMapLine";
 import { mapSettings }   from "@/constants/mapSettings";
-import { markers, lines } from '@/components/MapPaths.js'
+import { markers, lines } from '@/constants/MapPaths.js'
 import { themeMap } from '@/functions/functions';
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: {
@@ -44,26 +47,29 @@ export default {
     return {
       lines: [],
       markers: [],
-      shift: 1
+      shift: 1,
+      polling: null,
+      text: 'text'
     };
   },
 
   methods: {
-    clearMarkers:  function() {
-        for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-        }
-        this.markers = [];
-    },
-
-
+    ...mapActions([
+        'GET_LAST_DATA'
+    ]),
     dayNight: function() {
        this.shift = 2
-        console.log(this.shift)
     },
-
+	pollData () {
+		this.polling = setInterval(() => {
+			this.$store.dispatch('GET_LAST_DATA')
+		}, 5000)
+    },
   },
   computed: {
+    ...mapGetters([
+        'LAST_DATA'
+        ]),
     mapConfig() {
       return {
         ...mapSettings,
@@ -76,14 +82,16 @@ export default {
     },
   },
   mounted() {
-    this.markers = markers 
     this.lines = lines 
-    
+    this.markers = markers 
+    this.GET_LAST_DATA()
   },
-    watch: {
-        
-
-    }
+   beforeDestroy () {
+       clearInterval(this.polling)
+   },
+   created () {
+       this.pollData()
+   },
 };
 </script>
 

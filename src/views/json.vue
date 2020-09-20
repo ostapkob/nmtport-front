@@ -1,10 +1,8 @@
 <template>
 <div class="json">
- <!-- <b-button @click=this.GET_LAST_DATA variant="success"> Click </b-button> -->
- <b-button @click=LAST_DATA variant="success"> Click </b-button>
-<Json msg="JSON"/>
-  <hr />
-  </div>
+        <p v-for="(mech, key) in LAST_DATA" :key=key> {{mech.time}} --- </p>
+    <Json :mechanisms_last_data=LAST_DATA msg="JSON"/>
+</div>
 </template>
 
 <script>
@@ -16,21 +14,37 @@ export default {
   components: {
     Json
   },
-   computed: {
-      ...mapGetters([
-           'LAST_DATA'
-          ])
+  data () {
+       return {
+           polling: null
+       }
    },
-   methods: {
-        ...mapActions([
-            'GET_LAST_DATA'
-        ])
-    },
-    mounted() {
-        console.log('views mounted');
-        this.GET_LAST_DATA()
-    }
-
+  computed: {
+     ...mapGetters([
+          'LAST_DATA'
+         ])
+  },
+  methods: {
+       ...mapActions([
+           'GET_LAST_DATA'
+       ]),
+	pollData () {
+		this.polling = setInterval(() => {
+			this.$store.dispatch('GET_LAST_DATA')
+		}, 5000)
+	}
+   },
+   mounted() {
+       this.GET_LAST_DATA()
+   },
+   beforeDestroy () {
+       clearInterval(this.polling)
+   },
+   created () {
+       this.pollData()
+        console.log('----------------')
+        console.log(typeof(this.LAST_DATA))
+   },
 }
 </script>
 

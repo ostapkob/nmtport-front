@@ -3,14 +3,14 @@
     <div
       class="google-map"
       ref="googleMap"
-    ></div>
+    />
     <template v-if="Boolean(this.google) && Boolean(this.map)">
       <slot
         :google="google"
         :map="map"
       />
     </template>
-    <b-button @click=initializeMap>iiiii</b-button>
+    <b-button @click=initializeMap>initializeMap</b-button>
   </div>
 </template>
 
@@ -42,7 +42,6 @@ export default {
     initializeMap() {
       const mapContainer = this.$refs.googleMap;
       this.map = new this.google.maps.Map(mapContainer, this.mapConfig);
-      this.map.setTilt(45);
     }
   }
 };

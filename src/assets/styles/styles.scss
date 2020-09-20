@@ -13,7 +13,7 @@
 .date-header {
     font-size: 1em;
     color: #555;
-    // padding: 0px 0px 0px 0px;
+    padding: 0px 0px 3px 0px;
     // margin:: 0px 0px 10px 0px;
 }
 .name-mech {
@@ -44,5 +44,11 @@
     }
     .date-header {
         font-size: .8em;
+    }
+}
+@media screen and (max-width: 410px) {
+    .time-line-mech{
+        color: #222222;    
+        font-size: 0.5em;
     }
 }

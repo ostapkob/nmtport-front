@@ -73,7 +73,7 @@ const mapSettings = {
   },
   zoom: 15,
   minZoom: 2,
-  maxZoom: 15,
+  maxZoom: 16,
   styles:  themeMap()
 };
 

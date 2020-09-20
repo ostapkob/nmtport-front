@@ -1,8 +1,9 @@
 <template>
 <div class="krans ml-4 mr-4">
     <div class="date-header"> дата: <strong>{{ date }}</strong>  смена: <strong>{{ shift }}</strong> </div>
-        <div v-for="(mech, key) in KRANS_DATA" :key='key' > 
-        <kranProgress :mech='mech' />
+    <!-- <div v-for="(mech, key) in KRANS_DATA" v-show='mech.total_180>22 || mech.total_90>22' :key='key' > --> 
+    <div v-for="(mech, key) in KRANS_DATA" :key='key' > 
+            <kranProgress :mech='mech'  />
             <div  class="time-line-mech"> 
                 <span  v-for="(hour, keyH) in hours" :key=keyH> {{hour}} </span>
             </div>
@@ -24,6 +25,7 @@ export default {
         shift: 1,
         date: '-',
         hours: '"',
+        polling: null
     }
   }, 
   components: {
@@ -35,9 +37,14 @@ export default {
           ]),
    },
    methods: {
-        ...mapActions([
+    ...mapActions([
             'GET_KRANS_DATA'
-        ])
+        ]),
+    pollData() {
+        this.polling = setInterval(() => {
+            this.$store.dispatch('GET_KRANS_DATA');
+        }, 5000)
+    },
     },
     mounted() {
         console.log('KRANS mounted');
@@ -46,7 +53,12 @@ export default {
         this.hours = hoursProgress(shiftNow())
         this.GET_KRANS_DATA()
     },
-
+    beforeDestroy () {
+       clearInterval(this.polling)
+    },
+    created() {
+       this.pollData()
+    }
 }
 </script>
 
