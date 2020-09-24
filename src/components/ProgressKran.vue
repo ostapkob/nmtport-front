@@ -1,10 +1,12 @@
 <template >
     <div class="kran-progress text-left">
         <div class="name-mech"> {{mech.name}} 
-            <b-badge v-show='mech.total_180>10' variant="primary"> 
+            <b-badge v-show='mech.total_180>5' variant="primary"> 
+                <img class="catalog-item-img" :src="require('@/assets/img/ship.png')" height="18" />
                 {{ mech.total_180 }}
             </b-badge>
-            <b-badge v-show='mech.total_90>10' variant="dark" class='ml-1'> 
+            <b-badge v-show='mech.total_90>5' variant="dark" class='ml-1'> 
+                <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
                 {{ mech.total_90 }}
             </b-badge>
         </div>
@@ -17,15 +19,13 @@
             :value=item.step 
             :variant="colorProgress(item.value)"
             :striped="stripedProgress(item.value)"
-            :title= "item.value +' + '+ item.step + ' = ' +ff(item.value, item.step) "
+            :title= "showSteps(item.time, item.value, item.total)" 
             >
-
             <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}
             </div>
         </b-progress-bar>
     </b-progress>
-
 </div>
 </template>
 
@@ -42,39 +42,26 @@ export default {
             totalStep_180: 0, // 2
             totalStep_90_1: 0,// 1
             totalStep_90_3: 0, // 3 after
-            returnValue: '-'
+            returnValue: '-',
+            s: 1,
         }
     },
     methods: {
-        showSteps: function(typeStep, countStep) {
+        showSteps: function(timeStep, typeStep, totalStep) {
             if (typeStep == 2) {
-                this.totalStep_180 += countStep
-                return this.totalStep_180.toString() + 'поворотов по 180°'
+                return `c   ${timeStep}  ${totalStep} - поворотов по 180°`
             }
-            if (typeStep == 1) {
-                this.totalStep_90_1 += countStep
-                return this.totalStep_90_1.toString() + 'поворотов по 90°'
+            if (typeStep == 1 || typeStep == 3) {
+                return `c   ${timeStep}  ${totalStep} - поворотов по 90°`
             }
             if (typeStep == 0) {
-                return ' Простой'
+                return `c ${timeStep} - Простой`
             }
             if (typeStep == -1) {
-                return ' ⚡Нет питания⚡'
+                return `c ${timeStep} - ⚡Нет питания⚡`
             }
             return ''
         },
-
-        ff: function(val, step) {
-            let r = val+step
-            if (step == 1) {
-                r="test"
-            }
-            else {
-                r='www'
-            }
-            return r.toString()
-        },
-
         stripedProgress: function(val) {
             if (val==-1) {
                 return true
@@ -87,7 +74,7 @@ export default {
             if (val==0) {
                resultColor='warning text-dark'
             }
-            else if (val==1) {
+            else if (val==1 || val==3) {
                resultColor='dark'
             }
             else if (val==2) {
@@ -97,10 +84,9 @@ export default {
             resultColor='danger show-progress'
             }
             return resultColor 
-            }
+            },
     },
     computed:  {
-
     },
     mounted() {
         console.log('kran mounted')

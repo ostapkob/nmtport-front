@@ -25,18 +25,25 @@ export default {
   },
   data() {
     return {
-        markerMech: null
+        markerMech: null,
+      ii: 'assets/img/numbers/'
     };
   },
   methods: {
+    ff() {
+      return 'kran/blue/13.png'
+    },
       newMarker() {
       this.markerMech = new this.google.maps.Marker({
       position:  {'lat':this.marker.latitude, 'lng':this.marker.longitude},
       marker: this.marker,
       map: this.map,
       animation: this.marker.alarm,
-      icon: this.marker.icon,
-      title: this.marker.name //this.marker.title,
+      //icon: require(this.ff()),
+      //icon: require(getIcon(this.marker.state, this.marker.type, this.marker.num)),
+      icon:   require(`@/${this.ii}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
+      //title: this.marker.name //this.marker.title,
+      title: this.ff() //this.marker.title,
     })
     },
 	pollData () {
@@ -49,7 +56,22 @@ export default {
         //this.markerMech.setMap(null)
         var latlng = new this.google.maps.LatLng(this.marker.latitude, this.marker.longitude)
         this.markerMech.setPosition(latlng)
-    }
+    },
+    getIcon(state, type, num) {
+      if (state=='work'){
+        return `${type}/blue/${num}.png`
+      }
+      else if (state=='stay'){
+        return `${type}/yellow/${num}.png`
+      }
+      else if (state=='no_power'){
+        return `${type}/red/${num}.png`
+      }
+      else {
+        return ''
+      }
+
+    },
 
 
   },
