@@ -30,9 +30,6 @@ export default {
     };
   },
   methods: {
-    ff() {
-      return 'kran/blue/13.png'
-    },
       newMarker() {
       this.markerMech = new this.google.maps.Marker({
       position:  {'lat':this.marker.latitude, 'lng':this.marker.longitude},
@@ -42,20 +39,24 @@ export default {
       //icon: require(this.ff()),
       //icon: require(getIcon(this.marker.state, this.marker.type, this.marker.num)),
       icon:   require(`@/${this.ii}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
-      //title: this.marker.name //this.marker.title,
-      title: this.ff() //this.marker.title,
+      title: this.marker.name //this.marker.title,
     })
     },
 	pollData () {
 		this.polling = setInterval(() => {
-			this.changePosition()
+			this.changePosition(),
+            this.changeIcon()
 		}, 5000)
 	},
     changePosition() {
-        console.log(this.marker.name)
+        //console.log(this.marker.name)
         //this.markerMech.setMap(null)
         var latlng = new this.google.maps.LatLng(this.marker.latitude, this.marker.longitude)
         this.markerMech.setPosition(latlng)
+    },
+    changeIcon() {
+        //console.log(this.marker.name)
+        this.markerMech.setIcon(require(`@/${this.ii}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`))
     },
     getIcon(state, type, num) {
       if (state=='work'){
@@ -68,7 +69,7 @@ export default {
         return `${type}/red/${num}.png`
       }
       else {
-        return ''
+        return `${type}/gray/${num}.png`
       }
 
     },

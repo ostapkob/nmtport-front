@@ -1,16 +1,16 @@
 <template >
-    <div class="kran-progress text-left">
+    <div class="usm-progress text-left">
         <div class="name-mech"> {{mech.name}} 
             <small class="fio"> {{mech.fio}} </small>
-            <b-badge v-show='mech.total_180>5' variant="primary"> 
-                <img class="catalog-item-img" :src="require('@/assets/img/ship.png')" height="18" />
-                {{ mech.total_180 }}
+            <b-badge variant="dark ml-2"> 
+                {{ mech.time_coal }}
             </b-badge>
-            <b-badge v-show='mech.total_90>5' variant="dark" class='ml-1'> 
-                <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
-                {{ mech.total_90 }}
+            <b-badge variant="primary ml-2"> 
+                {{ mech.work_time }}
             </b-badge>
-            <small class="time"> {{mech.start}} - {{mech.finish}} </small>
+            <b-badge variant="info ml-2"> 
+                {{ mech.total_time }}
+            </b-badge>
         </div>
 
     <div v-for="(item, key) in mech.data" :key=key>
@@ -35,17 +35,12 @@
             //title="'c ' + item.time + ' | ' + showSteps(item.value, item.step)"
             //:title= "item.value +' + '+ item.step + ' = ' +ff(item.value, item.step) "
 export default {
-  name: 'KranProgress',
+  name: 'UsmProgress',
   props: {
     mech: Object
   },
     data() {
         return {
-            totalStep_180: 0, // 2
-            totalStep_90_1: 0,// 1
-            totalStep_90_3: 0, // 3 after
-            returnValue: '-',
-            s: 1,
         }
     },
     methods: {
@@ -76,10 +71,7 @@ export default {
             if (val==0) {
                resultColor='warning text-dark'
             }
-            else if (val==1 || val==3) {
-               resultColor='dark'
-            }
-            else if (val==2) {
+          else if (val>0.1) {
                resultColor='primary'
             }
             else {
@@ -91,7 +83,7 @@ export default {
     computed:  {
     },
     mounted() {
-        console.log('kran mounted')
+        console.log('usm mounted')
     }
 }
 </script>
