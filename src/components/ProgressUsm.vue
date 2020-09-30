@@ -21,7 +21,7 @@
             :value=item.step 
             :variant="colorProgress(item.value)"
             :striped="stripedProgress(item.value)"
-            :title= "showSteps(item.time, item.value, item.total)" 
+            :title= "showSteps(item.time, item.value, item.time_coal)" 
             >
             <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}
@@ -45,11 +45,8 @@ export default {
     },
     methods: {
         showSteps: function(timeStep, typeStep, totalStep) {
-            if (typeStep == 2) {
-                return `c ${timeStep} - ${totalStep} поворотов по 180°`
-            }
             if (typeStep == 1 || typeStep == 3) {
-                return `c ${timeStep} -  ${totalStep} поворотов по 90°`
+                return `c ${timeStep} -  ${totalStep} часов уголь на ленте `
             }
             if (typeStep == 0) {
                 return `c ${timeStep} - Простой`

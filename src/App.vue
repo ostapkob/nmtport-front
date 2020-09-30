@@ -5,7 +5,7 @@
     <!--   <router-link to="/about">About</router-link> | -->
     <!--   <router-link to="/json">Json</router-link> | -->
     <!--   <router-link to="/krans">Krans</router-link> | -->
-    <!--   <router-link to="/map">Map</router-link> --> 
+    <!--   <router-link to="/map">Map</router-link> -->
     <!-- </div> -->
 
 <div>
@@ -16,9 +16,9 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item to="/krans"> За смену </b-nav-item>
         <b-nav-item to="/map"> Карта </b-nav-item>
         <b-nav-item to="/usm"> УСМ </b-nav-item>
+        <b-nav-item to="/krans"> Краны </b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

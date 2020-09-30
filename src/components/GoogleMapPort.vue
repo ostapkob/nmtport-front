@@ -10,6 +10,7 @@
         :marker="marker"
         :google="google"
         :map="map"
+        :animation='marker.alarm'
       />
       <GoogleMapLine
         v-for="line in lines"
@@ -21,7 +22,7 @@
 
     <div>
         <!-- <b-button @click="dayNight()" class=mt-2 > Day / Night </b-button> -->
-        <p v-for="mech in LAST_DATA" :key=mech.id> {{mech}} --- </p>
+        <!-- <p v-for="mech in LAST_DATA" :key=mech.id> {{mech}} --- </p> -->
     </div>
     </template>
   </GoogleMapLoader>
@@ -82,8 +83,8 @@ export default {
     },
   },
   mounted() {
-    this.lines = lines 
-    this.markers = markers 
+    this.lines = lines
+    this.markers = markers
     this.GET_LAST_DATA()
   },
    beforeDestroy () {

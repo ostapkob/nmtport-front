@@ -10,12 +10,13 @@ export default new Vuex.Store({
       last_data: [],
       krans_data: [],
       usm_data: [],
-      endpoint: 'http://94.154.76.136/api/v1.0/all_last_data_state',
-      kran_now_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/kran',
-      usm_now_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/usm',
+      // last_data: 'http://94.154.76.136/api/v1.0/all_last_data_state',
+      // kran_now_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/kran',
+      // usm_now_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/usm',
       // usm_now_api:  'http://94.154.76.136/api/v1.0/get_data_now/usm',
-      // endpoint: 'http://127.0.0.1:5000/api/v1.0/all_last_data_state',
-      //kran_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_period_with_fio_now/kran',
+      last_data_api: 'http://127.0.0.1:5000/api/v1.0/all_last_data_state',
+      kran_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_period_with_fio_now/kran',
+      usm_now_api: 'http://127.0.0.1:5000/api/v1.0/get_data_period_with_fio_now/usm',
       // kran_api: 'http://127.0.0.1:5000/api/v1.0/get_data_period_with_fio_now/kran',
       // kran_now_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio/kran/24.09.2020/1',
       // usm_now_api: 'http://192.168.99.107/api/v1.0/get_data_period_with_fio/usm/24.09.2020/2',
@@ -42,7 +43,7 @@ export default new Vuex.Store({
   actions: {
       GET_LAST_DATA({commit}) {
         console.log('store actions');
-        return axios(this.state.endpoint, {
+        return axios(this.state.last_data_api, {
             method: "GET"
         })
         .then(args => {

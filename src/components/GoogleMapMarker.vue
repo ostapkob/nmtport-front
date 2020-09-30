@@ -1,6 +1,8 @@
 <template>
 <div>
-    <b-button @click="changePosition()" class=mb-2>{{this.marker.name}}</b-button>
+  {{text}}
+    <b-button @click="animation()" class=mb-2>{{this.marker.name}}</b-button>
+    <span v-if=this.marker.alarm> alarm </span>
 </div>
 </template>
 
@@ -26,7 +28,8 @@ export default {
   data() {
     return {
         markerMech: null,
-      ii: 'assets/img/numbers/'
+      ii: 'assets/img/numbers/',
+      text: 1,
     };
   },
   methods: {
@@ -35,18 +38,20 @@ export default {
       position:  {'lat':this.marker.latitude, 'lng':this.marker.longitude},
       marker: this.marker,
       map: this.map,
-      animation: this.marker.alarm,
+      animation: 0, //this.google.maps.Animation.BOUNCE, //this.marker.alarm,
       //icon: require(this.ff()),
       //icon: require(getIcon(this.marker.state, this.marker.type, this.marker.num)),
       icon:   require(`@/${this.ii}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
       title: this.marker.name //this.marker.title,
     })
+      this.markerMech.addListener("click", this.addT)
     },
 	pollData () {
 		this.polling = setInterval(() => {
 			this.changePosition(),
-            this.changeIcon()
-		}, 5000)
+      this.changeIcon(),
+      this.alarm(this.marker.alarm)
+		}, 15000)
 	},
     changePosition() {
         //console.log(this.marker.name)
@@ -73,7 +78,18 @@ export default {
       }
 
     },
-
+    alarm(i) {
+      if (i) {
+        this.markerMech.setAnimation(1);
+        setTimeout(this.toggleBounce, 5000)
+      }
+    },
+    toggleBounce () {
+        this.markerMech.setAnimation(null);
+        },
+    addT() {
+      this.text ++
+    },
 
   },
   mounted() {
