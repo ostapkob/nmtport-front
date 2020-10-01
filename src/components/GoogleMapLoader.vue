@@ -10,7 +10,7 @@
         :map="map"
       />
     </template>
-    <b-button @click=initializeMap>initializeMap</b-button>
+    <!-- <b-button @click=initializeMap>initializeMap</b-button> -->
   </div>
 </template>
 
@@ -50,7 +50,7 @@ export default {
 <style scoped>
 .google-map {
   width: 100%;
-  min-height: 100%;
+  min-height: 160%;
 }
 </style>
 

@@ -8,7 +8,7 @@
     <!--   <router-link to="/map">Map</router-link> -->
     <!-- </div> -->
 
-<div>
+<div class='mb-100'>
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand href="/">Home</b-navbar-brand>
 

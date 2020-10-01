@@ -2,11 +2,11 @@
     <div class="kran-progress text-left">
         <div class="name-mech"> {{mech.name}} 
             <small class="fio"> {{mech.fio}} </small>
-            <b-badge v-show='mech.total_180>5' variant="primary"> 
+            <b-badge v-show='mech.total_180>9' variant="primary"> 
                 <img class="catalog-item-img" :src="require('@/assets/img/ship.png')" height="18" />
                 {{ mech.total_180 }}
             </b-badge>
-            <b-badge v-show='mech.total_90>5' variant="dark" class='ml-1'> 
+            <b-badge v-show='mech.total_90>3' variant="dark" class='ml-1'> 
                 <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
                 {{ mech.total_90 }}
             </b-badge>
@@ -15,7 +15,7 @@
 
     <div v-for="(item, key) in mech.data" :key=key>
     </div>
-    <b-progress class="mt-2" :max="720" show-value>
+    <b-progress class="mt-2" :max="719" show-value>
         <b-progress-bar 
             v-for="(item, key) in mech.data" :key="key" 
             :value=item.step 
@@ -91,7 +91,7 @@ export default {
     computed:  {
     },
     mounted() {
-        console.log('kran mounted')
+        //console.log('kran mounted')
     }
 }
 </script>

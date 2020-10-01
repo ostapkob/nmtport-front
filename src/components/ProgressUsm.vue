@@ -1,6 +1,6 @@
 <template >
     <div class="usm-progress text-left">
-        <div class="name-mech"> {{mech.name}} 
+      <div class="name-mech"> {{mech.name}} 
             <small class="fio"> {{mech.fio}} </small>
             <b-badge variant="dark ml-2"> 
                 {{ mech.time_coal }}
@@ -11,11 +11,12 @@
             <b-badge variant="info ml-2"> 
                 {{ mech.total_time }}
             </b-badge>
+            <small class="time"> {{mech.start}} - {{mech.finish}} </small>
         </div>
 
     <div v-for="(item, key) in mech.data" :key=key>
     </div>
-    <b-progress class="mt-2" :max="720" show-value>
+    <b-progress class="mt-2" :max="719" show-value>
         <b-progress-bar 
             v-for="(item, key) in mech.data" :key="key" 
             :value=item.step 

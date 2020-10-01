@@ -1,6 +1,6 @@
 <template>
 <div>
-  {{text}}
+  <!-- {{text}} -->
     <b-button @click="animation()" class=mb-2>{{this.marker.name}}</b-button>
     <span v-if=this.marker.alarm> alarm </span>
 </div>
@@ -30,6 +30,7 @@ export default {
         markerMech: null,
       ii: 'assets/img/numbers/',
       text: 1,
+      polling: null
     };
   },
   methods: {
@@ -50,6 +51,7 @@ export default {
 		this.polling = setInterval(() => {
 			this.changePosition(),
       this.changeIcon(),
+      //this.alarm(this.marker.alarm)
       this.alarm(this.marker.alarm)
 		}, 15000)
 	},
@@ -81,7 +83,7 @@ export default {
     alarm(i) {
       if (i) {
         this.markerMech.setAnimation(1);
-        setTimeout(this.toggleBounce, 5000)
+        setTimeout(this.toggleBounce, 15000)
       }
     },
     toggleBounce () {
@@ -89,6 +91,9 @@ export default {
         },
     addT() {
       this.text ++
+    },
+    animation() {
+      this.alarm(true)
     },
 
   },
