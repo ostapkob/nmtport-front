@@ -37,16 +37,26 @@
     </b-collapse>
   </b-navbar>
 </div>
-
-
     <router-view/>
-
-
-
   </div>
 </template>
 
 
+
+<script>
+import {mapActions} from 'vuex'
+
+export default {
+   methods: {
+    ...mapActions([
+            'GET_IP'
+        ]),
+   },
+    mounted() {
+      this.GET_IP()
+    }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -1,12 +1,12 @@
 <template >
     <div class="kran-progress text-left">
-        <div class="name-mech"> {{mech.name}} 
+        <div class="name-mech"> {{mech.name}}
             <small class="fio"> {{mech.fio}} </small>
-            <b-badge v-show='mech.total_180>9' variant="primary"> 
+            <b-badge v-show='mech.total_180>9' variant="primary">
                 <img class="catalog-item-img" :src="require('@/assets/img/ship.png')" height="18" />
                 {{ mech.total_180 }}
             </b-badge>
-            <b-badge v-show='mech.total_90>3' variant="dark" class='ml-1'> 
+            <b-badge v-show='mech.total_90>3' variant="dark" class='ml-1'>
                 <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
                 {{ mech.total_90 }}
             </b-badge>
@@ -16,12 +16,12 @@
     <div v-for="(item, key) in mech.data" :key=key>
     </div>
     <b-progress class="mt-2" :max="719" show-value>
-        <b-progress-bar 
-            v-for="(item, key) in mech.data" :key="key" 
-            :value=item.step 
+        <b-progress-bar
+            v-for="(item, key) in mech.data" :key="key"
+            :value=item.step
             :variant="colorProgress(item.value)"
             :striped="stripedProgress(item.value)"
-            :title= "showSteps(item.time, item.value, item.total)" 
+            :title= "showSteps(item.time, item.value, item.total)"
             >
             <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}
@@ -85,7 +85,7 @@ export default {
             else {
             resultColor='danger show-progress'
             }
-            return resultColor 
+            return resultColor
             },
     },
     computed:  {
@@ -99,7 +99,7 @@ export default {
 <style lang="scss">
 
     .tab-title-class {
-        color: #FF0000 !important;  
+        color: #FF0000 !important;
     }
     .bg-tit {
         background-color: #blue;

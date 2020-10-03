@@ -33,7 +33,7 @@ import GoogleMapLoader   from "./GoogleMapLoader";
 import GoogleMapMarker   from "./GoogleMapMarker";
 import GoogleMapLine     from "./GoogleMapLine";
 import { mapSettings }   from "@/constants/mapSettings";
-import { markers, lines } from '@/constants/MapPaths.js'
+import { lines } from '@/constants/MapPaths.js'
 import { themeMap } from '@/functions/functions';
 import {mapActions, mapGetters} from 'vuex'
 
@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       lines: [],
-      markers: [],
+      //markers: [],
       shift: 1,
       polling: null,
       text: 'text'
@@ -64,7 +64,7 @@ export default {
 	pollData () {
 		this.polling = setInterval(() => {
 			this.$store.dispatch('GET_LAST_DATA')
-		}, 5000)
+		}, 10000)
     },
   },
   computed: {
@@ -84,7 +84,7 @@ export default {
   },
   mounted() {
     this.lines = lines
-    this.markers = markers
+    //this.markers = markers
     this.GET_LAST_DATA()
   },
    beforeDestroy () {

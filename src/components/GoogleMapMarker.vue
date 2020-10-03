@@ -1,6 +1,7 @@
 <template>
 <div>
   <!-- {{text}} -->
+  <span v-show=show> True </span>
     <b-button @click="animation()" class=mb-2>{{this.marker.name}}</b-button>
     <span v-if=this.marker.alarm> alarm </span>
 </div>
@@ -28,9 +29,12 @@ export default {
   data() {
     return {
         markerMech: null,
-      ii: 'assets/img/numbers/',
+      path: 'assets/img/numbers/',
       text: 1,
-      polling: null
+      polling: null,
+      flagAnimation: false,
+      timerAnimation: 0,
+      show: false,
     };
   },
   methods: {
@@ -39,11 +43,9 @@ export default {
       position:  {'lat':this.marker.latitude, 'lng':this.marker.longitude},
       marker: this.marker,
       map: this.map,
-      animation: 0, //this.google.maps.Animation.BOUNCE, //this.marker.alarm,
-      //icon: require(this.ff()),
-      //icon: require(getIcon(this.marker.state, this.marker.type, this.marker.num)),
-      icon:   require(`@/${this.ii}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
-      title: this.marker.name //this.marker.title,
+      animation: 0,
+      icon:   require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
+      title: this.marker.name
     })
       this.markerMech.addListener("click", this.addT)
     },
@@ -51,54 +53,85 @@ export default {
 		this.polling = setInterval(() => {
 			this.changePosition(),
       this.changeIcon(),
-      //this.alarm(this.marker.alarm)
       this.alarm(this.marker.alarm)
-		}, 15000)
+      //console.log('pull')
+      console.log (Date.now() - this.timerAnimation)
+		}, 10000)
 	},
     changePosition() {
-        //console.log(this.marker.name)
-        //this.markerMech.setMap(null)
         var latlng = new this.google.maps.LatLng(this.marker.latitude, this.marker.longitude)
         this.markerMech.setPosition(latlng)
     },
     changeIcon() {
-        //console.log(this.marker.name)
-        this.markerMech.setIcon(require(`@/${this.ii}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`))
+        this.markerMech.setIcon(require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`))
     },
     getIcon(state, type, num) {
-      if (state=='work'){
-        return `${type}/blue/${num}.png`
+      if (type=='kran') {   // 123
+        if (state=='180'){
+          return `${type}/blue/${num}.png`
+        }
+        else if (state=='90_1' || state=='90_2'){
+          return `${type}/black/${num}.png`
+        }
+        else if (state=='stay'){
+          return `${type}/yellow/${num}.png`
+        }
+        else if (state=='no_power'){
+          return `${type}/red/${num}.png`
+        }
+        else if (state=='long_no_power'){
+          return `${type}/gray/${num}.png`
+        }
+        else {
+          return `${type}/green/${num}.png`
+        }
+
       }
-      else if (state=='stay'){
-        return `${type}/yellow/${num}.png`
-      }
-      else if (state=='no_power'){
-        return `${type}/red/${num}.png`
-      }
-      else {
-        return `${type}/gray/${num}.png`
+      if (type=='usm') {
+        if (state=='work'){
+          return `${type}/blue/${num}.png`
+        }
+        else if (state=='stay'){
+          return `${type}/yellow/${num}.png`
+        }
+        else if (state=='no_power'){
+          return `${type}/red/${num}.png`
+        }
+        else if (state=='long_no_power'){
+          return `${type}/gray/${num}.png`
+        }
+        else {
+          return `${type}/green/${num}.png`
+        }
       }
 
     },
     alarm(i) {
       if (i) {
-        this.markerMech.setAnimation(1);
-        setTimeout(this.toggleBounce, 15000)
+        if (Date.now() - this.timerAnimation < 30000) {
+            this.markerMech.setAnimation(1);
+            this.show = true
+          }
+        else {
+            this.markerMech.setAnimation(null);
+            this.show = false
+          }
+      }
+      else {
+        this.markerMech.setAnimation(null);
+        this.timerAnimation = Date.now()
       }
     },
-    toggleBounce () {
-        this.markerMech.setAnimation(null);
-        },
     addT() {
       this.text ++
     },
     animation() {
       this.alarm(true)
     },
-
   },
   mounted() {
       this.newMarker()
+      this.timerAnimation = Date.now()
   },
     computed: {
 

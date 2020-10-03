@@ -4,45 +4,45 @@
   <b-container class="bv-example-row mt-1 ">
     <b-row class="justify-content-md-center">
       <b-col  class='text-right  pr-0'>
-        <b-button 
-          size="sm" 
-          variant="outline-info" 
+        <b-button
+          size="sm"
+          variant="outline-info"
           @click="backDateShift()"
-          > 
-          &lsaquo; 
+          >
+          &lsaquo;
         </b-button>
       </b-col>
 
       <b-col cols="6" class="text-left pl-0 pr-0">
-        <div class="date-header"> 
-        дата: <strong>{{ date }}</strong>  смена: 
-        <strong>{{ shift }}</strong> 
+        <div class="date-header">
+        дата: <strong>{{ date }}</strong>  смена:
+        <strong>{{ shift }}</strong>
         </div>
       </b-col>
 
       <b-col  class="text-left pl-0" >
-        <b-button size="sm" 
-          variant="outline-info" 
-          @click="nextDateShift()" 
+        <b-button size="sm"
+          variant="outline-info"
+          @click="nextDateShift()"
           class='mr-2'
-          v-show='!(date==dateNow && shift==shiftNow)' 
-          > 
-          &rsaquo; 
+          v-show='!(date==dateNow && shift==shiftNow)'
+          >
+          &rsaquo;
         </b-button>
         <b-button size="sm"
           variant="outline-info"
           @click="nowDateShift()"
-          v-show='!(date==dateNow && shift==shiftNow)' 
-          > 
-          &raquo; 
+          v-show='!(date==dateNow && shift==shiftNow)'
+          >
+          &raquo;
         </b-button>
       </b-col>
     </b-row>
   </b-container>
 
-    <div v-for="(mech, key) in KRANS_DATA" :key='key' > 
+    <div v-for="(mech, key) in KRANS_DATA" :key='key' >
       <kranProgress :mech='mech'  />
-        <div  class="time-line-mech"> 
+        <div  class="time-line-mech">
           <span  v-for="(hour, keyH) in hours" :key=keyH> {{hour}} </span>
         </div>
       <hr />
@@ -67,9 +67,9 @@ export default {
         hours: '',
         polling: null
     }
-  }, 
+  },
   components: {
-    kranProgress 
+    kranProgress
   },
    computed: {
       ...mapGetters([
@@ -125,6 +125,7 @@ export default {
         this.dateNow = dateNow()
         this.hours = hoursProgress(shiftNow())
         this.GET_KRANS_DATA()
+
     },
   watch: {
     shift: function () {
