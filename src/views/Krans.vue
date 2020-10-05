@@ -42,9 +42,11 @@
 
     <div v-for="(mech, key) in KRANS_DATA" :key='key' >
       <kranProgress :mech='mech'  />
-        <div  class="time-line-mech">
-          <span  v-for="(hour, keyH) in hours" :key=keyH> {{hour}} </span>
-        </div>
+
+        <!-- <div  class="time-line-mech"> -->
+        <!--   <span  v-for="(hour, keyH) in hours" :key=keyH> {{hour}} </span> -->
+        <!-- </div> -->
+        <Hours :shift='shift' />
       <hr />
   </div>
 </div>
@@ -52,6 +54,7 @@
 
 <script>
 import kranProgress from '@/components/ProgressKran.vue'
+import Hours from '@/components/Hours.vue'
 import {mapActions, mapGetters} from 'vuex'
 import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
 
@@ -69,7 +72,8 @@ export default {
     }
   },
   components: {
-    kranProgress
+    kranProgress,
+    Hours
   },
    computed: {
       ...mapGetters([
@@ -131,6 +135,8 @@ export default {
     shift: function () {
       this.SET_KRANS_API([this.date, this.shift])
       this.$store.dispatch('GET_KRANS_DATA');
+      this.shiftNow = shiftNow()
+      this.dateNow = dateNow()
     }
   },
 

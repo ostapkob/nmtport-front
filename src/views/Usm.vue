@@ -42,9 +42,10 @@
 
     <div v-for="(mech, key) in USM_DATA" :key='key' > 
       <usmProgress :mech='mech'  />
-        <div  class="time-line-mech"> 
-          <span  v-for="(hour, keyH) in hours" :key=keyH> {{hour}} </span>
-        </div>
+        <!-- <div  class="time-line-mech"> --> 
+        <!--   <span  v-for="(hour, keyH) in hours" :key=keyH> {{hour}} </span> -->
+        <!-- </div> -->
+        <Hours :shift='shift' />
       <hr />
   </div>
 </div>
@@ -52,6 +53,7 @@
 
 <script>
 import usmProgress from '@/components/ProgressUsm.vue'
+import Hours from '@/components/Hours.vue'
 import {mapActions, mapGetters} from 'vuex'
 import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
 
@@ -69,7 +71,8 @@ export default {
     }
   }, 
   components: {
-    usmProgress 
+    usmProgress,
+    Hours
   },
    computed: {
       ...mapGetters([
@@ -130,6 +133,8 @@ export default {
     shift: function () {
       this.SET_USM_API([this.date, this.shift])
       this.$store.dispatch('GET_USM_DATA');
+      this.shiftNow = shiftNow()
+      this.dateNow = dateNow()
     }
   },
     beforeDestroy () {

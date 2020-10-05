@@ -11,11 +11,24 @@
       />
     </template>
     <!-- <b-button @click=initializeMap>initializeMap</b-button> -->
+
+  <div>
+    <b-form-checkbox 
+      v-model="toggleStyle" 
+      size="lg" 
+      name="check-button" 
+      switch
+    >
+    {{dayNight}}
+    </b-form-checkbox>
+  </div>
   </div>
 </template>
 
 <script>
 import GoogleMapsApiLoader from "google-maps-api-loader";
+import {night} from "@/constants/mapNight.js";
+import {day} from "@/constants/mapDay.js";
 
 export default {
   props: {
@@ -26,8 +39,10 @@ export default {
   data() {
     return {
       google: null,
-      map: null
-    };
+      map: null,
+      toggleStyle: true,
+      dayNight: 'День'
+    }
   },
 
   async mounted() {
@@ -42,6 +57,19 @@ export default {
     initializeMap() {
       const mapContainer = this.$refs.googleMap;
       this.map = new this.google.maps.Map(mapContainer, this.mapConfig);
+    },
+
+  },
+  watch: {
+    toggleStyle: function () {
+      if (this.toggleStyle) {
+       this.map.setOptions({styles: day})
+       this.dayNight = "День"
+      }
+      else {
+       this.map.setOptions({styles: night})
+       this.dayNight = "Hoчь"
+      }
     }
   }
 };

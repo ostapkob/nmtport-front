@@ -2,8 +2,14 @@
     <div class="kran-progress text-left">
         <div class="name-mech"> {{mech.name}}
             <small class="fio"> {{mech.fio}} </small>
-            <b-badge v-show='mech.total_180>9' variant="primary">
-                <img class="catalog-item-img" :src="require('@/assets/img/ship.png')" height="18" />
+            <b-badge v-show='mech.total_180>9'
+              variant="primary"
+             v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title" 
+              >
+                <img class="catalog-item-img" 
+                :src="require('@/assets/img/ship.png')" 
+                height="18" 
+                />
                 {{ mech.total_180 }}
             </b-badge>
             <b-badge v-show='mech.total_90>3' variant="dark" class='ml-1'>
@@ -21,7 +27,9 @@
             :value=item.step
             :variant="colorProgress(item.value)"
             :striped="stripedProgress(item.value)"
-            :title= "showSteps(item.time, item.value, item.total)"
+             v-b-popover.hover.top="showSteps(item.time, item.value, item.total)" 
+            :popover-style="{background: '#fff'}"
+            title="title" 
             >
             <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}

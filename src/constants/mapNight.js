@@ -1,4 +1,3 @@
-export let test="text";
 export let night = [
 {
 "elemetType": "geometry",

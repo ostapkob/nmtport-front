@@ -9,7 +9,7 @@
     <!-- </div> -->
 
 <div class='mb-100'>
-  <b-navbar toggleable="lg" type="dark" variant="info">
+  <b-navbar toggleable="sm" type="dark" variant="info">
     <b-navbar-brand href="/">Home</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -19,6 +19,7 @@
         <b-nav-item to="/map"> Карта </b-nav-item>
         <b-nav-item to="/usm"> УСМ </b-nav-item>
         <b-nav-item to="/krans"> Краны </b-nav-item>
+        <b-nav-item to="/archive"> Архив </b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

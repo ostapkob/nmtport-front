@@ -1,9 +1,9 @@
 <template>
 <div>
   <!-- {{text}} -->
-  <span v-show=show> True </span>
-    <b-button @click="animation()" class=mb-2>{{this.marker.name}}</b-button>
-    <span v-if=this.marker.alarm> alarm </span>
+  <!-- <span v-show=show> True </span> -->
+  <!--   <b-button @click="animation()" class=mb-2>{{this.marker.name}}</b-button> -->
+  <!--   <span v-if=this.marker.alarm> alarm </span> -->
 </div>
 </template>
 
@@ -108,7 +108,7 @@ export default {
     },
     alarm(i) {
       if (i) {
-        if (Date.now() - this.timerAnimation < 30000) {
+        if (Date.now() - this.timerAnimation < 60000) {
             this.markerMech.setAnimation(1);
             this.show = true
           }
