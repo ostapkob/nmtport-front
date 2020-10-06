@@ -80,7 +80,7 @@ export default {
       };
     },
     mapCenter() {
-        return {lat: 42.8150, lng: 132.8907}
+        return {lat: 42.8128, lng: 132.8896}
     },
   },
   mounted() {

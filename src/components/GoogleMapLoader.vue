@@ -13,10 +13,10 @@
     <!-- <b-button @click=initializeMap>initializeMap</b-button> -->
 
   <div>
-    <b-form-checkbox 
-      v-model="toggleStyle" 
-      size="lg" 
-      name="check-button" 
+    <b-form-checkbox
+      v-model="toggleStyle"
+      size="lg"
+      name="check-button"
       switch
     >
     {{dayNight}}
@@ -78,7 +78,7 @@ export default {
 <style scoped>
 .google-map {
   width: 100%;
-  min-height: 160%;
+  min-height: 165%;
 }
 </style>
 

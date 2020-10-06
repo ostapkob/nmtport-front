@@ -71,9 +71,9 @@ const mapSettings = {
   zoomControlOptions: {
     style: "SMALL"
   },
-  zoom: 15,
+  zoom: 16,
   minZoom: 2,
-  maxZoom: 16,
+  maxZoom: 17,
   styles:  themeMap()
 };
 
