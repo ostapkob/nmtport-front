@@ -1,10 +1,10 @@
 <template >
     <div class="kran-progress text-left">
         <div class="name-mech"> {{mech.name}}
-            <small class="fio"> {{mech.fio}} </small>
+          <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>
             <b-badge v-show='mech.total_180>9'
               variant="primary"
-             v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title" 
+             v-b-popover.hover.top="'Количество поворотов 180° туда обратно'" 
               >
                 <img class="catalog-item-img" 
                 :src="require('@/assets/img/ship.png')" 
@@ -12,7 +12,11 @@
                 />
                 {{ mech.total_180 }}
             </b-badge>
-            <b-badge v-show='mech.total_90>3' variant="dark" class='ml-1'>
+            <b-badge v-show='mech.total_90>3' 
+              variant="dark" 
+              class='ml-1'
+              v-b-popover.hover.top="'Количество поворотов 90° туда обратно'" >
+
                 <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
                 {{ mech.total_90 }}
             </b-badge>
@@ -27,10 +31,14 @@
             :value=item.step
             :variant="colorProgress(item.value)"
             :striped="stripedProgress(item.value)"
-             v-b-popover.hover.top="showSteps(item.time, item.value, item.total)" 
-            :popover-style="{background: '#fff'}"
-            title="title" 
+            :id="mech.id+'-'+key"
             >
+            <b-tooltip 
+              :target="mech.id+'-'+key" 
+              :variant="colorProgress(item.value)"
+              >
+              {{showSteps(item.time, item.value, item.total)}}
+            </b-tooltip>
             <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}
             </div>
@@ -42,6 +50,7 @@
 <script>
             //title="'c ' + item.time + ' | ' + showSteps(item.value, item.step)"
             //:title= "item.value +' + '+ item.step + ' = ' +ff(item.value, item.step) "
+             //v-b-popover.hover.top="showSteps(item.time, item.value, item.total)" 
 export default {
   name: 'KranProgress',
   props: {
@@ -117,8 +126,12 @@ export default {
     .bg-title {
         background-color: #blue;
     }
-    .fio {
+    .fioBrigada {
       color: #666;
+      font-size: 0.7em;
+    }
+    .fioContract {
+      color: blue;
       font-size: 0.7em;
     }
     .time {

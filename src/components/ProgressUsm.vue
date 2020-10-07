@@ -1,14 +1,20 @@
 <template >
     <div class="usm-progress text-left">
       <div class="name-mech"> {{mech.name}} 
-            <small class="fio"> {{mech.fio}} </small>
-            <b-badge variant="dark ml-2"> 
+          <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>
+            <b-badge variant="dark ml-2"
+             v-b-popover.hover.top="'Время нахождения угля на ленте'" 
+              > 
                 {{ mech.time_coal }}
             </b-badge>
-            <b-badge variant="primary ml-2"> 
+            <b-badge variant="primary ml-2"
+             v-b-popover.hover.top="'Время работы в минутах'" 
+              > 
                 {{ mech.work_time }}
             </b-badge>
-            <b-badge variant="info ml-2"> 
+            <b-badge variant="info ml-2"
+             v-b-popover.hover.top="'Общее время работы (время работы + простои) в минутах'" 
+              > 
                 {{ mech.total_time }}
             </b-badge>
             <small class="time"> {{mech.start}} - {{mech.finish}} </small>
@@ -22,8 +28,14 @@
             :value=item.step 
             :variant="colorProgress(item.value)"
             :striped="stripedProgress(item.value)"
-            :title= "showSteps(item.time, item.value, item.time_coal)" 
+            :id="mech.id+'-'+key"
             >
+            <b-tooltip 
+              :target="mech.id+'-'+key" 
+              :variant="colorProgress(item.value)"
+              >
+              {{showSteps(item.time, item.value, item.time_coal)}}
+            </b-tooltip>
             <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}
             </div>
@@ -81,7 +93,7 @@ export default {
     computed:  {
     },
     mounted() {
-        console.log('usm mounted')
+        //console.log('usm mounted')
     }
 }
 </script>
@@ -99,8 +111,12 @@ export default {
     .bg-title {
         background-color: #blue;
     }
-    .fio {
+    .fioBrigada {
       color: #666;
+      font-size: 0.7em;
+    }
+    .fioContract {
+      color: blue;
       font-size: 0.7em;
     }
     .time {

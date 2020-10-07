@@ -1,7 +1,7 @@
 <template>
 <div class="usm ml-4 mr-4">
 
-  <b-container class="bv-example-row mt-1 ">
+  <b-container class="bv-example-row mt-1 mb-2">
     <b-row class="justify-content-md-center">
       <b-col  class='text-right  pr-0'>
         <b-button 
@@ -127,6 +127,7 @@ export default {
         this.shiftNow = shiftNow()
         this.dateNow = dateNow()
         this.hours = hoursProgress(shiftNow())
+        this.SET_USM_API([this.date, this.shift])
         this.GET_USM_DATA()
     },
     watch: {
