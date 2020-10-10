@@ -1,5 +1,5 @@
 <template>
-<div class="krans ml-4 mr-4">
+<div class="krans ml-2 mr-2">
 
   <b-container class="bv-example-row mt-1 mb-2">
     <b-row class="justify-content-md-center">
@@ -40,15 +40,14 @@
     </b-row>
   </b-container>
 
-    <div v-for="(mech, key) in KRANS_DATA" :key='key' >
-      <kranProgress :mech='mech'  />
-
-        <!-- <div  class="time-line-mech"> -->
-        <!--   <span  v-for="(hour, keyH) in hours" :key=keyH> {{hour}} </span> -->
-        <!-- </div> -->
-        <Hours :shift='shift' />
-      <hr />
+  <div v-for="(mech, key) in KRANS_DATA" 
+    :key='key' 
+    class='p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 shadow-sm'
+    >
+    <kranProgress :mech='mech'  />
+    <Hours :shift='shift' />
   </div>
+
 </div>
 </template>
 

@@ -1,30 +1,44 @@
 <template >
-    <div class="kran-progress text-left">
-        <div class="name-mech"> {{mech.name}}
-          <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>
-            <b-badge v-show='mech.total_180>9'
-              variant="primary"
-             v-b-popover.hover.top="'Количество поворотов 180° туда обратно'" 
-              >
-                <img class="catalog-item-img" 
-                :src="require('@/assets/img/ship.png')" 
-                height="18" 
-                />
-                {{ mech.total_180 }}
-            </b-badge>
-            <b-badge v-show='mech.total_90>3' 
-              variant="dark" 
-              class='ml-1'
-              v-b-popover.hover.top="'Количество поворотов 90° туда обратно'" >
+<div class="kran-progress text-left">
 
-                <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
-                {{ mech.total_90 }}
-            </b-badge>
-            <small class="time"> {{mech.start}} - {{mech.finish}} </small>
-        </div>
+  <b-list-group>
+  <b-list-group-item class="d-flex  p-0 border-light  bg-light align-items-center">
+    <b-avatar 
+      class="mr-3" 
+      size="sm" 
+      variant="secondary"
+      rounded="sm"
+      > 
+    <strong>{{ mech.number }} </strong>
+    </b-avatar>     
 
-    <div v-for="(item, key) in mech.data" :key=key>
-    </div>
+    <span class="mr-auto">
+      <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>
+      <small class="time-start-finish" v-if='mech.start'> {{mech.start}} - {{mech.finish}} </small>
+    </span>
+    <span>
+    <b-badge v-show='mech.total_180>9'
+      variant="primary"
+      v-b-popover.hover.top="'Количество поворотов 180° туда обратно'" 
+      >
+    <img class="catalog-item-img" 
+      :src="require('@/assets/img/ship.png')" 
+      height="18" 
+      />
+      {{ mech.total_180 }}
+    </b-badge>
+    <b-badge v-show='mech.total_90>3' 
+      variant="dark" 
+      class='ml-1'
+      v-b-popover.hover.top="'Количество поворотов 90° туда обратно'" >
+      <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
+      {{ mech.total_90 }}
+    </b-badge>
+    </span>
+  </b-list-group-item>
+ </b-list-group>
+
+    <div v-for="(item, key) in mech.data" :key=key />
     <b-progress class="mt-2" :max="719" show-value>
         <b-progress-bar
             v-for="(item, key) in mech.data" :key="key"
@@ -48,9 +62,6 @@
 </template>
 
 <script>
-            //title="'c ' + item.time + ' | ' + showSteps(item.value, item.step)"
-            //:title= "item.value +' + '+ item.step + ' = ' +ff(item.value, item.step) "
-             //v-b-popover.hover.top="showSteps(item.time, item.value, item.total)" 
 export default {
   name: 'KranProgress',
   props: {
@@ -114,31 +125,5 @@ export default {
 </script>
 
 <style lang="scss">
-
-    .tab-title-class {
-        color: #FF0000 !important;
-    }
-    .bg-tit {
-        background-color: #blue;
-        background: #blue;
-        color: #red;
-    }
-    .bg-title {
-        background-color: #blue;
-    }
-    .fioBrigada {
-      color: #666;
-      font-size: 0.7em;
-    }
-    .fioContract {
-      color: blue;
-      font-size: 0.7em;
-    }
-    .time {
-      color: #666;
-      font-size: 0.7em;
-      padding: 0 5px  0 5px;
-    }
-
 </style>
 

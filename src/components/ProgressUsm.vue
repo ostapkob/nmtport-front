@@ -1,27 +1,43 @@
 <template >
     <div class="usm-progress text-left">
-      <div class="name-mech"> {{mech.name}} 
-          <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>
-            <b-badge variant="dark ml-2"
-             v-b-popover.hover.top="'Время нахождения угля на ленте'" 
-              > 
-                {{ mech.time_coal }}
-            </b-badge>
-            <b-badge variant="primary ml-2"
-             v-b-popover.hover.top="'Время работы в минутах'" 
-              > 
-                {{ mech.work_time }}
-            </b-badge>
-            <b-badge variant="info ml-2"
-             v-b-popover.hover.top="'Общее время работы (время работы + простои) в минутах'" 
-              > 
-                {{ mech.total_time }}
-            </b-badge>
-            <small class="time"> {{mech.start}} - {{mech.finish}} </small>
-        </div>
 
-    <div v-for="(item, key) in mech.data" :key=key>
-    </div>
+
+  <b-list-group>
+  <b-list-group-item class="d-flex  p-0 border-light  bg-light align-items-center">
+    <b-avatar 
+      class="mr-3" 
+      size="sm" 
+      variant="secondary"
+      rounded="sm"
+      > 
+    <strong>{{ mech.number }} </strong>
+    </b-avatar>     
+
+    <span class="mr-auto">
+      <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>
+      <small class="time-start-finish" v-if='mech.start'> {{mech.start}} - {{mech.finish}} </small>
+    </span>
+    <span class="text-left">
+      <b-badge variant="dark ml-2"
+       v-b-popover.hover.top="'Время нахождения угля на ленте'" 
+        > 
+          {{ mech.time_coal }}
+      </b-badge>
+      <b-badge variant="primary ml-2"
+       v-b-popover.hover.top="'Время работы в минутах'" 
+        > 
+          {{ mech.work_time }}
+      </b-badge>
+      <b-badge variant="warning ml-2"
+       v-b-popover.hover.top="'Время простоя в минутах'" 
+        > 
+          {{ Math.round((mech.total_time - mech.work_time)*10)/10 }}
+      </b-badge>
+    </span>
+  </b-list-group-item>
+ </b-list-group>
+ 
+    <div v-for="(item, key) in mech.data" :key=key />
     <b-progress class="mt-2" :max="719" show-value>
         <b-progress-bar 
             v-for="(item, key) in mech.data" :key="key" 
@@ -45,8 +61,6 @@
 </template>
 
 <script>
-            //title="'c ' + item.time + ' | ' + showSteps(item.value, item.step)"
-            //:title= "item.value +' + '+ item.step + ' = ' +ff(item.value, item.step) "
 export default {
   name: 'UsmProgress',
   props: {
@@ -99,31 +113,5 @@ export default {
 </script>
 
 <style lang="scss">
-
-    .tab-title-class {
-        color: #FF0000 !important;  
-    }
-    .bg-tit {
-        background-color: #blue;
-        background: #blue;
-        color: #red;
-    }
-    .bg-title {
-        background-color: #blue;
-    }
-    .fioBrigada {
-      color: #666;
-      font-size: 0.7em;
-    }
-    .fioContract {
-      color: blue;
-      font-size: 0.7em;
-    }
-    .time {
-      color: #666;
-      font-size: 0.7em;
-      padding: 0 5px  0 5px;
-    }
-
 </style>
 

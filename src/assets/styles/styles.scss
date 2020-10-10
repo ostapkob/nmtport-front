@@ -31,6 +31,19 @@
 .time-in-progress {
     visibility: visible;
 }
+.time-start-finish {
+      color: #066;
+      font-size: 0.7em;
+      padding: 0 5px  0 5px;
+}
+.fioBrigada {
+  color: #666;
+  font-size: 0.8em;
+}
+.fioContract {
+  color: blue;
+  font-size: 0.8em;
+}
 
 @media screen and (max-width: 765px) {
     .time-line-mech{
