@@ -36,6 +36,16 @@ Vue.use(VueRouter)
     component: () => import('../views/Map.vue')
   },
   {
+    path: '/mapol',
+    name: 'MapOl',
+    component: () => import('../views/MapOl.vue')
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: () => import('../views/Test.vue')
+  },
+  {
     path: '/archive',
     name: 'Archive',
     component: () => import('../views/Archive.vue')
