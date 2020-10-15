@@ -1,85 +1,74 @@
 <template>
-<div>
-  test
-  <div id="map"> </div>
-  <div id="overlay"></div>
-</div>
+  <div>
+    <olMap class="ol-map">
+    <!-- <olOverInfo class="ol-map"/> -->
+    <template v-slot="map">
+      <Markers
+        v-for="marker in markers"
+        :key="marker.id"
+        :map="map"
+        :marker="marker"
+        />
+    </template>
+    </olMap>
+  </div>
 </template>
 
 <script>
-import "ol/ol.css";
-
-import Map from "ol/Map";
-import View from "ol/View";
-import Overlay from 'ol/Overlay'
-import {Tile as TileLayer } from 'ol/layer';
-import {OSM } from 'ol/source';
-import {transform} from 'ol/proj';
-import {DragRotateAndZoom} from 'ol/interaction';
-import {FullScreen} from 'ol/control';
+import olMap from "@/components/Ol-map";
+//import olOverInfo from "@/components/Ol-OverInfo";
+import Markers from "@/components/Ol-Markers";
+//import testMarkers from "@/components/testLastData";
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
-   data() {
-     return {
-     }
-   },
-  mounted() {
-    this.initiateMap() 
+  name: "App",
+  data() {
+    return {
+     markers: [
+        { position: { lat: 42.8142, lng: 132.8897 }, name: 'Screen5', icon: 'http://maps.google.com/mapfiles/kml/pal3/icon12.png', alarm: 0 },
+        { position: { lat: 42.8150, lng: 132.8907 }, name: 'Screen6', icon: 'http://maps.google.com/mapfiles/kml/pal3/icon13.png', alarm: 0 },
+        { position: { lat: 42.8160, lng: 132.8908 }, name: 'Screen7', icon: 'http://maps.google.com/mapfiles/kml/pal3/icon14.png', alarm: 1 }
+      ],
+      polling: null,
+    };
+  },
+  components: {
+    olMap,
+    //olOverInfo
+    Markers,
+ //   testMarkers
   },
   methods: {
-    initiateMap() {
-      //create a layer with the OSM sourse
-      var layer = new TileLayer({
-        source: new OSM() // OpenStreetMap
-      })
-      //create view with center postion  
-      var center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
-      
-      var view = new View({
-        center: center,
-        rotation: Math.PI / 2.75,
-        zoom: 16
-      })
-      var interaction = new DragRotateAndZoom();
-      var control = new FullScreen();
-      var overlay = new Overlay({
-        position: center,
-        element: document.getElementById('overlay')
-      })
-
-      var map = new Map({
-        target: 'map',
-        layers: [layer],
-        interaction: [interaction],
-        control: [control],
-        overlay: [overlay],
-        view: view,
-      })
-
-      //map.addLayer(layer) // not need if you are already adding overlay
-      map.setView(view)
-      map.addOverlay(overlay);
-    }
+    ...mapActions([
+        'GET_LAST_DATA'
+    ]),
+	pollData () {
+		this.polling = setInterval(() => {
+			this.$store.dispatch('GET_LAST_DATA')
+		}, 10000)
+    },
   },
-
-  components: {
-  }
+  computed: {
+    ...mapGetters([
+        'LAST_DATA'
+        ]),
+  },
+  mounted() {
+    this.GET_LAST_DATA()
+  },
+  created () {
+    this.pollData()
+  },
+   beforeDestroy () {
+       clearInterval(this.polling)
+   },
 }
 </script>
 
-<style>
-#map {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  height: 800px;
-  width: 100%;
-  background: #ccc;
-}
-#overlay {
-  background: blue;
-  width: 20px;
-  height: 20px;
-  border-radius: 80px;
+<style lang="scss" scoped>
+.ol-map {
+  height: 300px;
 }
 </style>
+

@@ -20,11 +20,6 @@
         :google="google"
         :map="map"
       />
-
-    <div>
-        <!-- <b-button @click="dayNight()" class=mt-2 > Day / Night </b-button> -->
-        <!-- <p v-for="mech in LAST_DATA" :key=mech.id> {{mech}} --- </p> -->
-    </div>
     </template>
   </GoogleMapLoader>
 </template>
