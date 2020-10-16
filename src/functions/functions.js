@@ -3,7 +3,7 @@ import {night} from "@/constants/mapNight.js";
 
 export function shiftNow() {
     let date = new Date(); 
-    if (date.getHours()<20 &&  date.getHours()>8 ) {
+    if (date.getHours()>=8 && date.getHours()<20 ) {
         return 1
     }
     return 2
@@ -36,7 +36,46 @@ export function themeMap(shift) {
         }
         return night
     }
-                
 
+export function  getIcons(state, type, num) {
+  if (type=='kran') {   // 123
+    if (state=='180'){
+      return `${type}/blue/${num}.png`
+    }
+    else if (state=='90_1' || state=='90_2'){
+      return `${type}/black/${num}.png`
+    }
+    else if (state=='stay'){
+      return `${type}/yellow/${num}.png`
+    }
+    else if (state=='no_power'){
+      return `${type}/red/${num}.png`
+    }
+    else if (state=='long_no_power'){
+      return `${type}/gray/${num}.png`
+    }
+    else {
+      return `${type}/green/${num}.png`
+    }
+
+  }
+  if (type=='usm') {
+    if (state=='work'){
+      return `${type}/blue/${num}.png`
+    }
+    else if (state=='stay'){
+      return `${type}/yellow/${num}.png`
+    }
+    else if (state=='no_power'){
+      return `${type}/red/${num}.png`
+    }
+    else if (state=='long_no_power'){
+      return `${type}/gray/${num}.png`
+    }
+    else {
+      return `${type}/green/${num}.png`
+    }
+  }
+}
 
 

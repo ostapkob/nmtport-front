@@ -39,13 +39,13 @@ export default {
   },
   methods: {
       newMarker() {
-      this.markerMech = new this.google.maps.Marker({
-      position:  {'lat':this.marker.latitude, 'lng':this.marker.longitude},
-      marker: this.marker,
-      map: this.map,
-      animation: 0,
-      icon:   require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
-      title: this.marker.name
+        this.markerMech = new this.google.maps.Marker({
+        position:  {'lat':this.marker.latitude, 'lng':this.marker.longitude},
+        marker: this.marker,
+        map: this.map,
+        animation: 0,
+        icon:   require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
+        title: this.marker.name
     })
       this.markerMech.addListener("click", this.addT)
     },

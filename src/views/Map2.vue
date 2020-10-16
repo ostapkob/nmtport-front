@@ -1,13 +1,16 @@
 <template>
-  <olPort />
+  <div>
+    <PortMap class="port-map"/>
+  </div>
 </template>
 
 <script>
-import olPort from "@/components/Ol-Port";
+import PortMap from "@/components/GoogleMapPort";
+
 export default {
   name: "App",
   components: {
-    olPort
+    PortMap
   }
 };
 </script>
@@ -17,3 +20,4 @@ export default {
   height: 400px;
 }
 </style>
+

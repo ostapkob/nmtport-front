@@ -1,18 +1,21 @@
 <template>
-<div>
-  <div ref="map" id="ol-map"> </div>
-  <div id="overlay"></div>
-      <slot
-        :map="map"
-      />
-</div>
+  <div>
+    <div ref="map" id="ol-map"> </div>
+    <!-- <div id="overlay"></div> -->
+    <template v-if="Boolean(this.map)">
+        <slot
+          :map="map"
+        />
+    </template>
+  </div>
 </template>
+
 <script>
 import "ol/ol.css";
 
 import Map from "ol/Map";
 import View from "ol/View";
-import Overlay from 'ol/Overlay'
+//import Overlay from 'ol/Overlay'
 import {Tile as TileLayer } from 'ol/layer';
 import {OSM } from 'ol/source';
 import {transform} from 'ol/proj';
@@ -22,7 +25,7 @@ import {FullScreen} from 'ol/control';
 export default {
    data() {
      return {
-      map: {}
+      map: null
      }
    },
   mounted() {
@@ -44,23 +47,22 @@ export default {
       })
       var interaction = new DragRotateAndZoom();
       var control = new FullScreen();
-      var overlay = new Overlay({
-        position: center,
-        element: document.getElementById('overlay')
-      })
+      //var overlay = new Overlay({
+      //  position: center,
+       // element: document.getElementById('overlay')
+      //})
 
       this.map = new Map({
         target: this.$refs['map'],
         layers: [layer],
         interaction: [interaction],
         control: [control],
-        overlay: [overlay],
+        //overlay: [overlay],
         view: view,
       })
 
-      //map.addLayer(layer) // not need if you are already adding overlay
       this.map.setView(view)
-      this.map.addOverlay(overlay);
+      //this.map.addOverlay(overlay);
     }
   },
 

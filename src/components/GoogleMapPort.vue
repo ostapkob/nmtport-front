@@ -3,7 +3,6 @@
     :mapConfig=mapConfig
     apiKey="AIzaSyDEEA8HUpeyr66BT6arigNEcKgqckkSDUg"
   >
-
     <template v-slot="{ google, map }">
       <GoogleMapMarker
         v-for="marker in LAST_DATA"
