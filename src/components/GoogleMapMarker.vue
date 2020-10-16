@@ -55,7 +55,7 @@ export default {
       this.changeIcon(),
       this.alarm(this.marker.alarm)
       //console.log('pull')
-      console.log (Date.now() - this.timerAnimation)
+      //console.log (Date.now() - this.timerAnimation)
 		}, 10000)
 	},
     changePosition() {

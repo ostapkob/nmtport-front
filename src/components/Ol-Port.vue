@@ -1,12 +1,13 @@
 <template>
   <div>
-    <olLoader> 
+    <olLoader>
     <!-- <olOverInfo class="ol-map"/> -->
-    <template v-slot="{ map }">
+    <template v-slot="{ map, markerSource  }">
       <Markers
         v-for="marker in LAST_DATA"
         :key="marker.id"
         :map="map"
+        :markerSource = 'markerSource'
         :marker="marker"
         />
     </template>
@@ -69,8 +70,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.map {
-  height: 300px;
-}
 </style>
 

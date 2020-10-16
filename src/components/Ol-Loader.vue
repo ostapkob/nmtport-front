@@ -5,6 +5,7 @@
     <template v-if="Boolean(this.map)">
         <slot
           :map="map"
+          :markerSource = 'markerSource'
         />
     </template>
   </div>
@@ -21,15 +22,17 @@ import {OSM } from 'ol/source';
 import {transform} from 'ol/proj';
 import {DragRotateAndZoom} from 'ol/interaction';
 import {FullScreen} from 'ol/control';
+import VectorSource from 'ol/source/Vector';
 
 export default {
    data() {
      return {
-      map: null
+      map: null,
+      markerSource: null 
      }
    },
-  mounted() {
-    this.initiateMap()
+  async mounted() {
+    await this.initiateMap();
   },
   methods: {
     initiateMap() {
@@ -37,6 +40,8 @@ export default {
       var layer = new TileLayer({
         source: new OSM() // OpenStreetMap
       })
+      this.markerSource = new VectorSource() // after move it to Loader
+
       //create view with center postion
       var center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
 
@@ -76,7 +81,7 @@ export default {
   position: absolute;
   margin: 0;
   padding: 0;
-  height: 500px;
+  height: 650px;
   width: 100%;
   background: #ccc;
 }

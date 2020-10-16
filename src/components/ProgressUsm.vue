@@ -1,17 +1,10 @@
 <template >
     <div class="usm-progress text-left">
-
-
   <b-list-group>
   <b-list-group-item class="d-flex  p-0 border-light  bg-light align-items-center">
-    <b-avatar 
-      class="mr-3" 
-      size="sm" 
-      variant="secondary"
-      rounded="sm"
-      > 
+    <div  class='icon-usm'> 
     <strong>{{ mech.number }} </strong>
-    </b-avatar>     
+    </div>     
 
     <span class="mr-auto">
       <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>

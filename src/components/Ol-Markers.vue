@@ -1,15 +1,16 @@
 <template>
-  <div>
-  </div>
+  <div> </div>
 </template>
 <script>
 import "ol/ol.css";
-import {Vector as VectorLayer} from 'ol/layer';
-import {transform} from 'ol/proj';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
-import {Icon, Style} from 'ol/style';
-import VectorSource from 'ol/source/Vector';
+//import Geolocation from 'ol/Geolocation'
+import {Icon, Style, Circle, Fill} from 'ol/style';
+import {Vector as VectorLayer} from 'ol/layer';
+import {transform} from 'ol/proj';
+
+//import VectorSource from 'ol/source/Vector';
 //import { getIcon } from '@/functions/functions';
 
 export default {
@@ -25,11 +26,18 @@ export default {
         return []
       }
     },
+    markerSource: {
+      required: true,
+      default() {
+        return []
+      }
+    },
   },
    data() {
      return {
       path: 'assets/img/numbers/',
       polling: null,
+      markerFeature: null
      }
    },
   mounted() {
@@ -37,38 +45,74 @@ export default {
   },
   methods: {
     newMarker() {
-      //create Maprkers
-      let markerSource = new VectorSource()
-      let featureProperties = new Feature(new Point(
+
+
+      //let geolocation = new Geolocation({
+              //tracking: true
+            //});
+
+      // create Maprker
+          this.markerFeature = new Feature(new Point(
           transform([this.marker.longitude, this.marker.latitude],
           //transform([this.marker.position.lng, this.marker.position.lat],
           'EPSG:4326', 'EPSG:3857')
         ));
+
+      // create Style
       let iconStyle = new Style ({
         image: new Icon({
           src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
         })
       })
-      featureProperties.setStyle(iconStyle)
-      markerSource.addFeature(featureProperties)
-      let markerLayer = new VectorLayer({
-        source: markerSource
-      });
 
+      // Set Style
+      this.markerFeature.setStyle(iconStyle)
+
+      // add  marker to Source
+      this.markerSource.addFeature(this.markerFeature)
+
+      // create Layer
+      let markerLayer = new VectorLayer({
+        source: this.markerSource
+      });
+      //markerFeature.bindTo('position', geolocation)
       this.map.addLayer(markerLayer)
     },
     pollData () {
       this.polling = setInterval(() => {
         this.changePosition(),
-        this.changeIcon(),
-        this.alarm(this.marker.alarm)
+        this.changeIcon()
+        //this.alarm(this.marker.alarm)
         //console.log('pull')
-        console.log (Date.now() - this.timerAnimation)
+        //console.log (Date.now() - this.timerAnimation)
       }, 10000)
     },
     changePosition() {
+      let coord = this.markerFeature.getGeometry().getCoordinates()
+      coord = transform([this.marker.longitude, this.marker.latitude],
+          //transform([this.marker.position.lng, this.marker.position.lat],
+          'EPSG:4326', 'EPSG:3857')
+      this.markerFeature.getGeometry().setCoordinates(coord)
     },
     changeIcon() {
+      let iconStyle = [
+        new Style({
+          image: new Circle({
+          radius: 17,
+          fill: new Fill({
+          color: 'rgba(230,20,30,0)'
+              })
+            })
+          }),
+        new Style ({
+          image: new Icon({
+          src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
+          //scale: 0.8  
+        })
+        }),
+      ]
+      this.markerFeature.setStyle(iconStyle)
+
     },
 
   getIcon(state, type, num) {
@@ -122,18 +166,4 @@ export default {
 </script>
 
 <style>
-.map {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  height: 300px;
-  width: 100%;
-  background: #ccc;
-}
-.overlay {
-  background: #A5E553;
-  width: 220px;
-  height: 20px;
-  border-radius: 20px;
-}
 </style>
