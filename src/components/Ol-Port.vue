@@ -8,8 +8,8 @@
         :key="marker.id"
         :map="map"
         :markerSource = 'markerSource'
-        :marker="marker"
-        />
+        :marker="marker">
+      </Markers>
     </template>
     </olLoader>
   </div>

@@ -1,4 +1,3 @@
-
 <template>
   <div id="app" class="mt-0">
     <div id="map"></div>

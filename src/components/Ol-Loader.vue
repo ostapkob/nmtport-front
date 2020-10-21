@@ -2,7 +2,7 @@
   <div>
     <div ref="map" id="ol-map"> </div>
     <!-- <div id="overlay"></div> -->
-    <template v-if="Boolean(this.map)">
+    <template v-if="Boolean(this.map) && Boolean(this.markerSource)">
         <slot
           :map="map"
           :markerSource = 'markerSource'
@@ -28,7 +28,7 @@ export default {
    data() {
      return {
       map: null,
-      markerSource: null 
+      markerSource: null
      }
    },
   async mounted() {
@@ -68,6 +68,11 @@ export default {
 
       this.map.setView(view)
       //this.map.addOverlay(overlay);
+
+        this.map.on('click', function(event) {
+          let degrees = transform(event.coordinate, 'EPSG:3857', 'EPSG:4326');
+          console.log(degrees)
+        });
     }
   },
 
@@ -78,10 +83,9 @@ export default {
 
 <style>
 #ol-map {
-  position: absolute;
   margin: 0;
   padding: 0;
-  height: 650px;
+  height: 150px;
   width: 100%;
   background: #ccc;
 }

@@ -1,12 +1,16 @@
 <template>
-  <div> </div>
+  <div>
+    <b-button @click="animation()" class='mt-1'>
+      {{marker.name}}
+    </b-button>
+  </div>
 </template>
 <script>
 import "ol/ol.css";
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 //import Geolocation from 'ol/Geolocation'
-import {Icon, Style, Circle, Fill} from 'ol/style';
+import {Icon, Style, Circle, Stroke,  Fill} from 'ol/style';
 import {Vector as VectorLayer} from 'ol/layer';
 import {transform} from 'ol/proj';
 
@@ -46,7 +50,6 @@ export default {
   methods: {
     newMarker() {
 
-
       //let geolocation = new Geolocation({
               //tracking: true
             //});
@@ -77,6 +80,7 @@ export default {
       });
       //markerFeature.bindTo('position', geolocation)
       this.map.addLayer(markerLayer)
+
     },
     pollData () {
       this.polling = setInterval(() => {
@@ -94,6 +98,34 @@ export default {
           'EPSG:4326', 'EPSG:3857')
       this.markerFeature.getGeometry().setCoordinates(coord)
     },
+    animation(){
+     let fill = new Fill({
+       color: 'rgba(200,20,25,0.5)'
+     });
+     let stroke = new Stroke({
+       color: 'rgba(250,250,250,1)',
+       width: 2
+     });
+      let iconStyle = [
+       new Style({
+         image: new Circle({
+         fill: fill,
+         stroke: stroke,
+         radius: 25
+           }),
+         fill: fill,
+         stroke: stroke
+       }),
+       new Style ({
+          image: new Icon({
+          src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
+          //scale: 0.8
+        })
+        }),
+      ]
+      this.markerFeature.setStyle(iconStyle)
+
+    },
     changeIcon() {
       let iconStyle = [
         new Style({
@@ -107,7 +139,7 @@ export default {
         new Style ({
           image: new Icon({
           src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
-          //scale: 0.8  
+          //scale: 0.8
         })
         }),
       ]
