@@ -15,7 +15,7 @@
           :map="map"
           :markerSource = 'markerSource'
           :clickMarker= 'clickMarker'
-          @clickEmit="chengeMsg" 
+          @clickEmit="chengeMsg"
         />
     </template>
   </div>
@@ -27,13 +27,14 @@ import "ol/ol.css";
 import Map from "ol/Map";
 import View from "ol/View";
 //import Overlay from 'ol/Overlay'
-import {OSM } from 'ol/source';
+//import {OSM } from 'ol/source';
 import {transform} from 'ol/proj';
 import {DragRotateAndZoom} from 'ol/interaction';
 import {FullScreen} from 'ol/control';
 import VectorSource from 'ol/source/Vector';
 import {Tile as TileLayer } from 'ol/layer';
 //import upAndDown from 'ol/easing'
+import XYZ from 'ol/source/XYZ';
 
 export default {
    data() {
@@ -53,9 +54,13 @@ export default {
     initiateMap() {
       //create a layer with the OSM sourse
       let layer = new TileLayer({
-        source: new OSM() // OpenStreetMap
+        source: new XYZ({
+        url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        })
       })
-      this.markerSource = new VectorSource() 
+
+
+      this.markerSource = new VectorSource()
 
       //create view with center postion
       let center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
@@ -141,7 +146,7 @@ export default {
         duration: 1000,
         //easing: this.bounce,
       })
-      
+
     },
     showMap() {
       let center = this.map.getView().getCenter()
@@ -155,7 +160,7 @@ export default {
       var l;
       if (t < 1 / p) {
           l = s * t * t;
-        } 
+        }
       else {
       if (t < 2 / p) {
         t -= 1.5 / p;
@@ -164,7 +169,7 @@ export default {
         if (t < 2.5 / p) {
           t -= 2.25 / p;
           l = s * t * t + 0.9375;
-        } 
+        }
         else {
           t -= 2.625 / p;
           l = s * t * t + 0.984375;

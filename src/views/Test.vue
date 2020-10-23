@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import olPort from "@/components/Ol-Click";
+import olPort from "@/components/Ol-Select";
 export default {
   name: "App",
   components: {

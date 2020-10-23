@@ -2,11 +2,14 @@
   "name": "nmtport",
   "version": "0.1.0",
   "private": true,
+  "description": "## Project setup ``` npm install ```",
+  "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "main": ".eslintrc.js",
   "dependencies": {
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
@@ -15,6 +18,7 @@
     "google-maps-api-loader": "^1.1.1",
     "ol": "^6.4.3",
     "ol-ext": "^3.1.15",
+    "register-service-worker": "^1.7.1",
     "tween.js": "^16.6.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
@@ -24,6 +28,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-pwa": "^4.5.8",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
@@ -34,16 +39,13 @@
     "sass-loader": "^10.0.2",
     "vue-template-compiler": "^2.6.11"
   },
-  "description": "## Project setup ``` npm install ```",
-  "main": ".eslintrc.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ostapkob/tests.git"
-  },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/ostapkob/tests/issues"
   },
-  "homepage": "https://github.com/ostapkob/tests#readme"
+  "homepage": "https://github.com/ostapkob/tests#readme",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ostapkob/tests.git"
+  }
 }
