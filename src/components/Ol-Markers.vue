@@ -1,6 +1,9 @@
 <template>
   <div>
-    <b-button @click="animation()" class='mt-1'>
+    <b-button @click="clickEmit" class='mt-1'>
+      {{marker.name}}
+    </b-button>
+    <b-button @click="clickMarker(marker.id)" class='mt-1 ml-1' variant="info">
       {{marker.name}}
     </b-button>
   </div>
@@ -9,13 +12,9 @@
 import "ol/ol.css";
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
-//import Geolocation from 'ol/Geolocation'
 import {Icon, Style, Circle, Stroke,  Fill} from 'ol/style';
 import {Vector as VectorLayer} from 'ol/layer';
 import {transform} from 'ol/proj';
-
-//import VectorSource from 'ol/source/Vector';
-//import { getIcon } from '@/functions/functions';
 
 export default {
   props: {
@@ -36,6 +35,7 @@ export default {
         return []
       }
     },
+    clickMarker: Function
   },
    data() {
      return {
@@ -49,23 +49,22 @@ export default {
   },
   methods: {
     newMarker() {
+      this.markerFeature = new Feature({
+          geometry:  new Point(transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857'),
+        ),
+          name: this.marker.name,
+          id: this.marker.id,
+          alarm: this.marker.alarm,
+          state: this.marker.state,
+          time: this.marker.time
 
-      //let geolocation = new Geolocation({
-              //tracking: true
-            //});
-
-      // create Maprker
-          this.markerFeature = new Feature(new Point(
-          transform([this.marker.longitude, this.marker.latitude],
-          //transform([this.marker.position.lng, this.marker.position.lat],
-          'EPSG:4326', 'EPSG:3857')
-        ));
+      });
 
       // create Style
       let iconStyle = new Style ({
         image: new Icon({
           src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
-        })
+        }),
       })
 
       // Set Style
@@ -73,29 +72,36 @@ export default {
 
       // add  marker to Source
       this.markerSource.addFeature(this.markerFeature)
+      this.markerLayer = new VectorLayer() 
 
       // create Layer
-      let markerLayer = new VectorLayer({
-        source: this.markerSource
-      });
+      this.markerLayer.setSource(this.markerSource)
       //markerFeature.bindTo('position', geolocation)
-      this.map.addLayer(markerLayer)
+      this.map.addLayer(this.markerLayer)
 
+    },
+    markerClick() {
+      console.log(this.marker)
+      console.log(this.markerFeature)
+      console.log(this.markerFeature.get('name'))
     },
     pollData () {
       this.polling = setInterval(() => {
         this.changePosition(),
         this.changeIcon()
-        //this.alarm(this.marker.alarm)
-        //console.log('pull')
-        //console.log (Date.now() - this.timerAnimation)
-      }, 10000)
+        this.setKeys()
+      }, 2000)
+    },
+    setKeys() {
+          this.markerFeature.set('name', this.marker.name)
+          this.markerFeature.set('id', this.marker.id)
+          this.markerFeature.set('alarm', this.marker.alarm)
+          this.markerFeature.set('state', this.marker.state)
+          this.markerFeature.set('time', this.marker.time)
     },
     changePosition() {
       let coord = this.markerFeature.getGeometry().getCoordinates()
-      coord = transform([this.marker.longitude, this.marker.latitude],
-          //transform([this.marker.position.lng, this.marker.position.lat],
-          'EPSG:4326', 'EPSG:3857')
+      coord = transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')
       this.markerFeature.getGeometry().setCoordinates(coord)
     },
     animation(){
@@ -123,8 +129,13 @@ export default {
         })
         }),
       ]
-      this.markerFeature.setStyle(iconStyle)
-
+      this.clickMarker(this.marker.id)
+      if (this.markerFeature.get('click')) {
+        this.markerFeature.setStyle(iconStyle)
+      }
+    },
+    clickEmit: function() {
+      this.$emit('remove')
     },
     changeIcon() {
       let iconStyle = [
@@ -187,11 +198,34 @@ export default {
     }
   },
 
+  bounce(t) {
+    var s = 7.5625;
+    var p = 2.75;
+    var l;
+    if (t < 1 / p) {
+        l = s * t * t;
+      }
+    else {
+    if (t < 2 / p) {
+      t -= 1.5 / p;
+      l = s * t * t + 0.75;
+    } else {
+      if (t < 2.5 / p) {
+        t -= 2.25 / p;
+        l = s * t * t + 0.9375;
+      }
+      else {
+        t -= 2.625 / p;
+        l = s * t * t + 0.984375;
+          }
+        }
+      }
+  return l;
+    },
   },
    created () {
        this.pollData()
    },
-
   components: {
   }
 }
