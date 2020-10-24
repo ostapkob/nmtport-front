@@ -2,13 +2,12 @@
   <div>
     <olLoader>
     <!-- <olOverInfo class="ol-map"/> -->
-    <template v-slot="{ map, markerSource, clickMarker   }">
+    <template v-slot="{ map, markerSource }">
       <Markers
         v-for="marker in LAST_DATA"
         :key="marker.id"
         :map="map"
         :markerSource = 'markerSource'
-        :clickMarker='clickMarker'
         :marker="marker">
       </Markers>
     </template>

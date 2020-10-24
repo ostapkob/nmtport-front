@@ -1,0 +1,19 @@
+{
+  "name": "NMTP SmartPort",
+  "short_name": "SmartPort",
+  "lang": "en-GB",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "img/icons/png/"
+    },
+    {
+      "src": "apple-icon-180x180",
+      "sizes": "180x180",
+      "type": "img/icons/png/"
+    }
+  ]
+}

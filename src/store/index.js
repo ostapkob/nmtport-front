@@ -6,47 +6,52 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      last_data: [],
-      krans_data: [],
-      usm_data: [],
-      ip:      'http://94.154.76.136',
-    // ip:      'http://127.0.0.1:5000',
-      last_data_api: '',
-      kran_api: '',
-      usm_api: '',
-      // kran_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/kran',
-      // usm_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/usm',
-      errored_last_data: false,
+    last_data: [],
+    krans_data: [],
+    usm_data: [],
+    selectedFeatures: [],
+    ip:      'http://94.154.76.136',
+  // ip:      'http://127.0.0.1:5000',
+    last_data_api: '',
+    kran_api: '',
+    usm_api: '',
+    // kran_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/kran',
+    // usm_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/usm',
+    errored_last_data: false,
   },
   mutations: {
-      SET_LAST_DATA_TO_STATE: (state, values) => {
-        state.last_data = values;
-      },
-      SET_KRANS_DATA_TO_STATE: (state, values) => {
-        state.krans_data = values;
-      },
-      SET_USM_DATA_TO_STATE: (state, values) => {
-        state.usm_data = values;
-      },
-      ERROR_STATE_LAST_DATA: (state) => {
-        state.errored_last_data = true;
-      },
-      CHANGE_KRANS_API: (state, date_shift) => {
-        let date = date_shift[0]
-        let shift = date_shift[1]
-        state.kran_api = state.ip + '/api/v1.0/get_data_period_with_fio/kran/' + date + '/' + shift
-      },
-      CHANGE_USM_API: (state, date_shift) => {
-        let date = date_shift[0]
-        let shift = date_shift[1]
-        state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio/usm/' + date + '/' + shift
-      },
-      CHANGE_IP: (state) => {
-        state.last_data_api = state.ip + '/api/v1.0/all_last_data_state'
-        state.kran_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/kran'
-        state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/usm'
-        console.log('CHANGE_IP')
-      }
+    SET_LAST_DATA_TO_STATE: (state, values) => {
+      state.last_data = values;
+    },
+    SET_KRANS_DATA_TO_STATE: (state, values) => {
+      state.krans_data = values;
+    },
+    SET_USM_DATA_TO_STATE: (state, values) => {
+      state.usm_data = values;
+    },
+    SET_SELECTED_FEATURES_TO_STATE: (state, values) => {
+      state.selectedFeatures = values
+    },
+    ERROR_STATE_LAST_DATA: (state) => {
+      state.errored_last_data = true;
+    },
+    CHANGE_KRANS_API: (state, date_shift) => {
+      let date = date_shift[0]
+      let shift = date_shift[1]
+      state.kran_api = state.ip + '/api/v1.0/get_data_period_with_fio/kran/' + date + '/' + shift
+    },
+    CHANGE_USM_API: (state, date_shift) => {
+      let date = date_shift[0]
+      let shift = date_shift[1]
+      state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio/usm/' + date + '/' + shift
+    },
+    CHANGE_IP: (state) => {
+      state.last_data_api = state.ip + '/api/v1.0/all_last_data_state'
+      state.kran_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/kran'
+      state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/usm'
+      //  console.log('CHANGE_IP')
+    },
+
   },
   actions: {
     GET_IP ({commit}) {
@@ -107,6 +112,9 @@ export default new Vuex.Store({
           return error;
       })
     },
+    SET_SELECTED_FEATURES({commit}, value) {
+          commit('SET_SELECTED_FEATURES_TO_STATE', value);
+    },
     SET_USM_API({commit}, value) {
       commit('CHANGE_USM_API', value);
       return axios(this.state.usm_api, {
@@ -120,7 +128,7 @@ export default new Vuex.Store({
           console.log(error)
           return error;
       })
-  },
+    },
   },
   modules: {
   },
@@ -136,6 +144,9 @@ export default new Vuex.Store({
     USM_DATA(state) {
       // console.log('store usm  getters');
         return state.usm_data;
-    }
+    },
+    SELECTED_FEATURES(state) {
+      return state.selectedFeatures
+    },
   },
 })

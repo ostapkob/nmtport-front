@@ -14,8 +14,6 @@
         <slot
           :map="map"
           :markerSource = 'markerSource'
-          :clickMarker= 'clickMarker'
-          @clickEmit="chengeMsg"
         />
     </template>
   </div>
@@ -58,13 +56,9 @@ export default {
         url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         })
       })
-
-
       this.markerSource = new VectorSource()
-
       //create view with center postion
       let center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
-
        this.view = new View({
         center: center,
         rotation: Math.PI / 2.75,
@@ -96,8 +90,8 @@ export default {
           console.log(feature.get('name'))
         //  console.log(feature.get('alarm'))
         //  console.log(feature.get('state'))
-          console.log(feature.get('time'))
-          console.log(feature.get('click'))
+       //   console.log(feature.get('time'))
+        //  console.log(feature.get('click'))
         } else {
           console.log('map')
         }
@@ -114,9 +108,6 @@ export default {
       //this.map.setView(view)
       //this.map.addOverlay(overlay);
     },
-    clickMarker: function(id) {
-      this.msg = id
-    },
     chengeMsg() {
       console.log('www')
       this.msg = 'hellow'
@@ -126,8 +117,6 @@ export default {
       this.terminal = !this.terminal
       let center
       let zoomTerminal
-
-
       if (this.terminal) {
         this.nameTerminal = 'УТ-1'
         center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
@@ -138,7 +127,6 @@ export default {
         center = transform([132.90060, 42.8031], 'EPSG:4326', 'EPSG:3857')
         zoomTerminal = 15.5
       }
-
       this.view.animate({
         center: center,
         rotation: Math.PI / 2.75,
@@ -146,7 +134,6 @@ export default {
         duration: 1000,
         //easing: this.bounce,
       })
-
     },
     showMap() {
       let center = this.map.getView().getCenter()

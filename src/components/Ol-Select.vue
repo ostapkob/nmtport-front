@@ -1,6 +1,7 @@
 <template>
 <div>
     <div ref="map" class='map'> </div>
+    <b-button @click="selectedF"> click </b-button >
 </div>
 </template>
 <script>
@@ -17,14 +18,18 @@ import Feature from 'ol/Feature';
 import {transform} from 'ol/proj';
 import {Icon, Style} from 'ol/style';
 //import { singleClick} from 'ol/events/condition';
-import { pointerMove} from 'ol/events/condition';
-//import { click} from 'ol/events/condition';
+import { doubleClick} from 'ol/events/condition';
+//import { pointerMove} from 'ol/events/condition';
+import { click} from 'ol/events/condition';
+//import { focus} from 'ol/events/condition';
 import XYZ from 'ol/source/XYZ';
 
 export default {
    data() {
      return {
  //      map: {}
+       select: null,
+       selectedFeatures: []
      }
    },
   mounted() {
@@ -43,30 +48,33 @@ export default {
         format: new GeoJSON(),
       });
 
-    var iconFeature = new Feature(
-      new Point(transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
-      )
+    var iconFeature = new Feature({
+      geometry: new Point(transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
+      ),
+      name: '3'}
     )
-    var iconFeature2 = new Feature(
-      new Point(transform([135.8896, 45.8128], 'EPSG:4326', 'EPSG:3857')
-      )
+    var iconFeature2 = new Feature({
+      geometry:new Point(transform([135.8896, 45.8128], 'EPSG:4326', 'EPSG:3857')
+          //scale: 0.8
+      ),
+      name: '4'}
     )
     var iconStyle = new Style({
       image: new Icon({
         src: require(`@/assets/img/numbers/kran/blue/3.png`),
+          scale: 0.8
       }),
     });
 
     var iconStyle2 = new Style({
       image: new Icon({
         src: require(`@/assets/img/numbers/kran/blue/4.png`),
+          scale: 0.8
         //src: 'http://maps.google.com/mapfiles/kml/pal3/icon12.png',
       }),
     });
-
     iconFeature.setStyle(iconStyle);
     iconFeature2.setStyle(iconStyle2);
-
     vectorSource.addFeature(iconFeature)
     vectorSource.addFeature(iconFeature2)
 
@@ -81,22 +89,31 @@ export default {
         }),
       });
 
-
-    var select = new Select({
+    var select2 = new Select({
       //condition: click
-      condition:  pointerMove//singleClick
+      condition:  doubleClick//singleClick
     })
-
-    map.addInteraction(select)
-    select.on('select', function() {
-      console.log('yes obhs')
+    this.select = new Select({
+      //condition: click
+      condition:  click//singleClick
     })
-
+    this.select.on('select', function() {
+      console.log('focus obhs')
+    })
+    console.log(iconFeature)
+    select2.on('select', function() {
+    })
+    map.addInteraction(this.select)
+    map.addInteraction(select2)
 
     map.addLayer(raster)
     map.addLayer(vectorLayer)
-
   },
+    selectedF() {
+      let  selectedFeatures = this.select.getFeatures()
+      let names = selectedFeatures.getArray().map(function(feature) {return feature.get('name')})
+      console.log(names)
+    }
   },
 
   components: {
@@ -106,7 +123,6 @@ export default {
 
 <style>
 .map {
-  position: absolute;
   margin: 0;
   padding: 0;
   height: 300px;
