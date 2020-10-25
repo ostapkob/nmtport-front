@@ -1,6 +1,6 @@
 <template>
   <div>
-    <olLoader>
+    <olLoader class="mb-2">
     <!-- <olOverInfo class="ol-map"/> -->
     <template v-slot="{ map, markerSource }">
       <Markers
@@ -12,6 +12,17 @@
       </Markers>
     </template>
     </olLoader>
+    <div v-for="mech in KRANS_DATA"
+      :key='mech.id'
+      >
+      <div
+        v-if='SELECTED_FEATURES.includes(mech.id)'
+        class='p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 ml-2 mr-2 shadow-sm'>
+
+        <kranProgress :mech='mech' />
+        <Hours :shift='shift' />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,40 +33,53 @@
 import olLoader from "@/components/Ol-Loader";
 import Markers from "@/components/Ol-Markers";
 import {mapActions, mapGetters} from 'vuex'
+import kranProgress from '@/components/ProgressKran.vue'
+import Hours from '@/components/Hours.vue'
+import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
 
 export default {
   name: "App",
   data() {
     return {
-     markers: [
-        { position: { lat: 42.8142, lng: 132.8897 }, name: 'Screen5', icon: 'http://maps.google.com/mapfiles/kml/pal3/icon12.png', alarm: 0 },
-        { position: { lat: 42.8150, lng: 132.8907 }, name: 'Screen6', icon: 'http://maps.google.com/mapfiles/kml/pal3/icon13.png', alarm: 0 },
-        { position: { lat: 42.8160, lng: 132.8908 }, name: 'Screen7', icon: 'http://maps.google.com/mapfiles/kml/pal3/icon14.png', alarm: 1 }
-      ],
       polling: null,
+      shift: 1,
+      date: '-',
+      hours: '',
     };
   },
   components: {
     Markers,
     olLoader,
+    kranProgress,
+    Hours
   },
   methods: {
     ...mapActions([
-        'GET_LAST_DATA'
+      'GET_LAST_DATA',
+      'SET_KRANS_API'
     ]),
 	pollData () {
 		this.polling = setInterval(() => {
 			this.$store.dispatch('GET_LAST_DATA')
+      this.shift = shiftNow()
+      this.date = dateNow()
+      this.SET_KRANS_API([this.date, this.shift])
 		}, 10000)
     },
   },
   computed: {
     ...mapGetters([
-        'LAST_DATA'
-        ]),
+      'SELECTED_FEATURES',
+      'LAST_DATA',
+      'KRANS_DATA'
+      ]),
   },
   mounted() {
     this.GET_LAST_DATA()
+    this.shift = shiftNow()
+    this.date = dateNow()
+    this.hours = hoursProgress(shiftNow())
+    this.SET_KRANS_API([this.date, this.shift])
   },
   created () {
     this.pollData()
@@ -68,4 +92,3 @@ export default {
 
 <style lang="scss" scoped>
 </style>
-

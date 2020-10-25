@@ -1,12 +1,11 @@
 <template>
   <div>
-    <b-button @click=nowSelectedFeatures class='mt-1'>
-      {{marker.name}}
-    </b-button>
-    <b-button @click="animation" class='mt-1 ml-1' variant="info">
-      {{marker.name}}
-    </b-button>
-    <span v-for='(f, k) in SELECTED_FEATURES' :key=k> {{f}} </span>
+    <!-- <b-button @click=nowSelectedFeatures class='mt-1'> -->
+      <!-- {{marker.name}} -->
+    <!-- </b-button> -->
+    <!-- <b-button @click="animation" class='mt-1 ml-1' variant="info"> -->
+      <!-- {{marker.name}} -->
+    <!-- </b-button> -->
   </div>
 </template>
 <script>
@@ -79,7 +78,6 @@ export default {
         condition:  click//singleClick
       })
       this.markerSelect.on('select', function() {
-        //console.log(el)
         fun()
       })
       this.map.addInteraction(this.markerSelect)

@@ -40,9 +40,9 @@
     </b-row>
   </b-container>
 
-  <div v-for="(mech, key) in KRANS_DATA" 
-    :key='key' 
+  <div v-for="mech in KRANS_DATA"
     class='p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 shadow-sm'
+    :key='mech.id'
     >
     <kranProgress :mech='mech'  />
     <Hours :shift='shift' />

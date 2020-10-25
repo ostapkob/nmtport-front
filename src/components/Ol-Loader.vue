@@ -2,14 +2,12 @@
   <div>
     <div ref="map" id="ol-map"> </div>
     <!-- <div id="overlay"></div> -->
-  <b-button @click="chengeTerminal()" class="mt-1 mr-2" variant="warning">
+  <b-button @click="chengeTerminal()" class="mt-1 mr-2" size="sm" variant="warning">
     {{nameTerminal}}
   </b-button>
-  <b-button @click="showMap()" class='mt-1' variant="info">
+  <b-button @click="showMap()" class='mt-1' size="sm" variant="info">
     showMap
   </b-button>
-  {{msg}}
-  <hr />
     <template v-if="Boolean(this.map) && Boolean(this.markerSource) ">
         <slot
           :map="map"
@@ -42,7 +40,6 @@ export default {
       view: null,
       terminal: true,
       nameTerminal: 'УТ-1',
-      msg: '-',
      }
    },
   async mounted() {
@@ -81,6 +78,14 @@ export default {
       })
       this.map = map
       this.map.on('click', function (evt) {
+        var coord = evt.coordinate;
+        var degrees = transform(coord, 'EPSG:3857', 'EPSG:4326');
+        //  var hdms = toStringHDMS(degrees);
+        //  var element = overlay.getElement();
+        //  element.innerHTML = hdms;
+        //  overlay.setPosition(coord);
+        //  map.addOverlay(overlay);
+        console.log(degrees)
         var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
           return feature;
         });
@@ -108,11 +113,6 @@ export default {
       //this.map.setView(view)
       //this.map.addOverlay(overlay);
     },
-    chengeMsg() {
-      console.log('www')
-      this.msg = 'hellow'
-    },
-
     chengeTerminal() {
       this.terminal = !this.terminal
       let center
@@ -120,7 +120,7 @@ export default {
       if (this.terminal) {
         this.nameTerminal = 'УТ-1'
         center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
-        zoomTerminal = 16
+      zoomTerminal = 16
       }
       else {
         this.nameTerminal = 'ГУТ-2'
@@ -175,7 +175,7 @@ export default {
 #ol-map {
   margin: 0;
   padding: 0;
-  height: 200px;
+  height: 250px;
   width: 100%;
   background: #ccc;
 }
