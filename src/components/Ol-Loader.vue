@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div ref="map" id="ol-map"> </div>
+    <div id="wrapper">
+      <div ref="map" id="ol-map"> </div>
     <!-- <div id="overlay"></div> -->
-  <b-button @click="chengeTerminal()" class="mt-1 mr-2" size="sm" variant="warning">
-    {{nameTerminal}}
-  </b-button>
+      <b-button @click="chengeTerminal()" id='terminal' class="mt-1 mr-2" size="sm" variant="warning">
+        {{nameTerminal}}
+      </b-button>
+    </div>
   <b-button @click="showMap()" class='mt-1' size="sm" variant="info">
     showMap
   </b-button>
@@ -39,7 +41,7 @@ export default {
       markerSource: null,
       view: null,
       terminal: true,
-      nameTerminal: 'УТ-1',
+      nameTerminal: 'ГУТ-2',
      }
    },
   async mounted() {
@@ -58,7 +60,7 @@ export default {
       let center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
        this.view = new View({
         center: center,
-        rotation: Math.PI / 2.75,
+        rotation: Math.PI / 2.71,
         zoom: 16
       })
       let interaction = new DragRotateAndZoom();
@@ -118,18 +120,18 @@ export default {
       let center
       let zoomTerminal
       if (this.terminal) {
-        this.nameTerminal = 'УТ-1'
+        this.nameTerminal = 'ГУТ-2'
         center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
       zoomTerminal = 16
       }
       else {
-        this.nameTerminal = 'ГУТ-2'
+        this.nameTerminal = 'УТ-1'
         center = transform([132.90060, 42.8031], 'EPSG:4326', 'EPSG:3857')
         zoomTerminal = 15.5
       }
       this.view.animate({
         center: center,
-        rotation: Math.PI / 2.75,
+        rotation: Math.PI / 2.71,
         zoom: zoomTerminal,
         duration: 1000,
         //easing: this.bounce,
@@ -141,30 +143,6 @@ export default {
       console.log(transCenter)
       console.log(this.map)
     },
-    bounce(t) {
-      var s = 7.5625;
-      var p = 2.75;
-      var l;
-      if (t < 1 / p) {
-          l = s * t * t;
-        }
-      else {
-      if (t < 2 / p) {
-        t -= 1.5 / p;
-        l = s * t * t + 0.75;
-      } else {
-        if (t < 2.5 / p) {
-          t -= 2.25 / p;
-          l = s * t * t + 0.9375;
-        }
-        else {
-          t -= 2.625 / p;
-          l = s * t * t + 0.984375;
-            }
-          }
-        }
-    return l;
-    }
   },
   components: {
   }
@@ -175,7 +153,7 @@ export default {
 #ol-map {
   margin: 0;
   padding: 0;
-  height: 250px;
+  height: 350px;
   width: 100%;
   background: #ccc;
 }
@@ -184,5 +162,13 @@ export default {
   width: 20px;
   height: 20px;
   border-radius: 80px;
+}
+#terminal {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+}
+#wrapper{
+  position: relative
 }
 </style>

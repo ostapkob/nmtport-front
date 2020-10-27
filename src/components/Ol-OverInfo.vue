@@ -4,6 +4,7 @@
     <input type="checkbox" id="visible" checked> Toggle Layer Visibility
     <div ref="map" class='map'> </div>
     <div ref="overlay" class='overlay'></div>
+    <b-button @click=simpleFade > Anim </b-button>
   </div>
 </div>
 </template>
@@ -18,6 +19,7 @@ import {transform} from 'ol/proj';
 import {DragRotateAndZoom} from 'ol/interaction';
 import {FullScreen} from 'ol/control';
 import {toStringHDMS} from 'ol/coordinate'
+import gsap from 'gsap'
 
 export default {
    data() {
@@ -49,7 +51,6 @@ export default {
         //element: document.getElementById('overlay')
         element: this.$refs['overlay']
       })
-
       var map = new Map({
         target: this.$refs['map'],
         layers: [layer],
@@ -80,7 +81,22 @@ export default {
 
       //map.addLayer(layer) // not need if you are already adding overlay
       //map.setView(view)
-    }
+    },
+
+    simpleFade() {
+      gsap.fromTo(this.$refs.['overlay'], 
+      {
+        backgroundColor: '#0f0',
+        autoAlpha: 1
+      }, 
+      {
+        autoAlpha: 0,
+        duration: 1,
+        rotation: -90,
+        backgroundColor: '#ff0',
+       });
+      }
+
   },
 
   components: {

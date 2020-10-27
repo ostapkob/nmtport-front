@@ -12,14 +12,24 @@
       </Markers>
     </template>
     </olLoader>
+    <!-- <span v-for='(m, k) in SELECTED_FEATURES' :key=k> {{m}} </span> -->
     <div v-for="mech in KRANS_DATA"
       :key='mech.id'
       >
       <div
         v-if='SELECTED_FEATURES.includes(mech.id)'
         class='p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 ml-2 mr-2 shadow-sm'>
-
         <kranProgress :mech='mech' />
+        <Hours :shift='shift' />
+      </div>
+    </div>
+    <div v-for="mech in USM_DATA"
+      :key='mech.id'
+      >
+      <div
+        v-if='SELECTED_FEATURES.includes(mech.id)'
+        class='p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 ml-2 mr-2 shadow-sm'>
+        <usmProgress :mech='mech' />
         <Hours :shift='shift' />
       </div>
     </div>
@@ -34,8 +44,9 @@ import olLoader from "@/components/Ol-Loader";
 import Markers from "@/components/Ol-Markers";
 import {mapActions, mapGetters} from 'vuex'
 import kranProgress from '@/components/ProgressKran.vue'
+import usmProgress from '@/components/ProgressUsm.vue'
 import Hours from '@/components/Hours.vue'
-import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
+import {shiftNow, dateNow, hoursProgress} from '@/functions/functions';
 
 export default {
   name: "App",
@@ -51,12 +62,14 @@ export default {
     Markers,
     olLoader,
     kranProgress,
+    usmProgress,
     Hours
   },
   methods: {
     ...mapActions([
       'GET_LAST_DATA',
-      'SET_KRANS_API'
+      'SET_KRANS_API',
+      'SET_USM_API'
     ]),
 	pollData () {
 		this.polling = setInterval(() => {
@@ -64,6 +77,7 @@ export default {
       this.shift = shiftNow()
       this.date = dateNow()
       this.SET_KRANS_API([this.date, this.shift])
+      this.SET_USM_API([this.date, this.shift])
 		}, 10000)
     },
   },
@@ -71,7 +85,8 @@ export default {
     ...mapGetters([
       'SELECTED_FEATURES',
       'LAST_DATA',
-      'KRANS_DATA'
+      'KRANS_DATA',
+      'USM_DATA'
       ]),
   },
   mounted() {
@@ -80,6 +95,7 @@ export default {
     this.date = dateNow()
     this.hours = hoursProgress(shiftNow())
     this.SET_KRANS_API([this.date, this.shift])
+    this.SET_USM_API([this.date, this.shift])
   },
   created () {
     this.pollData()

@@ -3,9 +3,10 @@
     <!-- <b-button @click=nowSelectedFeatures class='mt-1'> -->
       <!-- {{marker.name}} -->
     <!-- </b-button> -->
-    <!-- <b-button @click="animation" class='mt-1 ml-1' variant="info"> -->
-      <!-- {{marker.name}} -->
-    <!-- </b-button> -->
+    <b-button @click="animation" class='mt-1 ml-1' variant="info">
+      {{marker.name}}
+    </b-button>
+    <div ref="marker" class="box"> </div>
   </div>
 </template>
 <script>
@@ -17,7 +18,10 @@ import {Vector as VectorLayer} from 'ol/layer';
 import {transform} from 'ol/proj';
 import Select from 'ol/interaction/Select';
 import { click} from 'ol/events/condition';
+import gsap from 'gsap'
+//import { pointerMove} from 'ol/events/condition';
 import {mapActions, mapGetters} from 'vuex'
+//import {timeline} from 'gsap'
 
 export default {
   props: {
@@ -68,14 +72,23 @@ export default {
       // add  marker to Source
       this.markerSource.addFeature(this.markerFeature)
       // create Layer
-      this.markerLayer = new VectorLayer()
+      this.markerLayer = new VectorLayer({
+        target: this.$refs['marker'],
+        position:(transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')),
+        renderBuffer: 200,
+         //anchor: [150, 5],
+         //anchorXUnits: 'fraction',
+         //anchorYUnits: 'pixels',
+      })
       this.markerLayer.setSource(this.markerSource)
       //add layer and select
       this.map.addLayer(this.markerLayer)
+
     },
     newMarkerSelect(fun) {
       this.markerSelect = new Select({
-        condition:  click//singleClick
+        condition:  click
+        //condition:  pointerMove
       })
       this.markerSelect.on('select', function() {
         fun()
@@ -115,18 +128,18 @@ export default {
     },
     animation(){
       let fill = new Fill({
-       color: 'rgba(200,20,25,0.5)'
+       color: 'rgba(200,20,25,0.5)',
      });
       let stroke = new Stroke({
        color: 'rgba(250,250,250,1)',
-       width: 2
+       width: 2,
      });
       let newIconStyle = [
        new Style({
          image: new Circle({
          fill: fill,
          stroke: stroke,
-         radius: 25
+         radius: 250
            }),
          fill: fill,
          stroke: stroke
@@ -139,11 +152,14 @@ export default {
         }),
       ]
       this.markerFeature.setStyle(newIconStyle)
+      this.animatLayer()
     },
     changeIcon() {
       let iconStyle = [
         new Style ({
           image: new Icon({
+          //anchorXUnits: 'fraction',
+          //anchorYUnits: 'pixels',
           src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
           scale: 0.8
           })
@@ -151,7 +167,18 @@ export default {
       ]
       this.markerFeature.setStyle(iconStyle)
     },
-
+  animatLayer() {
+    gsap.fromTo(this.$refs.marker, 
+    {
+      backgroundColor: '#0f0',
+      autoAlpha: 1
+    }, 
+    {
+      autoAlpha: 0,
+      duration: 1,
+      backgroundColor: '#ff0',
+     });
+  },
   getIcon(state, type, num) {
     if (type=='kran') {   // 123
       if (state=='180'){
@@ -192,30 +219,6 @@ export default {
     }
   },
 
-  bounce(t) {
-    var s = 7.5625;
-    var p = 2.75;
-    var l;
-    if (t < 1 / p) {
-        l = s * t * t;
-      }
-    else {
-    if (t < 2 / p) {
-      t -= 1.5 / p;
-      l = s * t * t + 0.75;
-    } else {
-      if (t < 2.5 / p) {
-        t -= 2.25 / p;
-        l = s * t * t + 0.9375;
-      }
-      else {
-        t -= 2.625 / p;
-        l = s * t * t + 0.984375;
-          }
-        }
-      }
-  return l;
-    },
   },
    created () {
        this.pollData()
@@ -228,5 +231,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.box {
+  background: green;
+  width: 40px;
+  height: 20px;
+  margin: 0 auto;
+}
 </style>
