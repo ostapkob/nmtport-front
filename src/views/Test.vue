@@ -1,18 +1,21 @@
 <template>
-  <!-- <olPort /> -->
-  <GSAP />
+  <div>
+    <olPort />
+    <GSAP />
+  </div>
 
 </template>
 
 <script>
 //import OI from "@/components/Ol-OverInfo";
-//import olPort from "@/components/Ol-Select";
+import olPort from "@/components/Ol-Select";
 import gsap from 'gsap'
 import GSAP from '@/components/GSAP'
+
 export default {
   name: "App",
   components: {
- //   olPort
+    olPort,
  //   OI,
     GSAP
   },
@@ -23,11 +26,11 @@ export default {
    },
   methods: {
     simpleFade(i) {
-      gsap.fromTo(this.$refs.cards[i], 
+      gsap.fromTo(this.$refs.cards[i],
       {
         backgroundColor: '#0f0',
         autoAlpha: 1
-      }, 
+      },
       {
         autoAlpha: 0,
         duration: 1,

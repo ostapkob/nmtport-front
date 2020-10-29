@@ -23,6 +23,8 @@ import { doubleClick} from 'ol/events/condition';
 import { click} from 'ol/events/condition';
 //import { focus} from 'ol/events/condition';
 import XYZ from 'ol/source/XYZ';
+//import Polygon from 'ol/geom/Poligon'
+//import {circular as circularPolygon} from 'ol/geom/Polygon';
 
 export default {
    data() {
@@ -73,6 +75,7 @@ export default {
         //src: 'http://maps.google.com/mapfiles/kml/pal3/icon12.png',
       }),
     });
+
     iconFeature.setStyle(iconStyle);
     iconFeature2.setStyle(iconStyle2);
     vectorSource.addFeature(iconFeature)

@@ -7,14 +7,13 @@
         {{nameTerminal}}
       </b-button>
     </div>
-  <!-- <b-button @click="showMap()" class='mt-1' size="sm" variant="info"> -->
-  <!--   showMap -->
-  <!-- </b-button> -->
-  <!-- <b-button @click="screenSize()" class='mt-1 ml-1' size="sm" variant="info"> -->
-  <!--   screenSize -->
-    <template v-if="Boolean(this.map) ">
+  <b-button @click="showMap()" class='mt-1' size="sm" variant="info">
+    showMap
+  </b-button>
+    <template v-if="Boolean(this.map) && Boolean(this.markerSource) ">
         <slot
           :map="map"
+          :markerSource = 'markerSource'
         />
     </template>
   </div>
@@ -30,6 +29,7 @@ import View from "ol/View";
 import {transform} from 'ol/proj';
 import {DragRotateAndZoom} from 'ol/interaction';
 import {FullScreen} from 'ol/control';
+import VectorSource from 'ol/source/Vector';
 import {Tile as TileLayer } from 'ol/layer';
 //import upAndDown from 'ol/easing'
 import XYZ from 'ol/source/XYZ';
@@ -39,40 +39,33 @@ export default {
    data() {
      return {
       map: null,
+      markerSource: null,
       view: null,
       terminal: true,
       nameTerminal: 'ГУТ-2',
-      screenWidth: null,
-      screenHeight: document.documentElement.clientHeight,
-      heightS: 500
      }
    },
   async mounted() {
-    this.screenWidth = document.documentElement.clientWidth
-    await this.initiateMap(this.clearSelectedFeatures);
+		this.SET_SELECTED_FEATURES([1,2])
+    await this.initiateMap();
   },
   methods: {
     ...mapActions([
         'SET_SELECTED_FEATURES'
     ]),
-    screenSize() {
-      console.log(this.screenWidth)
-    },
-    initiateMap(fun) {
+    initiateMap() {
       //create a layer with the OSM sourse
       let layer = new TileLayer({
         source: new XYZ({
         url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         })
       })
+      this.markerSource = new VectorSource()
       //create view with center postion
-
       let center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
-      let rotationMap
-      this.screenWidth>400 ? rotationMap = Math.PI / 2.71 : rotationMap = 0
-      this.view = new View({
+       this.view = new View({
         center: center,
-        rotation: rotationMap,
+        rotation: Math.PI / 2.71,
         zoom: 16
       })
       let interaction = new DragRotateAndZoom();
@@ -95,20 +88,39 @@ export default {
         var coord = evt.coordinate;
         var degrees = transform(coord, 'EPSG:3857', 'EPSG:4326');
         console.log(degrees)
-        fun()
-      })
+        var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+          return feature;
+        });
+        if (feature) {
+          feature.set('click', !feature.get('click'))
+          console.log(feature.get('name'))
+        } else {
+          console.log('click map')
+          this.SET_SELECTED_FEATURES([5,6])
+        }
+      });
+    this.map.on('pointermove', function (e) {
+      if (e.dragging) {
+        console.log('map--')
+        return;
+        }
+      var pixel = map.getEventPixel(e.originalEvent);
+      var hit = map.hasFeatureAtPixel(pixel);
+      map.getTarget().style.cursor = hit ? 'pointer' : '';
+      });
+      //this.map.setView(view)
+      //this.map.addOverlay(overlay);
     },
       clearSelectedFeatures() {
-        this.SET_SELECTED_FEATURES([])
+        console.log('ww')
+        this.SET_SELECTED_FEATURES([5,6])
       },
     chengeTerminal() {
       this.terminal = !this.terminal
       let center
       let zoomTerminal
-      let rotationMap
       if (this.terminal) {
         this.nameTerminal = 'ГУТ-2'
-        this.screenWidth>400 ? rotationMap = Math.PI / 2.71 : rotationMap = 0
         center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
       zoomTerminal = 16
       }
@@ -119,7 +131,7 @@ export default {
       }
       this.view.animate({
         center: center,
-        rotation: rotationMap,
+        rotation: Math.PI / 2.71,
         zoom: zoomTerminal,
         duration: 1000,
         //easing: this.bounce,
@@ -137,11 +149,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 #ol-map {
   margin: 0;
   padding: 0;
-  height: 75vh;
+  height: 150px;
   width: 100%;
   background: #ccc;
 }

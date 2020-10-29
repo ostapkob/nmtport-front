@@ -3,25 +3,25 @@
     <!-- <b-button @click=nowSelectedFeatures class='mt-1'> -->
       <!-- {{marker.name}} -->
     <!-- </b-button> -->
-    <b-button @click="animation" class='mt-1 ml-1' variant="info">
-      {{marker.name}}
-    </b-button>
-    <div ref="marker" class="box"> </div>
+    <!-- <b-button @click="alarm(true)" class='mt-1 ml-1' variant="info"> -->
+    <!--   {{marker.name}} -->
+    <!-- </b-button> -->
+    <div ref="wrapper" class="wrapper">
+      <div ref="circle" class="circle" > </div>
+      <img ref="icon"
+       class="icon"
+       :src='require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`)'
+       @click="clickMarker"
+       />
+    </div>
   </div>
 </template>
 <script>
 import "ol/ol.css";
-import Feature from 'ol/Feature';
-import Point from 'ol/geom/Point';
-import {Icon, Style, Circle, Stroke,  Fill} from 'ol/style';
-import {Vector as VectorLayer} from 'ol/layer';
+import Overlay from 'ol/Overlay'
 import {transform} from 'ol/proj';
-import Select from 'ol/interaction/Select';
-import { click} from 'ol/events/condition';
-import gsap from 'gsap'
-//import { pointerMove} from 'ol/events/condition';
 import {mapActions, mapGetters} from 'vuex'
-//import {timeline} from 'gsap'
+import { TimelineLite, TimelineMax, Back, Elastic, Expo } from "gsap"
 
 export default {
   props: {
@@ -36,148 +36,100 @@ export default {
         return []
       }
     },
-    markerSource: {
-      required: true,
-      default() {
-        return []
-      }
-    },
   },
    data() {
      return {
       path: 'assets/img/numbers/',
       polling: null,
-      markerFeature: null,
-      markerSelect: null,
+      overlayIcon: null,
+      overlayCircle: null,
      }
    },
   mounted() {
-    this.newMarker(),
-		//this.SET_SELECTED_FEATURES([1,2,3])
-    this.newMarkerSelect(this.nowSelectedFeatures),
-    this.changeIcon()
+    this.newMarker()
+		//this.SET_SELECTED_FEATURES([])
   },
   methods: {
     newMarker() {
-      this.markerFeature = new Feature({
-          geometry:  new Point(transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857'),
-        ),
-          name: this.marker.name,
-          id: this.marker.id,
-          alarm: this.marker.alarm,
-          state: this.marker.state,
-          time: this.marker.time
-      });
-      // create Select
-      // add  marker to Source
-      this.markerSource.addFeature(this.markerFeature)
-      // create Layer
-      this.markerLayer = new VectorLayer({
-        target: this.$refs['marker'],
+       this.overlayIcon = new Overlay({
+        element: this.$refs['wrapper'],
         position:(transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')),
-        renderBuffer: 200,
-         //anchor: [150, 5],
-         //anchorXUnits: 'fraction',
-         //anchorYUnits: 'pixels',
       })
-      this.markerLayer.setSource(this.markerSource)
-      //add layer and select
-      this.map.addLayer(this.markerLayer)
-
-    },
-    newMarkerSelect(fun) {
-      this.markerSelect = new Select({
-        condition:  click
-        //condition:  pointerMove
-      })
-      this.markerSelect.on('select', function() {
-        fun()
-      })
-      this.map.addInteraction(this.markerSelect)
-
+      this.map.addOverlay(this.overlayIcon);
     },
     ...mapActions([
         'SET_SELECTED_FEATURES'
     ]),
-    nowSelectedFeatures() {
-      this.SET_SELECTED_FEATURES(
-        this.markerSelect.getFeatures().getArray().map(
-        function(feature){
-          return feature.get('id')
-        })
-      )
+    clickMarker() {
+      console.log(this.marker.id)
+      if (event.shiftKey) {
+        let nowSelect = this.SELECTED_FEATURES
+        if (!nowSelect.includes(this.marker.id)) {
+          nowSelect.push(this.marker.id)
+          this.SET_SELECTED_FEATURES(nowSelect)
+        }
+      }
+      else {
+        this.SET_SELECTED_FEATURES( [this.marker.id] )
+      }
+      this.pulse()
     },
     pollData () {
       this.polling = setInterval(() => {
-        this.changePosition(),
-        this.changeIcon()
-        this.setKeys()
-      }, 2000)
-    },
-    setKeys() {
-          this.markerFeature.set('name', this.marker.name)
-          this.markerFeature.set('id', this.marker.id)
-          this.markerFeature.set('alarm', this.marker.alarm)
-          this.markerFeature.set('state', this.marker.state)
-          this.markerFeature.set('time', this.marker.time)
+        this.changePosition()
+        this.alarm(this.marker.alarm)
+      }, 15000)
     },
     changePosition() {
-      let coord = this.markerFeature.getGeometry().getCoordinates()
-      coord = transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')
-      this.markerFeature.getGeometry().setCoordinates(coord)
+      let position=transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')
+      this.overlayIcon.setPosition(position)
     },
-    animation(){
-      let fill = new Fill({
-       color: 'rgba(200,20,25,0.5)',
-     });
-      let stroke = new Stroke({
-       color: 'rgba(250,250,250,1)',
-       width: 2,
-     });
-      let newIconStyle = [
-       new Style({
-         image: new Circle({
-         fill: fill,
-         stroke: stroke,
-         radius: 250
-           }),
-         fill: fill,
-         stroke: stroke
-       }),
-        new Style ({ // i don't now how get normal existing Style
-          image: new Icon({
-          src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
-          scale: 0.8
-          })
-        }),
-      ]
-      this.markerFeature.setStyle(newIconStyle)
-      this.animatLayer()
-    },
-    changeIcon() {
-      let iconStyle = [
-        new Style ({
-          image: new Icon({
-          //anchorXUnits: 'fraction',
-          //anchorYUnits: 'pixels',
-          src: require(`@/${this.path}${this.getIcon(this.marker.state, this.marker.type, this.marker.number)}`),
-          scale: 0.8
-          })
-        }),
-      ]
-      this.markerFeature.setStyle(iconStyle)
-    },
-  animatLayer() {
-    gsap.fromTo(this.$refs.marker, 
-    {
-      backgroundColor: '#0f0',
-      autoAlpha: 1
-    }, 
-    {
-      autoAlpha: 0,
-      duration: 1,
-      backgroundColor: '#ff0',
-     });
+
+  alarm(val) {
+    if (val) {
+      const {icon, circle} = this.$refs
+      const timeline = new TimelineMax({
+        repeat: 3
+      })
+      timeline.to (icon, 0.4, {
+        scale: 1.8,
+        rotation: 16,
+        ease: Back.easeOut.config(1.7),
+      })
+      timeline.to(circle, 0.5, {
+        scale: 12,
+        opacity: 0.7,
+        background: '#f34',
+      },
+        '-=0.6'
+      ),
+      timeline.to(icon, 1.2, {
+        scale: 1,
+        rotation: '-=16',
+        ease: Elastic.easeOut(2.5, 0.5),
+      })
+      timeline.to(circle, 1.1, {
+          scale: 1,
+          opacity: 0,
+          ease: Expo.easeOut,
+        },
+      '-=1.2'
+      )
+    }
+
+  },
+  pulse() {
+    const {icon} = this.$refs
+    const timeline = new TimelineLite({
+    })
+    timeline.to (icon, 0.2, {
+      scale: 0.8,
+      ease: Back.easeOut.config(1.7),
+    }, )
+    timeline.to(icon, 0.3, {
+      scale: 1,
+      ease: Elastic.easeOut(2.5, 0.5),
+    })
   },
   getIcon(state, type, num) {
     if (type=='kran') {   // 123
@@ -232,10 +184,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box {
-  background: green;
-  width: 40px;
-  height: 20px;
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -15px;
+  left: -15px;
+}
+.circle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #333;
+  width: 15px;
+  height: 15px;
   margin: 0 auto;
+  border-radius: 50%;
+  opacity: 0;
+}
+.icon {
+  z-index: 2;
+  position: absolute;
 }
 </style>

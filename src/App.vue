@@ -21,9 +21,8 @@
    </b-navbar-toggle>
 
     <b-collapse id="navbar-toggle-collapse" is-nav>
-      <b-navbar-nav> 
-        <b-nav-item to="/map">    Карта </b-nav-item>
-        <b-nav-item to="/mapol">  Карта2 </b-nav-item>
+      <b-navbar-nav>
+        <b-nav-item to="/mapol">  Карта </b-nav-item>
         <b-nav-item to="/usm"> УСМ </b-nav-item>
         <b-nav-item to="/krans"> Краны </b-nav-item>
         <b-nav-item to="/archive"> Архив </b-nav-item>
