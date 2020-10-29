@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Json from '@/components/Json.vue'
+import Json from '@/components/test/Json.vue'
 import {mapActions, mapGetters} from 'vuex'
 
 export default {

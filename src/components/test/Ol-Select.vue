@@ -25,7 +25,6 @@ import { click} from 'ol/events/condition';
 import XYZ from 'ol/source/XYZ';
 //import Polygon from 'ol/geom/Poligon'
 //import {circular as circularPolygon} from 'ol/geom/Polygon';
-
 export default {
    data() {
      return {
@@ -39,17 +38,14 @@ export default {
   },
   methods: {
   initiateMap() {
-
       var raster = new TileLayer({
         source: new XYZ({
         url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       })
       })
-
       var vectorSource = new VectorSource({
         format: new GeoJSON(),
       });
-
     var iconFeature = new Feature({
       geometry: new Point(transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
       ),
@@ -67,7 +63,6 @@ export default {
           scale: 0.8
       }),
     });
-
     var iconStyle2 = new Style({
       image: new Icon({
         src: require(`@/assets/img/numbers/kran/blue/4.png`),
@@ -75,12 +70,10 @@ export default {
         //src: 'http://maps.google.com/mapfiles/kml/pal3/icon12.png',
       }),
     });
-
     iconFeature.setStyle(iconStyle);
     iconFeature2.setStyle(iconStyle2);
     vectorSource.addFeature(iconFeature)
     vectorSource.addFeature(iconFeature2)
-
     var vectorLayer = new VectorLayer({
       source: vectorSource,
     });
@@ -91,7 +84,6 @@ export default {
         zoom: 5,
         }),
       });
-
     var select2 = new Select({
       //condition: click
       condition:  doubleClick//singleClick
@@ -108,7 +100,6 @@ export default {
     })
     map.addInteraction(this.select)
     map.addInteraction(select2)
-
     map.addLayer(raster)
     map.addLayer(vectorLayer)
   },
@@ -117,7 +108,6 @@ export default {
       let names = selectedFeatures.getArray().map(function(feature) {return feature.get('name')})
       console.log(names)
     },
-
   bounce(t) {
     var s = 7.5625;
     var p = 2.75;
@@ -143,7 +133,6 @@ export default {
   return l;
     },
   },
-
   components: {
   }
 }
@@ -164,3 +153,4 @@ export default {
   border-radius: 20px;
 }
 </style>
+

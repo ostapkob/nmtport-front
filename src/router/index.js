@@ -11,16 +11,6 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  },
-  {
-    path: '/json',
-    name: 'Json',
-    component: () => import('../views/json.vue')
-  },
-  {
     path: '/usm',
     name: 'Usm',
     component: () => import('../views/Usm.vue')
@@ -29,11 +19,6 @@ Vue.use(VueRouter)
     path: '/krans',
     name: 'Krans',
     component: () => import('../views/Krans.vue')
-  },
-  {
-    path: '/map',
-    name: 'Map',
-    component: () => import('../views/Map.vue')
   },
   {
     path: '/mapol',
@@ -50,7 +35,7 @@ Vue.use(VueRouter)
     name: 'Archive',
     component: () => import('../views/Archive.vue')
   },
-  { path: "*", 
+  { path: "*",
     component: () => import('../views/NotFound.vue')
   },
 ]

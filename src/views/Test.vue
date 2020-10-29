@@ -1,6 +1,6 @@
 <template>
   <div>
-    <olPort />
+    <olPoligon />
     <GSAP />
   </div>
 
@@ -8,14 +8,14 @@
 
 <script>
 //import OI from "@/components/Ol-OverInfo";
-import olPort from "@/components/Ol-Select";
+import olPoligon from "@/components/test/Ol-Poligon";
 import gsap from 'gsap'
-import GSAP from '@/components/GSAP'
+import GSAP from '@/components/test/GSAP'
 
 export default {
   name: "App",
   components: {
-    olPort,
+    olPoligon,
  //   OI,
     GSAP
   },

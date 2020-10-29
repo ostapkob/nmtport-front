@@ -1,6 +1,6 @@
 <template>
   <div>
-    <olLoader class="mb-2">
+    <olMap class="mb-2">
     <!-- <olOverInfo class="ol-map"/> -->
     <template v-slot="{ map }">
       <Markers
@@ -9,8 +9,12 @@
         :map="map"
         :marker="marker">
       </Markers>
+      <Polygons
+        :map="map"
+      >
+      </Polygons>
     </template>
-    </olLoader>
+    </olMap>
     <!-- <span v-for='(m, k) in SELECTED_FEATURES' :key=k> {{m}} </span> -->
     <div v-for="mech in KRANS_DATA"
       :key='mech.id'
@@ -39,8 +43,9 @@
 //import olMap from "@/components/Ol-map";
 //import olOverInfo from "@/components/Ol-OverInfo";
 //import testMarkers from "@/components/testLastData";
-import olLoader from "@/components/Ol-Loader";
+import olMap from "@/components/Ol-Map";
 import Markers from "@/components/Ol-Markers";
+import Polygons from "@/components/Ol-Polygons";
 import {mapActions, mapGetters} from 'vuex'
 import kranProgress from '@/components/ProgressKran.vue'
 import usmProgress from '@/components/ProgressUsm.vue'
@@ -59,7 +64,8 @@ export default {
   },
   components: {
     Markers,
-    olLoader,
+    Polygons,
+    olMap,
     kranProgress,
     usmProgress,
     Hours
