@@ -52,8 +52,9 @@
 </template>
 
 <script>
-import kranProgress from '@/components/ProgressKran.vue'
-import Hours from '@/components/Hours.vue'
+const kranProgress = () => import ("@/components/ProgressKran") 
+const Hours = () => import ("@/components/Hours") 
+
 import {mapActions, mapGetters} from 'vuex'
 import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
 

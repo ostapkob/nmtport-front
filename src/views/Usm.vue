@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import usmProgress from '@/components/ProgressUsm.vue'
-import Hours from '@/components/Hours.vue'
+const usmProgress = () => import ("@/components/ProgressUsm") 
+const Hours = () => import ("@/components/Hours") 
 import {mapActions, mapGetters} from 'vuex'
 import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
 

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div id="wrapper">
-      <div ref="map" id="ol-map"> </div>
+    <div class="wrapper">
+      <div ref="map" class="ol-map"> </div>
     <!-- <div id="overlay"></div> -->
-      <b-button @click="chengeTerminal()" id='terminal' class="mt-1 mr-2" size="sm" variant="warning">
+      <b-button @click="chengeTerminal()" class="terminal" size="sm" variant="warning">
         {{nameTerminal}}
       </b-button>
     </div>
@@ -138,10 +138,11 @@ export default {
 </script>
 
 <style lang="scss">
-#ol-map {
+.ol-map {
+  position: relative;
   margin: 0;
   padding: 0;
-  height: 75vh;
+  height: 70vh;
   width: 100%;
   background: #ccc;
 }
@@ -151,12 +152,12 @@ export default {
   height: 20px;
   border-radius: 80px;
 }
-#terminal {
+.terminal {
   position: absolute;
   bottom: 2px;
   left: 2px;
 }
-#wrapper{
+.wrapper{
   position: relative
 }
 </style>

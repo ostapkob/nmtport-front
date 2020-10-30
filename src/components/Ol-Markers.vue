@@ -21,7 +21,7 @@ import "ol/ol.css";
 import Overlay from 'ol/Overlay'
 import {transform} from 'ol/proj';
 import {mapActions, mapGetters} from 'vuex'
-import { TimelineLite, TimelineMax, Back, Elastic, Expo } from "gsap"
+import { TimelineLite, TimelineMax, Back, Elastic, Expo } from "gsap/dist/gsap"
 
 export default {
   props: {

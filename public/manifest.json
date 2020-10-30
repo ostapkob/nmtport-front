@@ -1,19 +1,38 @@
 {
   "name": "NMTP SmartPort",
   "short_name": "SmartPort",
-  "lang": "en-GB",
+  "lang": "ru-RU",
   "start_url": "/",
   "display": "standalone",
+  "theme_color": "#17a2b8",
+  "background_color": "#269",
+  "name": "NMTP SmartPort",
   "icons": [
     {
-      "src": "android-icon-192x192.png",
-      "sizes": "192x192",
-      "type": "img/icons/png/"
+      "src": "icons/android-icon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png/"
     },
     {
-      "src": "apple-icon-180x180",
+      "src": "icons/android-icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png/"
+    },
+    {
+      "src": "icons/android-icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png/"
+    },
+    {
+      "src": "icons/apple-icon-180x180.png",
       "sizes": "180x180",
-      "type": "img/icons/png/"
+      "type": "image/png/"
+    },
+    {
+      "src": "icons/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png/"
     }
   ]
 }
+

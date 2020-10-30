@@ -10,7 +10,8 @@ export default new Vuex.Store({
     krans_data: [],
     usm_data: [],
     selectedFeatures: [],
-    ip:      'http://94.154.76.136',
+    ip:      'https://m1.nmtport.ru',
+    //ip:      'https://94.154.76.136',
   // ip:      'http://127.0.0.1:5000',
     last_data_api: '',
     kran_api: '',
@@ -134,6 +135,7 @@ export default new Vuex.Store({
   },
   getters: {
     LAST_DATA(state) {
+      console.log(state.ip)
       //console.log('store last_data getters');
         return state.last_data;
     },
@@ -149,4 +151,9 @@ export default new Vuex.Store({
       return state.selectedFeatures
     },
   },
-})
+  mounted() {
+  }
+}
+
+
+)

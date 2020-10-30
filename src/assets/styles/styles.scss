@@ -5,11 +5,6 @@
  font-family: 'Roboto', sans-serif, times new roman;
 }
 
-.test {
-    color: $cl;
-    background-color: blue;
-}
-
 .date-header {
     font-size: 1em;
     color: #555;
@@ -56,36 +51,6 @@
   vertical-align: middle;
   padding: 1px;
   margin: 0 8px 0 0;
-}
-.hexagon {
-  width: $hexagon-size;
-  height: $hexagon-size*0.56;
-  background: #4ab;
-  position: relative;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
-.hexagon::before {
-  content: "";
-  position: absolute;
-  top: -$hexagon-size*0.28;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: $hexagon-size*0.5 solid transparent;
-  border-right: $hexagon-size*0.5 solid transparent;
-  border-bottom: $hexagon-size*0.28 solid #4ab;
-}
-.hexagon::after {
-  content: "";
-  position: absolute;
-  bottom: -$hexagon-size*0.28;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: $hexagon-size*0.5 solid transparent;
-  border-right: $hexagon-size*0.5 solid transparent;
-  border-top: $hexagon-size*0.28 solid #4ab;
 }
 @media screen and (max-width: 765px) {
     .time-line-mech{
