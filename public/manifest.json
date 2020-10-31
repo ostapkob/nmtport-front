@@ -1,8 +1,8 @@
 {
   "name": "NMTP SmartPort",
   "short_name": "NMTPort",
-  "theme_color": "#17a2b8",
-  "background_color": "#17a2b8",
+  "theme_color": "#076A78",
+  "background_color": "#076A78",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
