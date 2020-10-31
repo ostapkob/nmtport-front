@@ -208,5 +208,6 @@ export default {
 .icon {
   z-index: 2;
   position: absolute;
+  cursor: pointer;
 }
 </style>
