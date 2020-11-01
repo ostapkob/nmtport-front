@@ -73,7 +73,7 @@ export default {
   },
   components: {
     kranProgress,
-    Hours
+    Hours,
   },
    computed: {
       ...mapGetters([

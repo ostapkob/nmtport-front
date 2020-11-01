@@ -8,43 +8,62 @@
     <!--   <router-link to="/map">Map</router-link> -->
     <!-- </div> -->
 
-<div class='mb-100'  >
-  <b-navbar toggleable="sm" type="dark" variant="info">
-    <b-navbar-brand href="/">Home</b-navbar-brand>
+<!-- <div class='mb-100'  > -->
+<!--   <b-navbar toggleable="sm" type="dark" variant="info"> -->
+<!--     <b-navbar-brand active to="/mapol">  Карта </b-navbar-brand> -->  
+<!--     <b-navbar-brand active to="/krans"> Краны </b-navbar-brand> -->  
+<!--     <b-navbar-brand active to="/usm"> УСМ </b-navbar-brand> --> 
 
-    <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
-   <b-navbar-toggle target="navbar-toggle-collapse">
-     <template v-slot:default="{ expanded }">
-       <div v-if="expanded" > /\</div>
-       <div v-else> \/ </div>
-     </template>
-   </b-navbar-toggle>
+<!--     <!-1- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -1-> -->
+<!--    <b-navbar-toggle target="navbar-toggle-collapse"> -->
+<!--      <template v-slot:default="{ expanded }"> -->
+<!--        <div v-if="expanded" > /\</div> -->
+<!--        <div v-else> \/ </div> -->
+<!--      </template> -->
+<!--    </b-navbar-toggle> -->
 
-    <b-collapse id="navbar-toggle-collapse" is-nav>
-      <b-navbar-nav>
-        <b-nav-item to="/mapol">  Карта </b-nav-item>
-        <b-nav-item to="/usm"> УСМ </b-nav-item>
-        <b-nav-item to="/krans"> Краны </b-nav-item>
-        <b-nav-item to="/archive"> Архив </b-nav-item>
-      </b-navbar-nav>
-
-      <!-- Right aligned nav items -->
-      <!-- <b-navbar-nav class="ml-auto"> -->
-      <!--   <b-nav-form> -->
-          <!-- <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input> -->
-          <!-- <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button> -->
-        <!-- </b-nav-form> -->
-
-        <!-- <b-nav-item-dropdown text="Тип" right> -->
-        <!--   <b-dropdown-item to="/json">Кран</b-dropdown-item> -->
-        <!--   <b-dropdown-item to="/about">УСМ</b-dropdown-item> -->
-        <!-- </b-nav-item-dropdown> -->
-
-      <!-- </b-navbar-nav> -->
-    </b-collapse>
-  </b-navbar>
-</div>
-    <router-view/>
+<!--     <b-collapse id="navbar-toggle-collapse" is-nav> -->
+<!--       <b-navbar-nav> -->
+<!--         <b-nav-item href="/">Растановка</b-nav-item> -->
+<!--         <!-1- <b-nav-item to="/mapol">  Карта </b-nav-item> -1-> -->
+<!--         <!-1- <b-nav-item to="/usm"> УСМ </b-nav-item> -1-> -->
+<!--         <!-1- <b-nav-item to="/krans"> Краны </b-nav-item> -1-> -->
+<!--         <b-nav-item to="/archive"> Архив </b-nav-item> -->
+<!--       </b-navbar-nav> -->
+<!--     </b-collapse> -->
+<!--   </b-navbar> -->
+<!-- </div> -->
+  <b-card title="Card Title" no-body>
+    <b-card-header header-tag="nav">
+      <b-nav card-header tabs >
+        <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
+        <b-nav-item to="/mapol" exact exact-active-class="active">Карта</b-nav-item>
+        <b-nav-item to="/usm" exact exact-active-class="active">Усм</b-nav-item>
+        <b-nav-item to="/krans" exact exact-active-class="active">Краны</b-nav-item>
+        <b-nav-item-dropdown
+          id="my-nav-dropdown"
+          left
+          >
+          <b-dropdown-item to='/'>Растановка</b-dropdown-item>
+          <b-dropdown-item to='/archive'>Архив</b-dropdown-item>
+          </b-nav-item-dropdown>
+      </b-nav>
+    </b-card-header>
+  <!-- <b-navbar type="dark" variant="info"> -->
+  <!--     <b-navbar-nav> -->
+  <!--       <b-nav-item to="/mapol" exact exact-active-class="active">Карта</b-nav-item> -->
+  <!--       <b-nav-item to="/usm" exact exact-active-class="active">Усм</b-nav-item> -->
+  <!--       <b-nav-item to="/krans" exact exact-active-class="active">Краны</b-nav-item> -->
+  <!--       <b-nav-item-dropdown left> -->
+  <!--         <b-dropdown-item to='/'>Растановка</b-dropdown-item> -->
+  <!--         <b-dropdown-item to='/archive'>Archive</b-dropdown-item> -->
+  <!--       </b-nav-item-dropdown> -->
+  <!--     </b-navbar-nav> -->
+  <!-- </b-navbar> -->
+     <div class="mb-5">
+      <router-view></router-view>
+     </div>
+  </b-card>
   </div>
 </template>
 
@@ -53,7 +72,25 @@
 <script>
 import {mapActions} from 'vuex'
 
+//import { BCollapse, BNavbar, BNavbarBrand, BNavbarNav, BNavItem, BNavbarToggle  } from 'bootstrap-vue'
+//import { BCollapse, BNavbar, BNavbarNav, BNavItem, BNavbarToggle  } from 'bootstrap-vue'
+//import {  BNavbar,  BNavbarNav, BNavItem, BDropdownItem,  BNavItemDropdown } from 'bootstrap-vue'
+import {BNav,   BDropdownItem, BNavItemDropdown, BCardHeader, BNavItem,  BCard} from 'bootstrap-vue'
+
 export default {
+  components: {
+    //BNavbar, 
+    //BNavbarNav, 
+    //BNavItem,
+    //BNavbarBrand,
+    //BNavbarToggle,
+    BNav,
+    BNavItem,
+    BCardHeader,
+    BCard,
+   BNavItemDropdown,
+   BDropdownItem
+  },
    methods: {
     ...mapActions([
             'GET_IP'

@@ -2,18 +2,28 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { BootstrapVue } from 'bootstrap-vue'
 import "@/assets/styles/styles.scss"
 
+//import { BootstrapVue } from 'bootstrap-vue'
+//Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
 
-Vue.use(BootstrapVue)
 
 import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './registerServiceWorker'
+import { BContainer, BRow, BCol, BButton} from 'bootstrap-vue'
 
+Vue.component(BContainer)
+Vue.component('b-container', BContainer)
+Vue.component('b-row', BRow)
+Vue.component('b-col', BCol)
+Vue.component('b-button', BButton)
+import { VBToggle } from 'bootstrap-vue'
+Vue.directive('b-toggle', VBToggle)
+import { VBPopover } from 'bootstrap-vue'
+Vue.directive('b-popover', VBPopover)
 
 new Vue({
   router,

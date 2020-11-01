@@ -1,5 +1,7 @@
 <template>
-  <olPort />
+  <div>
+    <olPort />
+  </div>
 </template>
 
 <script>

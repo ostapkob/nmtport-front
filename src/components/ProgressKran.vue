@@ -13,20 +13,35 @@
     <span>
     <b-badge v-show='mech.total_180>9'
       variant="primary"
-      v-b-popover.hover.top="'Количество поворотов 180° туда обратно'" 
+      :id="mech.id+'180'" 
       >
     <img class="catalog-item-img" 
       :src="require('@/assets/img/ship.png')" 
       height="18" 
       />
       {{ mech.total_180 }}
+
+        <b-tooltip 
+          :target="mech.id+'180'"
+          variant='primary'
+          >
+          Количество поворотов 180° туда обратно
+        </b-tooltip>
     </b-badge>
+
     <b-badge v-show='mech.total_90>3' 
       variant="dark" 
+      :id="mech.id+'90'" 
       class='ml-1'
-      v-b-popover.hover.top="'Количество поворотов 90° туда обратно'" >
+      >
       <img class="catalog-item-img" :src="require('@/assets/img/vagon.png')" height="18" />
       {{ mech.total_90 }}
+        <b-tooltip 
+          :target="mech.id+'90'"
+          variant='dark'
+          >
+          Количество поворотов 90° туда обратно
+        </b-tooltip>
     </b-badge>
     </span>
   </b-list-group-item>
@@ -56,10 +71,21 @@
 </template>
 
 <script>
+import { BTooltip, BBadge, BProgress, BProgressBar, BListGroup, BListGroupItem } from 'bootstrap-vue'
+
 export default {
   name: 'KranProgress',
   props: {
     mech: Object
+  },
+  components: {
+    BProgress,
+    BProgressBar,
+    BTooltip,
+    BBadge,
+    BListGroup,
+    BListGroupItem 
+
   },
     data() {
         return {

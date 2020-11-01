@@ -66,8 +66,15 @@
 </template>
 
 <script>
+import { BCard, BCardGroup, BCardText } from 'bootstrap-vue'
 export default {
   name: 'HelloWorld',
+  components: {
+    BCard,
+    BCardGroup, 
+    BCardText, 
+  },
+
   props: {
     msg: String
   }

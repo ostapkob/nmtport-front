@@ -5,28 +5,46 @@
     <div  class='icon-usm'> 
     <strong>{{ mech.number }} </strong>
     </div>     
-
     <span class="mr-auto">
       <small :class="{'fioBrigada': mech.contract==1, 'fioContract': mech.contract==0}"> {{mech.fio}} </small>
       <small class="time-start-finish" v-if='mech.start'> {{mech.start}} - {{mech.finish}} </small>
     </span>
     <span class="text-left">
       <b-badge variant="dark ml-2"
-       v-b-popover.hover.top="'Время нахождения угля на ленте'" 
+          :id="mech.id+'coalTime'" 
         > 
           {{ mech.time_coal }}
+        <b-tooltip 
+          :target="mech.id+'coalTime'"
+          variant='dark'
+          >
+           Время нахождения угля на ленте часах
+        </b-tooltip>
       </b-badge>
       <b-badge variant="primary ml-2"
-       v-b-popover.hover.top="'Время работы в минутах'" 
+          :id="mech.id+'workTime'" 
         > 
           {{ mech.work_time }}
+        <b-tooltip 
+          :target="mech.id+'workTime'"
+          variant='primary'
+          >
+          Время работы в часах
+        </b-tooltip>
       </b-badge>
       <b-badge variant="warning ml-2"
-       v-b-popover.hover.top="'Время простоя в минутах'" 
+          :id="mech.id+'notWork'" 
         > 
           {{ Math.round((mech.total_time - mech.work_time)*10)/10 }}
+        <b-tooltip 
+          :target="mech.id+'notWork'"
+          variant='warning'
+          >
+         Время простоя в часах
+        </b-tooltip>
       </b-badge>
     </span>
+
   </b-list-group-item>
  </b-list-group>
  
@@ -54,6 +72,8 @@
 </template>
 
 <script>
+import { BTooltip, BBadge, BProgress, BProgressBar, BListGroup, BListGroupItem } from 'bootstrap-vue'
+
 export default {
   name: 'UsmProgress',
   props: {
@@ -62,6 +82,14 @@ export default {
     data() {
         return {
         }
+    },
+    components: {
+      BProgress,
+      BProgressBar,
+      BTooltip,
+      BBadge,
+      BListGroup,
+      BListGroupItem 
     },
     methods: {
         showSteps: function(timeStep, typeStep, totalStep) {
