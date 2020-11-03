@@ -10,8 +10,9 @@ export default new Vuex.Store({
     krans_data: [],
     usm_data: [],
     selectedFeatures: [],
-    ip:      'https://m1.nmtport.ru',
-    //ip:      'https://94.154.76.136',
+    // ip:'http://m1.nmtport.ru',
+    ip:'https://m1.nmtport.ru',
+     // ip:      'http://94.154.76.136',
   // ip:      'http://127.0.0.1:5000',
     last_data_api: '',
     kran_api: '',
@@ -47,7 +48,7 @@ export default new Vuex.Store({
       state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio/usm/' + date + '/' + shift
     },
     CHANGE_IP: (state) => {
-      state.last_data_api = state.ip + '/api/v1.0/all_last_data_state'
+      state.last_data_api = state.ip + '/api/v1.0/get_all_last_data_state'
       state.kran_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/kran'
       state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/usm'
       //  console.log('CHANGE_IP')
