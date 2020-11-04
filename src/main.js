@@ -15,6 +15,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './registerServiceWorker'
 import { BContainer, BRow, BCol, BButton} from 'bootstrap-vue'
 
+
 Vue.component(BContainer)
 Vue.component('b-container', BContainer)
 Vue.component('b-row', BRow)

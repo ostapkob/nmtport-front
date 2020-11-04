@@ -29,7 +29,7 @@ import View from "ol/View";
 //import {OSM } from 'ol/source';
 import {transform} from 'ol/proj';
 import {DragRotateAndZoom} from 'ol/interaction';
-import {FullScreen} from 'ol/control';
+//import {FullScreen} from 'ol/control';
 import {Tile as TileLayer } from 'ol/layer';
 //import upAndDown from 'ol/easing'
 import XYZ from 'ol/source/XYZ';
@@ -69,14 +69,14 @@ export default {
 
       let center = transform([132.8896, 42.8128], 'EPSG:4326', 'EPSG:3857')
       let rotationMap
-      this.screenWidth>400 ? rotationMap = Math.PI / 2.71 : rotationMap = 0
+      this.screenWidth>450 ? rotationMap = Math.PI / 2.71 : rotationMap = 0
       this.view = new View({
         center: center,
         rotation: rotationMap,
         zoom: 16
       })
       let interaction = new DragRotateAndZoom();
-      let control = new FullScreen();
+      //let control = new FullScreen();
       //let overlay = new Overlay({
       //  position: center,
        // element: document.getElementById('overlay')
@@ -86,7 +86,7 @@ export default {
         target: this.$refs['map'],
         layers: [layer],
         interaction: [interaction],
-        control: [control],
+//        control: [control],
         //overlay: [overlay],
         view: this.view,
       })

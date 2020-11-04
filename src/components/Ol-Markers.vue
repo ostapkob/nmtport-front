@@ -1,23 +1,18 @@
 <template>
   <div>
-    <!-- <b-button @click=nowSelectedFeatures class='mt-1'> -->
-      <!-- {{marker.name}} -->
-    <!-- </b-button> -->
-    <!-- <b-button @click="alarm(true)" class='mt-1 ml-1' variant="info"> -->
-    <!--   {{marker.name}} -->
-    <!-- :src="require('@/assets/img/ship.png')" --> 
-       <!-- :src='require(`@/${this.path}${this.getIcon()}`)' -->
-       <!-- :src="require(`@/${this.pathIcon}`)" -->
-       <!-- :src="require('@/assets/img/numbers/usm/blue/2.png')" -->
-       <!-- :src="require(`@/${pathIcon}`)" -->
-    <!-- </b-button> -->
     <div ref="wrapperIcon" class="wrapper-icon">
       <div ref="circleIcon" class="circle-icon" > </div>
-      <img ref="mechIcon"
-       class="mech-icon"
-       @click="clickMarker"
-       :src='require(`@/${this.path}${this.getIcon()}`)'
-       />
+      <div ref='mechIcon'
+        :class=getIconCss() 
+        @click="clickMarker"
+        >
+        {{marker.number}}
+      </div>
+      <!-- <img ref="mechIcon" -->
+      <!--  class="mech-icon" -->
+      <!--  @click="clickMarker" -->
+      <!--  :src='require(`@/${this.path}${this.getIcon()}`)' -->
+      <!--  /> -->
     </div>
   </div>
 </template>
@@ -136,7 +131,48 @@ export default {
       ease: Elastic.easeOut(2.5, 0.5),
     })
   },
-  getIcon() {
+  getIconCss() {
+    let state = this.marker.state
+    let type = this.marker.type
+    if (type=='kran') {   // 123
+      if (state=='180'){
+        return `${type}-icon-blue`
+      }
+      else if (state=='90_1' || state=='90_2'){
+        return `${type}-icon-black`
+      }
+      else if (state=='stay'){
+        return `${type}-icon-yellow`
+      }
+      else if (state=='no_power'){
+        return `${type}-icon-red`
+      }
+      else if (state=='long_no_power'){
+        return `${type}-icon-gray`
+      }
+      else {
+        return `${type}-icon-green`
+      }
+    }
+    if (type=='usm') {
+      if (state=='work'){
+        return `${type}-icon-blue`
+      }
+      else if (state=='stay'){
+        return `${type}-icon-yellow`
+      }
+      else if (state=='no_power'){
+        return `${type}-icon-red`
+      }
+      else if (state=='long_no_power'){
+        return `${type}-icon-gray`
+      }
+      else {
+        return `${type}-icon-green`
+      }
+    }
+  },
+  getIconImg() {
     let state = this.marker.state
     let type = this.marker.type
     let num = this.marker.number
