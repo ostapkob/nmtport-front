@@ -13,6 +13,7 @@
         :map="map"
       >
       </Polygons>
+    <SlideBar />
     </template>
     </olMap>
     <!-- <span v-for='(m, k) in SELECTED_FEATURES' :key=k> {{m}} </span> -->
@@ -43,6 +44,7 @@
 //import olMap from "@/components/Ol-map";
 //import olOverInfo from "@/components/Ol-OverInfo";
 //import testMarkers from "@/components/testLastData";
+
 import olMap from "@/components/Ol-Map";
 import Markers from "@/components/Ol-Markers";
 import Polygons from "@/components/Ol-Polygons";
@@ -51,6 +53,7 @@ import kranProgress from '@/components/ProgressKran.vue'
 import usmProgress from '@/components/ProgressUsm.vue'
 import Hours from '@/components/Hours.vue'
 import {shiftNow, dateNow, hoursProgress} from '@/functions/functions';
+import SlideBar from '@/components/SlideBar'
 
 export default {
   name: "App",
@@ -68,7 +71,8 @@ export default {
     olMap,
     kranProgress,
     usmProgress,
-    Hours
+    Hours,
+    SlideBar,
   },
   methods: {
     ...mapActions([

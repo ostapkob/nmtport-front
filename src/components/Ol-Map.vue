@@ -6,6 +6,8 @@
       <b-button @click="chengeTerminal()" class="terminal" size="sm" variant="warning">
         {{nameTerminal}}
       </b-button>
+      
+    <b-button v-b-toggle.sidebar class="slidebar" size="sm">Легенда</b-button>
     </div>
   <!-- <b-button @click="showMap()" class='mt-1' size="sm" variant="info"> -->
   <!--   showMap -->
@@ -152,6 +154,11 @@ export default {
   width: 20px;
   height: 20px;
   border-radius: 80px;
+}
+.slidebar {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
 }
 .terminal {
   position: absolute;

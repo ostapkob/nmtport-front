@@ -10,13 +10,13 @@ import "@/assets/styles/styles.scss"
 Vue.config.productionTip = false
 
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './registerServiceWorker'
 import { BContainer, BRow, BCol, BButton} from 'bootstrap-vue'
 
 
-Vue.component(BContainer)
+// Vue.component(BContainer)
 Vue.component('b-container', BContainer)
 Vue.component('b-row', BRow)
 Vue.component('b-col', BCol)
