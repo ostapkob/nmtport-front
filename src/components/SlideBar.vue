@@ -78,7 +78,10 @@
       </b-row>
     </b-container>
 
-    <b-button variant="danger" class="mt-4" block @click="hide">Закрыть</b-button>
+    <b-button variant="danger" class="mt-4 mb-4" block @click="hide">Закрыть</b-button>
+    <small class='text-left ml-1'>
+      На механизмы можно кликать, если нужно выбрать несколько, кликайте с зажатой клавишей Shift
+    </small>
   </template>
 </b-sidebar>
 </div>

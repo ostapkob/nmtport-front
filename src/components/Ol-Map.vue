@@ -7,7 +7,7 @@
         {{nameTerminal}}
       </b-button>
       
-    <b-button v-b-toggle.sidebar class="slidebar" size="sm">Легенда</b-button>
+    <b-button v-b-toggle.sidebar class="slidebar" size="sm" variant="success">Легенда</b-button>
     </div>
   <!-- <b-button @click="showMap()" class='mt-1' size="sm" variant="info"> -->
   <!--   showMap -->

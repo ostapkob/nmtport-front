@@ -94,7 +94,12 @@ export default {
     methods: {
         showSteps: function(timeStep, typeStep, totalStep) {
             if (typeStep == 1 || typeStep == 3) {
+              if (totalStep === undefined){
+                return `c ${timeStep} -  ${this.mech.time_coal} часов уголь на ленте `
+              }
+              else {
                 return `c ${timeStep} -  ${totalStep} часов уголь на ленте `
+                }
             }
             if (typeStep == 0) {
                 return `c ${timeStep} - Простой`

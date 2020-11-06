@@ -60,21 +60,18 @@
           </b-card>
       </b-card-group>
     </div>
-    <SlideBar />
   </div>
 </div>
 </template>
 
 <script>
 import { BCard, BCardGroup, BCardText } from 'bootstrap-vue'
-import SlideBar from '@/components/SlideBar'
 export default {
   name: 'HelloWorld',
   components: {
     BCard,
     BCardGroup, 
     BCardText, 
-    SlideBar,
   },
 
   props: {
