@@ -8,6 +8,7 @@
           size="sm"
           variant="outline-info"
           @click="backDateShift()"
+          class = 'shadow-sm'
           >
           &lsaquo;
         </b-button>
@@ -24,7 +25,7 @@
         <b-button size="sm"
           variant="outline-info"
           @click="nextDateShift()"
-          class='mr-2'
+          class='mr-2 shadow-sm'
           v-show='!(date==dateNow && shift==shiftNow)'
           >
           &rsaquo;
@@ -32,6 +33,7 @@
         <b-button size="sm"
           variant="outline-info"
           @click="nowDateShift()"
+          class = 'shadow-sm'
           v-show='!(date==dateNow && shift==shiftNow)'
           >
           &raquo;

@@ -8,6 +8,7 @@
           size="sm"
           variant="outline-info"
           @click="backDateShift()"
+          class = 'shadow-sm'
           >
           &lsaquo;
         </b-button>
@@ -24,13 +25,14 @@
         <b-button size="sm"
           variant="outline-info"
           @click="nextDateShift()"
-          class='mr-2'
+          class='mr-2 shadow-sm'
           v-show='!(date==dateNow && shift==shiftNow)'
           >
           &rsaquo;
         </b-button>
         <b-button size="sm"
           variant="outline-info"
+          class = 'shadow-sm'
           @click="nowDateShift()"
           v-show='!(date==dateNow && shift==shiftNow)'
           >
@@ -115,8 +117,8 @@ export default {
        this.SET_USM_API([this.date, this.shift])
      },
      nowDateShift() {
-        this.shift = shiftNow()
-        this.date = dateNow()
+       this.shift = shiftNow()
+       this.date = dateNow()
        this.SET_USM_API([this.date, this.shift])
      },
     },
@@ -130,12 +132,13 @@ export default {
         this.GET_USM_DATA()
     },
     watch: {
-    shift: function () {
-      this.SET_USM_API([this.date, this.shift])
-      this.$store.dispatch('GET_USM_DATA');
-      this.shiftNow = shiftNow()
-      this.dateNow = dateNow()
-    }
+      shift: function () {
+        this.SET_USM_API([this.date, this.shift])
+        this.GET_USM_DATA()
+        //this.$store.dispatch('GET_USM_DATA');
+        this.shiftNow = shiftNow()
+        this.dateNow = dateNow()
+      }
   },
     beforeDestroy () {
        clearInterval(this.polling)

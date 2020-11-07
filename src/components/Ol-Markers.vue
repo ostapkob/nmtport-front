@@ -47,6 +47,8 @@ export default {
    },
   mounted() {
     this.newMarker()
+    this.changePosition()
+    this.alarm(this.marker.alarm)
 		//this.SET_SELECTED_FEATURES([])
   },
   methods: {
@@ -78,7 +80,7 @@ export default {
       this.polling = setInterval(() => {
         this.changePosition()
         this.alarm(this.marker.alarm)
-      }, 15000)
+      }, 20000)
     },
     changePosition() {
       let position=transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')
@@ -89,7 +91,7 @@ export default {
     if (val) {
       const {mechIcon, circleIcon} = this.$refs
       const timeline = new TimelineMax({
-        repeat: 3
+        repeat: 2
       })
       timeline.to (mechIcon, 0.4, {
         scale: 1.8,

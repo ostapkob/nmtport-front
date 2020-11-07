@@ -29,7 +29,7 @@
         </b-tooltip>
     </b-badge>
 
-    <b-badge v-show='mech.total_90>3' 
+    <b-badge v-show='mech.total_90>13' 
       variant="dark" 
       :id="mech.id+'90'" 
       class='ml-1'
@@ -62,7 +62,7 @@
               >
               {{showSteps(item.time, item.value, item.total)}}
             </b-tooltip>
-            <div v-show="item.step>25" class="time-in-progress text-left">
+            <div v-show="item.step>20" class="time-in-progress text-left">
                 {{item.time}}
             </div>
         </b-progress-bar>

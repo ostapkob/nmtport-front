@@ -87,7 +87,7 @@ export default {
       this.date = dateNow()
       this.SET_KRANS_API([this.date, this.shift])
       this.SET_USM_API([this.date, this.shift])
-		}, 10000)
+		}, 20000)
     },
   },
   computed: {
