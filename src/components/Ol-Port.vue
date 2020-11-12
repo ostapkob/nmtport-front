@@ -7,6 +7,7 @@
         v-for="marker in LAST_DATA"
         :key="marker.id"
         :map="map"
+        :isFocus="isFocus"
         :marker="marker">
       </Markers>
       <Polygons
@@ -52,7 +53,7 @@ import {mapActions, mapGetters} from 'vuex'
 import kranProgress from '@/components/ProgressKran.vue'
 import usmProgress from '@/components/ProgressUsm.vue'
 import Hours from '@/components/Hours.vue'
-import {shiftNow, dateNow, hoursProgress} from '@/functions/functions';
+import {shiftNow, dateNow, hoursProgress, isVisible } from '@/functions/functions';
 import SlideBar from '@/components/SlideBar'
 
 export default {
@@ -63,6 +64,7 @@ export default {
       shift: 1,
       date: '-',
       hours: '',
+      isFocus: null,
     };
   },
   components: {
@@ -87,6 +89,7 @@ export default {
       this.date = dateNow()
       this.SET_KRANS_API([this.date, this.shift])
       this.SET_USM_API([this.date, this.shift])
+      this.isFocus=isVisible()
 		}, 20000)
     },
   },
@@ -99,6 +102,7 @@ export default {
       ]),
   },
   mounted() {
+    this.isFocus=isVisible()
     this.GET_LAST_DATA()
     this.shift = shiftNow()
     this.date = dateNow()
@@ -109,8 +113,8 @@ export default {
   created () {
     this.pollData()
   },
-   beforeDestroy () {
-       clearInterval(this.polling)
+  beforeDestroy () {
+    clearInterval(this.polling)
    },
 }
 </script>

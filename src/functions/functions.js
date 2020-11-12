@@ -78,4 +78,32 @@ export function  getIcons(state, type, num) {
   }
 }
 
+export function  isVisible() {
+  var hidden, visibilityChange; 
+  if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support 
+    hidden = "hidden";
+    visibilityChange = "visibilitychange";
+  } else if (typeof document.msHidden !== "undefined") {
+    hidden = "msHidden";
+    visibilityChange = "msvisibilitychange";
+  } else if (typeof document.webkitHidden !== "undefined") {
+    hidden = "webkitHidden";
+    visibilityChange = "webkitvisibilitychange";
+  }
+  function handleVisibilityChange() {
+    if (document[hidden]) {
+      return false
+    } else {
+      return true
+    }
+  }
+  // Warn if the browser doesn't support addEventListener or the Page Visibility API
+  if (typeof document.addEventListener === "undefined" || hidden === undefined) {
+      console.log("This  Visibility API");
+  } else {
+    document.addEventListener(visibilityChange, handleVisibilityChange, false);
+  }
+    return handleVisibilityChange()
+}
+
 

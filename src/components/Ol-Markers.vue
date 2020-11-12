@@ -25,6 +25,11 @@ import { TimelineLite, TimelineMax, Back, Elastic, Expo } from "gsap/dist/gsap"
 
 export default {
   props: {
+    isFocus: {
+      default() {
+        return null
+      }
+    },
     marker: {
       default() {
         return []
@@ -40,9 +45,10 @@ export default {
    data() {
      return {
       path: 'assets/img/numbers/',
-      polling: null,
+      poll: null,
       overlayIcon: null,
       overlayCircle: null,
+      timeline: null
      }
    },
   mounted() {
@@ -63,7 +69,6 @@ export default {
         'SET_SELECTED_FEATURES'
     ]),
     clickMarker() {
-      console.log(this.marker.id)
       if (event.shiftKey) {
         let nowSelect = this.SELECTED_FEATURES
         if (!nowSelect.includes(this.marker.id)) {
@@ -74,10 +79,10 @@ export default {
       else {
         this.SET_SELECTED_FEATURES( [this.marker.id] )
       }
-      this.pulse()
+      this.push()
     },
     pollData () {
-      this.polling = setInterval(() => {
+      this.poll = setInterval(() => {
         this.changePosition()
         this.alarm(this.marker.alarm)
       }, 20000)
@@ -87,12 +92,12 @@ export default {
       this.overlayIcon.setPosition(position)
     },
 
-  alarm(val) {
-    if (val) {
-      const {mechIcon, circleIcon} = this.$refs
+  alarm(markerAlarm) {
+    if (markerAlarm && this.isFocus) {
       const timeline = new TimelineMax({
-        repeat: 2
+        repeat: 3 
       })
+      const {mechIcon, circleIcon} = this.$refs
       timeline.to (mechIcon, 0.4, {
         scale: 1.8,
         rotation: 16,
@@ -120,7 +125,7 @@ export default {
     }
 
   },
-  pulse() {
+  push() {
     const {mechIcon} = this.$refs
     const timeline = new TimelineLite({
     })
@@ -174,50 +179,11 @@ export default {
       }
     }
   },
-  getIconImg() {
-    let state = this.marker.state
-    let type = this.marker.type
-    let num = this.marker.number
-    if (type=='kran') {   // 123
-      if (state=='180'){
-        return `${type}/blue/${num}.png`
-      }
-      else if (state=='90_1' || state=='90_2'){
-        return `${type}/black/${num}.png`
-      }
-      else if (state=='stay'){
-        return `${type}/yellow/${num}.png`
-      }
-      else if (state=='no_power'){
-        return `${type}/red/${num}.png`
-      }
-      else if (state=='long_no_power'){
-        return `${type}/gray/${num}.png`
-      }
-      else {
-        return `${type}/green/${num}.png`
-      }
-    }
-    if (type=='usm') {
-      if (state=='work'){
-        return `${type}/blue/${num}.png`
-      }
-      else if (state=='stay'){
-        return `${type}/yellow/${num}.png`
-      }
-      else if (state=='no_power'){
-        return `${type}/red/${num}.png`
-      }
-      else if (state=='long_no_power'){
-        return `${type}/gray/${num}.png`
-      }
-      else {
-        return `${type}/green/${num}.png`
-      }
-    }
-  },
 
   },
+   beforeDestroy () {
+       clearInterval(this.poll)
+   },
    created () {
        this.pollData()
    },

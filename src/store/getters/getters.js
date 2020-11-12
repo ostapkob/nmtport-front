@@ -1,6 +1,6 @@
 export default {
     LAST_DATA(state) {
-      console.log(state.ip)
+      //console.log(state.ip)
       //console.log('store last_data getters');
         return state.last_data;
     },

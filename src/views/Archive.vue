@@ -38,6 +38,7 @@
         <b-button v-b-popover.hover.top="'I am popover directive content!'" title="Popover Title"> Ok </b-button>
         <br />
         Пока не работает
+        {{isFocus}}
 </div>
 </template>
 
@@ -51,12 +52,8 @@ export default {
     date: '',
     shift: 1,
     type_mech: '',
+    isFocus: false,
     }
-  },
-  methods: {
-    onContext(ctx) {
-    this.context = ctx
-    },
   },
   components: {
     BFormDatepicker,
@@ -64,6 +61,30 @@ export default {
     BFormRadio,
     //BPopover 
   },
+  methods: {
+    onContext(ctx) {
+    this.context = ctx
+    },
+    changeIsFocus() {
+        console.log(Date(), 'Focus')
+    },
+
+    focusBlur() {
+        console.log(Date(), 'Blur')
+    }
+  },
+  mounted() {
+    this.$nextTick(function() {
+      window.addEventListener('focus', this.changeIsFocus);
+      window.addEventListener('blur', this.focusBlur);
+    })
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('focus', this.changeIsFocus);
+    window.removeEventListener('blur', this.focusBlur);
+  },
+
 }
 </script>
 
