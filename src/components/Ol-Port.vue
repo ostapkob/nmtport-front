@@ -84,13 +84,18 @@ export default {
     ]),
 	pollData () {
 		this.polling = setInterval(() => {
-			this.$store.dispatch('GET_LAST_DATA')
+			//this.$store.dispatch('GET_LAST_DATA')
+      this.GET_LAST_DATA()
       this.shift = shiftNow()
       this.date = dateNow()
       this.SET_KRANS_API([this.date, this.shift])
       this.SET_USM_API([this.date, this.shift])
       this.isFocus=isVisible()
 		}, 20000)
+  },
+    focusTrue() {
+      console.log(Date(), 'Focus')
+      this.GET_LAST_DATA()
     },
   },
   computed: {
@@ -102,20 +107,27 @@ export default {
       ]),
   },
   mounted() {
-    this.isFocus=isVisible()
     this.GET_LAST_DATA()
     this.shift = shiftNow()
     this.date = dateNow()
     this.hours = hoursProgress(shiftNow())
     this.SET_KRANS_API([this.date, this.shift])
     this.SET_USM_API([this.date, this.shift])
+    this.isFocus=isVisible()
+    this.$nextTick(function() {
+      window.addEventListener('focus', this.focusTrue);
+      //window.addEventListener('blur', this.focusFalse);
+    })
   },
   created () {
     this.pollData()
   },
   beforeDestroy () {
     clearInterval(this.polling)
+    window.removeEventListener('focus', this.focusTrue);
+    //window.removeEventListener('blur', this.focusFalse);
    },
+
 }
 </script>
 

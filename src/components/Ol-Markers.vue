@@ -48,7 +48,6 @@ export default {
       poll: null,
       overlayIcon: null,
       overlayCircle: null,
-      timeline: null
      }
    },
   mounted() {
@@ -81,12 +80,12 @@ export default {
       }
       this.push()
     },
-    pollData () {
-      this.poll = setInterval(() => {
-        this.changePosition()
-        this.alarm(this.marker.alarm)
-      }, 20000)
-    },
+//    pollData () {
+//      this.poll = setInterval(() => {
+//        this.changePosition()
+//        this.alarm(this.marker.alarm)
+//      }, 20000)
+//    },
     changePosition() {
       let position=transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')
       this.overlayIcon.setPosition(position)
@@ -185,13 +184,19 @@ export default {
        clearInterval(this.poll)
    },
    created () {
-       this.pollData()
+       //this.pollData()
    },
   computed: {
     ...mapGetters([
         'SELECTED_FEATURES'
         ]),
   },
+  watch: {
+    marker: function() {
+      this.changePosition()
+      this.alarm(this.marker.alarm)
+    }
+  }
 }
 </script>
 <style>
