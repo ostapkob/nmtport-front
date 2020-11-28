@@ -130,6 +130,10 @@ export default {
         this.hours = hoursProgress(shiftNow())
         this.SET_USM_API([this.date, this.shift])
         this.GET_USM_DATA()
+        this.$nextTick(function() {
+        this.SET_USM_API([dateNow(), shiftNow()])
+          window.addEventListener('focus', this.GET_USM_DATA); // if focus get data
+        })
     },
     watch: {
       shift: function () {
@@ -142,6 +146,7 @@ export default {
   },
     beforeDestroy () {
        clearInterval(this.polling)
+       window.removeEventListener('focus', this.GET_USM_DATA);
     },
     created() {
        this.pollData()

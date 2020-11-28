@@ -64,7 +64,7 @@ export default {
       shift: 1,
       date: '-',
       hours: '',
-      isFocus: null,
+      isFocus: null, // animate only focus
     };
   },
   components: {
@@ -93,10 +93,10 @@ export default {
       this.isFocus=isVisible()
 		}, 20000)
   },
-    focusTrue() {
-      console.log(Date(), 'Focus')
-      this.GET_LAST_DATA()
-    },
+//    focusTrue() {
+//      console.log(Date(), 'Focus')
+//      this.GET_LAST_DATA()
+//    },
   },
   computed: {
     ...mapGetters([
@@ -115,7 +115,7 @@ export default {
     this.SET_USM_API([this.date, this.shift])
     this.isFocus=isVisible()
     this.$nextTick(function() {
-      window.addEventListener('focus', this.focusTrue);
+      window.addEventListener('focus', this.GET_LAST_DATA);
       //window.addEventListener('blur', this.focusFalse);
     })
   },
@@ -124,7 +124,7 @@ export default {
   },
   beforeDestroy () {
     clearInterval(this.polling)
-    window.removeEventListener('focus', this.focusTrue);
+    window.removeEventListener('focus', this.GET_LAST_DATA);
     //window.removeEventListener('blur', this.focusFalse);
    },
 

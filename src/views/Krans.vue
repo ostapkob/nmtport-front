@@ -133,6 +133,10 @@ export default {
         this.SET_KRANS_API([this.date, this.shift])
         this.GET_KRANS_DATA()
 
+        this.$nextTick(function() {
+        this.SET_KRANS_API([dateNow(), shiftNow()])
+          window.addEventListener('focus', this.GET_KRANS_DATA); // if focus get data
+        })
     },
   watch: {
     shift: function () {
@@ -145,6 +149,7 @@ export default {
 
     beforeDestroy () {
       clearInterval(this.polling)
+      window.removeEventListener('focus', this.GET_KRANS_DATA);
     },
     created() {
        this.pollData()

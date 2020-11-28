@@ -13,6 +13,7 @@ Vue.use(VueRouter)
   {
     path: '/usm',
     name: 'Usm',
+    // beforeEnter: true,
     component: () => import('../views/Usm.vue')
   },
   {
