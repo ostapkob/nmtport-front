@@ -60,7 +60,7 @@
               :target="mech.id+'-'+key" 
               :variant="colorProgress(item.value)"
               >
-              {{showSteps(item.time, item.value, item.total)}}
+              {{showSteps(item.time, timeTo(key, mech.data) , item.value, item.total)}}
             </b-tooltip>
             <div v-show="item.step>20" class="time-in-progress text-left">
                 {{item.time}}
@@ -97,7 +97,7 @@ export default {
         }
     },
     methods: {
-        showSteps: function(timeStep, typeStep, totalStep) {
+        showSteps: function(timeStep, timeTo, typeStep, totalStep) {
             if (typeStep == 2) {
                 return `c ${timeStep} - ${totalStep} поворотов по 180°`
             }
@@ -105,10 +105,10 @@ export default {
                 return `c ${timeStep} -  ${totalStep} поворотов по 90°`
             }
             if (typeStep == 0) {
-                return `c ${timeStep} - Простой`
+              return `c ${timeStep} по ${timeTo} - Простой`
             }
             if (typeStep == -1) {
-                return `c ${timeStep} - Нет питания⚡`
+              return `c ${timeStep}  по ${timeTo} - Нет питания⚡`
             }
             return ''
         },
@@ -135,8 +135,13 @@ export default {
             }
             return resultColor
             },
+      timeTo(key, data) {
+        let newKey = parseInt(key) + 1
+        return (data[newKey] === undefined) ? '' : data[newKey]['time']
+      }
     },
     computed:  {
+
     },
     mounted() {
         //console.log('kran mounted')

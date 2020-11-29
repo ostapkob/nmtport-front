@@ -61,7 +61,7 @@
               :target="mech.id+'-'+key" 
               :variant="colorProgress(item.value)"
               >
-              {{showSteps(item.time, item.value, item.time_coal)}}
+              {{showSteps(item.time, timeTo(key, mech.data), item.value, item.time_coal)}}
             </b-tooltip>
             <div v-show="item.step>25" class="time-in-progress text-left">
                 {{item.time}}
@@ -92,7 +92,7 @@ export default {
       BListGroupItem 
     },
     methods: {
-        showSteps: function(timeStep, typeStep, totalStep) {
+        showSteps: function(timeStep, timeTo, typeStep, totalStep) {
             if (typeStep == 1 || typeStep == 3) {
               if (totalStep === undefined){
                 return `c ${timeStep} -  ${this.mech.time_coal} часов уголь на ленте `
@@ -102,10 +102,10 @@ export default {
                 }
             }
             if (typeStep == 0) {
-                return `c ${timeStep} - Простой`
+              return `c ${timeStep} по ${timeTo} - Простой`
             }
             if (typeStep == -1) {
-                return `c ${timeStep} - Нет питания⚡`
+              return `c ${timeStep}  по ${timeTo} - Нет питания⚡`
             }
             return ''
         },
@@ -129,6 +129,10 @@ export default {
             }
             return resultColor 
             },
+      timeTo(key, data) {
+        let newKey = parseInt(key) + 1
+        return (data[newKey] === undefined) ? '' : data[newKey]['time']
+      }
     },
     computed:  {
     },
