@@ -6,7 +6,7 @@
       <b-col  class='text-right  pr-0'>
         <b-button
           size="sm"
-          variant="outline-info"
+          variant="outline-secondary"
           @click="backDateShift()"
           class = 'shadow-sm'
           >
@@ -14,16 +14,32 @@
         </b-button>
       </b-col>
 
+
       <b-col cols="6" class="text-left pl-0 pr-0">
         <div class="date-header">
-        дата: <strong>{{ date }}</strong>  смена:
+
+        <b-form-datepicker 
+          button-only 
+          id="example-datepicker" 
+          size='sm'  
+          v-model="dateCal"
+          class="mr-3"
+          selected-variant='info'
+          nav-button-variant='info'
+          today-variant='info'
+          locale="ru-RU"
+          start-weekday=1
+          >
+        </b-form-datepicker>
+
+        <strong>{{ date }}</strong>  смена:
         <strong>{{ shift }}</strong>
         </div>
       </b-col>
 
       <b-col  class="text-left pl-0" >
         <b-button size="sm"
-          variant="outline-info"
+          variant="outline-secondary"
           @click="nextDateShift()"
           class='mr-2 shadow-sm'
           v-show='!(date==dateNow && shift==shiftNow)'
@@ -31,7 +47,7 @@
           &rsaquo;
         </b-button>
         <b-button size="sm"
-          variant="outline-info"
+          variant="outline-secondary"
           @click="nowDateShift()"
           class = 'shadow-sm'
           v-show='!(date==dateNow && shift==shiftNow)'
@@ -50,6 +66,11 @@
     <Hours :shift='shift' />
   </div>
 
+  <div>
+    <span id="bug" variant="primary" class='bug-tooltip'>.</span>
+    <b-tooltip show target="bug" variant='light' >.</b-tooltip>
+  </div>
+
 </div>
 </template>
 
@@ -59,10 +80,11 @@ const Hours = () => import ("@/components/Hours")
 
 import {mapActions, mapGetters} from 'vuex'
 import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
+import { BTooltip} from 'bootstrap-vue'
+import { BFormDatepicker } from 'bootstrap-vue'
 
 export default {
   name: 'Krans',
-  msg: "text",
   data() {
     return {
         shift: 1,
@@ -70,12 +92,15 @@ export default {
         shiftNow: 1,
         dateNow: '-',
         hours: '',
-        polling: null
+        polling: null,
+        dateCal: dateNow(),
     }
   },
   components: {
     kranProgress,
     Hours,
+    BTooltip,
+    BFormDatepicker,
   },
    computed: {
       ...mapGetters([
@@ -144,6 +169,16 @@ export default {
       this.$store.dispatch('GET_KRANS_DATA');
       this.shiftNow = shiftNow()
       this.dateNow = dateNow()
+      console.log(this.date, this.dateCal, this.shift)
+
+    },
+
+    dateCal: function () {
+      this.date = this.dateCal.split('-').reverse().join('.')
+      this.shift = 1
+      console.log(this.dateCal)
+      this.SET_KRANS_API([this.date, this.shift])
+      this.$store.dispatch('GET_KRANS_DATA');
     }
   },
 

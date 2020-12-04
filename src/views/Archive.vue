@@ -7,15 +7,26 @@
         <!--   locale="ru-RU" -->
         <!--   > -->
         <!-- </b-calendar> -->
+<template>
+  <div>
+    <label for="example-datepicker">Choose a date</label>
+    <b-form-datepicker button-only id="example-datepicker" v-model="value">
+    </b-form-datepicker>
+    <p>Value: '{{ value }}'</p>
+  </div>
+</template>
 
+        {{date}}
         <b-form-datepicker 
           id="choose-date" 
           v-model="date" 
           class="mb-2"
+           
           placeholder="Выбери дату"
           locale="ru-RU"
           start-weekday=1
-          ></b-form-datepicker>
+          > </b-form-datepicker>
+
         <!-- <label for="choose-shif">Choose a date</label> -->
         <b-form-radio-group 
           id="choose-shift" 
@@ -53,6 +64,7 @@ export default {
     shift: 1,
     type_mech: '',
     isFocus: false,
+    value: '',
     }
   },
   components: {

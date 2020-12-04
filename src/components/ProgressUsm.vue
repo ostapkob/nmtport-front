@@ -14,7 +14,7 @@
           :id="mech.id+'coalTime'" 
         > 
           {{ mech.time_coal }}
-        <b-tooltip 
+        <b-tooltip  
           :target="mech.id+'coalTime'"
           variant='dark'
           >

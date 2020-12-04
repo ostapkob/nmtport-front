@@ -49,6 +49,12 @@
       <usmProgress :mech='mech'  />
         <Hours :shift='shift' />
   </div>
+
+  <div>
+    <span id="bug" variant="primary" class='bug-tooltip'>.</span>
+    <b-tooltip show target="bug" variant='light' >.</b-tooltip>
+  </div>
+
 </div>
 </template>
 
@@ -57,10 +63,10 @@ const usmProgress = () => import ("@/components/ProgressUsm")
 const Hours = () => import ("@/components/Hours") 
 import {mapActions, mapGetters} from 'vuex'
 import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
+import { BTooltip} from 'bootstrap-vue'
 
 export default {
   name: 'Usm',
-  msg: "text",
   data() {
     return {
         shift: 1,
@@ -73,7 +79,8 @@ export default {
   },
   components: {
     usmProgress,
-    Hours
+    Hours,
+    BTooltip,
   },
    computed: {
       ...mapGetters([
@@ -153,3 +160,4 @@ export default {
     }
 }
 </script>
+
