@@ -1,23 +1,9 @@
 <template>
 <div class="krans ml-2 mr-2">
 
-  <b-container class="bv-example-row mt-1 mb-2">
+  <b-container class="bv-example-row mt-3 mb-3">
     <b-row class="justify-content-md-center">
-      <b-col  class='text-right  pr-0'>
-        <b-button
-          size="sm"
-          variant="outline-secondary"
-          @click="backDateShift()"
-          class = 'shadow-sm'
-          >
-          &lsaquo;
-        </b-button>
-      </b-col>
-
-
-      <b-col cols="6" class="text-left pl-0 pr-0">
-        <div class="date-header">
-
+      <b-col  class='text-right pr-0 '>
         <b-form-datepicker 
           button-only 
           id="example-datepicker" 
@@ -32,22 +18,35 @@
           >
         </b-form-datepicker>
 
+        <b-button
+          size="sm"
+          variant="secondary"
+          @click="backDateShift()"
+          class = 'shadow-sm mr-3'
+          >
+          &lsaquo;
+        </b-button>
+      </b-col>
+
+      <b-col cols="4" class="text-left pl-0 pr-0">
+        <div class="date-header ">
+
         <strong>{{ date }}</strong>  смена:
         <strong>{{ shift }}</strong>
         </div>
       </b-col>
 
-      <b-col  class="text-left pl-0" >
+      <b-col  class="text-left pl-0 " >
         <b-button size="sm"
-          variant="outline-secondary"
+          variant="secondary"
           @click="nextDateShift()"
-          class='mr-2 shadow-sm'
+          class='ml-3 mr-3 shadow-sm '
           v-show='!(date==dateNow && shift==shiftNow)'
           >
           &rsaquo;
         </b-button>
         <b-button size="sm"
-          variant="outline-secondary"
+          variant="secondary"
           @click="nowDateShift()"
           class = 'shadow-sm'
           v-show='!(date==dateNow && shift==shiftNow)'
@@ -166,17 +165,15 @@ export default {
   watch: {
     shift: function () {
       this.SET_KRANS_API([this.date, this.shift])
-      this.$store.dispatch('GET_KRANS_DATA');
+      this.GET_KRANS_DATA()
+      //this.$store.dispatch('GET_KRANS_DATA');
       this.shiftNow = shiftNow()
       this.dateNow = dateNow()
-      console.log(this.date, this.dateCal, this.shift)
-
     },
 
     dateCal: function () {
       this.date = this.dateCal.split('-').reverse().join('.')
       this.shift = 1
-      console.log(this.dateCal)
       this.SET_KRANS_API([this.date, this.shift])
       this.$store.dispatch('GET_KRANS_DATA');
     }

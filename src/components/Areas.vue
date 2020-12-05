@@ -32,7 +32,7 @@
   <div>
     <div class="m-3" >
       <b-card-group deck class="mb-3">
-          <b-card header-bg-variant="primary" 
+          <b-card header-bg-variant="info" 
                   header-text-variant="white" 
                   border-variant="dark" 
                   header="8-9 причал" 
@@ -41,7 +41,7 @@
             <b-card-text> 4 УСМ </b-card-text>
           </b-card>
 
-          <b-card header-bg-variant="primary" 
+          <b-card header-bg-variant="info" 
                   header-text-variant="white" 
                   border-variant="dark" 
                   header="10-11 причал" 
@@ -50,7 +50,7 @@
             <b-card-text> 2 УСМ </b-card-text>
           </b-card>
 
-          <b-card header-bg-variant="primary" 
+          <b-card header-bg-variant="info" 
                   header-text-variant="white" 
                   border-variant="dark" 
                   header="12-14 причал" 
