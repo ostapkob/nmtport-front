@@ -13,7 +13,7 @@ Vue.use(VueRouter)
   {
     path: '/usm',
     name: 'Usm',
-    // beforeEnter: true,
+    //beforeEnter: true,
     component: () => import('../views/Usm.vue')
   },
   {
@@ -36,12 +36,32 @@ Vue.use(VueRouter)
     name: 'Archive',
     component: () => import('../views/Archive.vue')
   },
+  {
+    path: '/loginRegistr',
+    name: 'LoginRegistr',
+    component: () => import('../views/LoginRegistr.vue')
+  },
   { path: "*",
     component: () => import('../views/NotFound.vue')
   },
 ]
 const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 
 export default router
+
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/LoginRegistr' ];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
+  if (authRequired && !loggedIn) {
+    next('/LoginRegistr');
+  } else {
+    next();
+  }
+});
+

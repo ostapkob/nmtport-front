@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import getters from "./getters/getters"
 import mutations from "./mutations/mutations"
 import actions from "./actions/actions"
+import {auth} from './auth.module'
 
 Vue.use(Vuex)
 
@@ -25,6 +26,9 @@ export default new Vuex.Store({
   actions,
   mutations,
   getters,
+  modules: {
+    auth
+  }
 }
 
 
