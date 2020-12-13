@@ -11,7 +11,7 @@
           left
           >
           <b-dropdown-item to='/'>Растановка</b-dropdown-item>
-          <b-dropdown-item to='/archive'>Архив</b-dropdown-item>
+          <!-- <b-dropdown-item to='/archive'>Архив</b-dropdown-item> -->
         </b-nav-item-dropdown>
         <b-nav-item to="/loginRegistr"  exact exact-active-class="active">Аккаунт</b-nav-item>
         <!-- <b-nav-item v-if=!loggedIn to="/register" >Register</b-nav-item> -->
