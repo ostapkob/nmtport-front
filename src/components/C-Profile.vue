@@ -14,8 +14,6 @@
     <b-button type="button"
       variant="info"
       v-clipboard:copy="currentUser.invite"
-      v-clipboard:success="onCopy"
-      v-clipboard:error="onError"
       size="sm"
       @click="changeColor='text-info'"
     > Скопировать</b-button>
