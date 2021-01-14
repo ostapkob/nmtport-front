@@ -23,6 +23,7 @@
           variant="secondary"
           @click="backDateShift()"
           class = 'shadow-sm mr-3'
+          :disabled=flagButtons
           >
           &lsaquo;
         </b-button>
@@ -42,6 +43,7 @@
           @click="nextDateShift()"
           class='ml-3 mr-3 shadow-sm '
           v-show='!(date==dateNow && shift==shiftNow)'
+          :disabled=flagButtons
           >
           &rsaquo;
         </b-button>
@@ -92,6 +94,7 @@ export default {
         hours: '',
         polling: null,
         dateCal: dateNow(),
+        flagButtons: false,
     }
   },
   components: {
@@ -127,6 +130,7 @@ export default {
          this.shift = 2
        }
        this.SET_USM_API([this.date, this.shift])
+       this.buttonsDisabled() 
      },
      nextDateShift() {
        if (this.shift==1) {
@@ -140,11 +144,16 @@ export default {
          this.shift = 1
        }
        this.SET_USM_API([this.date, this.shift])
+       this.buttonsDisabled() 
      },
      nowDateShift() {
        this.shift = shiftNow()
        this.date = dateNow()
        this.SET_USM_API([this.date, this.shift])
+     },
+     buttonsDisabled() {
+       this.flagButtons = true
+       setTimeout (() => {this.flagButtons=false}, 1000)
      },
     },
     mounted() {

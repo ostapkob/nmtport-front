@@ -3,11 +3,12 @@
     <div class="wrapper">
       <div ref="map" class="ol-map"> </div>
     <!-- <div id="overlay"></div> -->
-      <b-button @click="chengeTerminal()" class="terminal" size="sm" variant="warning">
+      <b-button @click="chengeTerminal()" class="terminal" size="sm" variant="outline-info">
         {{nameTerminal}}
       </b-button>
       
-    <b-button v-b-toggle.sidebar class="slidebar" size="sm" variant="info">Легенда</b-button>
+    <!-- <b-button v-b-toggle.sidebar class="settings" size="sm" variant="outline-info">Механизмы</b-button> -->
+    <b-button v-b-toggle.sidebar class="slidebar" size="sm" variant="outline-info">Легенда</b-button>
     </div>
   <!-- <b-button @click="showMap()" class='mt-1' size="sm" variant="info"> -->
   <!--   showMap -->
@@ -158,6 +159,11 @@ export default {
 .slidebar {
   position: absolute;
   bottom: 2px;
+  right: 2px;
+}
+.settings {
+  position: absolute;
+  bottom: 34px;
   right: 2px;
 }
 .terminal {
