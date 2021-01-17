@@ -15,4 +15,7 @@ export default {
     SELECTED_FEATURES(state) {
       return state.selectedFeatures
     },
+    FILTER_LAST_DATA(state) {
+      return state.mechFilter
+    },
 }

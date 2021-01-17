@@ -80,7 +80,8 @@ export default {
     ...mapActions([
       'GET_LAST_DATA',
       'SET_KRANS_API',
-      'SET_USM_API'
+      'SET_USM_API',
+      'SET_FILTER_LAST_DATA'
     ]),
 	pollData () {
 		this.polling = setInterval(() => {
@@ -91,7 +92,7 @@ export default {
       this.SET_KRANS_API([this.date, this.shift])
       this.SET_USM_API([this.date, this.shift])
       this.isFocus=isVisible()
-		}, 20000)
+		}, 30000) // timer
   },
 //    focusTrue() {
 //      console.log(Date(), 'Focus')
@@ -103,10 +104,12 @@ export default {
       'SELECTED_FEATURES',
       'LAST_DATA',
       'KRANS_DATA',
-      'USM_DATA'
+      'USM_DATA',
+      'FILTER_LAST_DATA'
       ]),
   },
   mounted() {
+    // this.SET_FILTER_LAST_DATA(['usm', 'sennebogen'])
     this.GET_LAST_DATA()
     this.shift = shiftNow()
     this.date = dateNow()

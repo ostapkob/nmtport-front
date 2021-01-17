@@ -43,8 +43,9 @@ export default {
   },
    methods: {
     ...mapActions([
-            'GET_IP'
-        ]),
+      'GET_IP',
+      'SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE'
+    ]),
    },
   computed: {
     loggedIn() {
@@ -52,7 +53,8 @@ export default {
       }
   },
     mounted() {
-      this.GET_IP()
+      this.GET_IP() 
+      this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE()
     }
 }
 </script>

@@ -75,4 +75,10 @@ export default {
           return error;
       })
     },
+    SET_FILTER_LAST_DATA({commit}, value) {
+        commit('SET_FILTER_LAST_DATA_TO_STATE', value);
+    },
+    SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE({commit} ) {
+        commit('SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE');
+    },
 }

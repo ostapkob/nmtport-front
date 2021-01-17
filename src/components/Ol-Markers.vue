@@ -62,7 +62,7 @@ export default {
         element: this.$refs['wrapperIcon'],
         position:(transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')),
       })
-      this.map.addOverlay(this.overlayIcon);
+        this.map.addOverlay(this.overlayIcon);
     },
     ...mapActions([
         'SET_SELECTED_FEATURES'
@@ -87,8 +87,13 @@ export default {
 //      }, 20000)
 //    },
     changePosition() {
-      let position=transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')
-      this.overlayIcon.setPosition(position)
+      if (this.marker.filter) {
+        let position=transform([this.marker.longitude, this.marker.latitude], 'EPSG:4326', 'EPSG:3857')
+        this.overlayIcon.setPosition(position)
+      }
+      else {
+        this.overlayIcon.setPosition(undefined)
+      }
     },
 
   alarm(markerAlarm) {
@@ -96,6 +101,8 @@ export default {
       const timeline = new TimelineMax({
         repeat: 3 
       })
+      // timeline.remove();
+      timeline.progress(0).clear();
       const {mechIcon, circleIcon} = this.$refs
       timeline.to (mechIcon, 0.4, {
         scale: 1.8,

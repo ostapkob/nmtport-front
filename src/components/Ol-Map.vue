@@ -7,7 +7,7 @@
         {{nameTerminal}}
       </b-button>
       
-    <!-- <b-button v-b-toggle.sidebar class="settings" size="sm" variant="outline-info">Механизмы</b-button> -->
+    <!-- <b-button @click="refresh" class="settings" size="sm" variant="outline-info" width=100px>test</b-button> -->
     <b-button v-b-toggle.sidebar class="slidebar" size="sm" variant="outline-info">Легенда</b-button>
     </div>
   <!-- <b-button @click="showMap()" class='mt-1' size="sm" variant="info"> -->

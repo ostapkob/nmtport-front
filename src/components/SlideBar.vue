@@ -2,15 +2,17 @@
 <div>
   <b-sidebar id="sidebar" 
     aria-labelledby="sidebar"
+    no-header
     backdrop
     shadow>
-  <template v-slot:default="{ hide }">
+  <template #default="{ hide }">
       <!-- <div href="/krans" @click="hide">Кран</div> --> 
     <h5 class="text-left ml-3"> Кран  </h5>
     <b-container class="bv-example-row">
       <b-row class='text-left   pr-0'>
         <b-col cols="2">
-          <div class='kran-icon-blue mx-auto' />      </b-col>
+          <div class='kran-icon-blue mx-auto' />    
+        </b-col>
         <b-col class="my-row">
          Работа на 180°
         </b-col>
@@ -77,11 +79,25 @@
         </b-col>
       </b-row>
     </b-container>
-
-    <b-button variant="danger" class="mt-4 mb-4" block @click="hide">Закрыть</b-button>
-    <small class='text-left ml-1'>
+    <!-- <small class='text-left ml-1'>
       На механизмы можно кликать, если нужно выбрать несколько, кликайте с зажатой клавишей Shift
-    </small>
+    </small> -->
+    <hr/>
+    <h5 class="text-left ml-3"> Фильтры </h5>
+     <b-form-group class="text-left ml-4"
+      v-slot="{ ariaDescribedby }"
+    >
+      <b-form-checkbox-group size="lg"
+        v-model="selected"
+        :options="options"
+        :aria-describedby="ariaDescribedby"
+        name="flavour-2a"
+        stacked
+      ></b-form-checkbox-group>
+    </b-form-group>
+    <!-- {{selected}} <br/>
+    {{FILTER_LAST_DATA}} -->
+    <b-button variant="danger" class="mt-4 mb-4" block @click="hide">Закрыть</b-button>
   </template>
 </b-sidebar>
 </div>
@@ -89,16 +105,48 @@
 
 <script>
 import { BSidebar } from 'bootstrap-vue'
+import { BFormGroup, BFormCheckboxGroup } from 'bootstrap-vue'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   data() {
     return {
+      selected: [],
+       options: [
+          { text: 'Краны', value: 'kran' },
+          { text: 'УСМ', value: 'usm' },
+          { text: 'Сeннебогены', value: 'sennebogen' },
+        ]
     }
   },
+  computed: {
+    ...mapGetters([
+      'FILTER_LAST_DATA',
+      ]),
+  },
   methods: {
+    ...mapActions([
+      'SET_FILTER_LAST_DATA',
+      'GET_LAST_DATA'
+    ]),
   },
   components: {
     BSidebar,
+    BFormGroup,
+    BFormCheckboxGroup,
   },
+  mounted() {
+    // this.SET_FILTER_LAST_DATA(['usm', 'kran'])
+    this.selected = this.FILTER_LAST_DATA
+  },
+  watch: {
+    selected: function () {
+      if (typeof(this.selected) === 'string') {
+        this.selected = this.selected.split(',')
+      }
+      this.GET_LAST_DATA()
+      this.SET_FILTER_LAST_DATA(this.selected)
+    }
+  }
 }
 </script>
 
