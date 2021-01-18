@@ -87,7 +87,7 @@
      <b-form-group class="text-left ml-4"
       v-slot="{ ariaDescribedby }"
     >
-      <b-form-checkbox-group size="lg"
+      <b-form-checkbox-group 
         v-model="selected"
         :options="options"
         :aria-describedby="ariaDescribedby"
@@ -115,6 +115,7 @@ export default {
           { text: 'Краны', value: 'kran' },
           { text: 'УСМ', value: 'usm' },
           { text: 'Сeннебогены', value: 'sennebogen' },
+          { text: 'Только работающие', value: 'long_no_power' },
         ]
     }
   },

@@ -2,12 +2,18 @@ export default {
   SET_LAST_DATA_TO_STATE: (state, values) => {
     if (state.mechFilter){
       for (let mech in values) {
-        if (!state.mechFilter.includes(values[mech].type)) {
-          values[mech]['filter']=false
+        if (
+          !state.mechFilter.includes(values[mech].state)
+       && 
+          state.mechFilter.includes(values[mech].type)
+        ) {
+          values[mech]['filter']=true
           // delete values[mech]
+          // console.log('+', values[mech].name)
         }
         else {
-          values[mech]['filter']=true
+          values[mech]['filter']=false
+          // console.log('-', values[mech].name)
         }
       }
     }

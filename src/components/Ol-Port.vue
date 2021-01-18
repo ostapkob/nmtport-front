@@ -109,7 +109,9 @@ export default {
       ]),
   },
   mounted() {
-    // this.SET_FILTER_LAST_DATA(['usm', 'sennebogen'])
+    if (!this.FILTER_LAST_DATA) {
+      this.SET_FILTER_LAST_DATA(['usm', 'kran'])
+    }
     this.GET_LAST_DATA()
     this.shift = shiftNow()
     this.date = dateNow()
