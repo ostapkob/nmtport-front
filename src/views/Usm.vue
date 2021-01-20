@@ -1,101 +1,101 @@
 <template>
-<div class="usm ml-2 mr-2">
-
-  <b-container class="bv-example-row mt-3 mb-3">
-    <b-row class="justify-content-md-center">
-      <b-col  class='text-right pr-0 '>
-        <b-form-datepicker 
-          button-only 
-          id="example-datepicker" 
-          size='sm'  
-          v-model="dateCal"
-          class="mr-3"
-          selected-variant='info'
-          nav-button-variant='info'
-          today-variant='info'
-          locale="ru-RU"
-          start-weekday=1
+  <div class="usm ml-2 mr-2">
+    <b-container class="bv-example-row mt-3 mb-3">
+      <b-row class="justify-content-md-center">
+        <b-col class="text-right pr-0">
+          <b-form-datepicker
+            button-only
+            id="example-datepicker"
+            size="sm"
+            v-model="dateCal"
+            class="mr-3"
+            selected-variant="info"
+            nav-button-variant="info"
+            today-variant="info"
+            locale="ru-RU"
+            start-weekday="1"
           >
-        </b-form-datepicker>
+          </b-form-datepicker>
 
-        <b-button
-          size="sm"
-          variant="secondary"
-          @click="backDateShift()"
-          class = 'shadow-sm mr-3'
-          :disabled=flagButtons
+          <b-button
+            size="sm"
+            variant="secondary"
+            @click="backDateShift()"
+            class="shadow-sm mr-3"
+            :disabled="flagButtons"
           >
-          &lsaquo;
-        </b-button>
-      </b-col>
+            &lsaquo;
+          </b-button>
+        </b-col>
 
-      <b-col cols="4" class="text-left pl-0 pr-0">
-        <div class="date-header ">
+        <b-col cols="4" class="text-left pl-0 pr-0">
+          <div class="date-header">
+            <strong>{{ date }}</strong> смена:
+            <strong>{{ shift }}</strong>
+          </div>
+        </b-col>
 
-        <strong>{{ date }}</strong>  смена:
-        <strong>{{ shift }}</strong>
-        </div>
-      </b-col>
-
-      <b-col  class="text-left pl-0 " >
-        <b-button size="sm"
-          variant="secondary"
-          @click="nextDateShift()"
-          class='ml-3 mr-3 shadow-sm '
-          v-show='!(date==dateNow && shift==shiftNow)'
-          :disabled=flagButtons
+        <b-col class="text-left pl-0">
+          <b-button
+            size="sm"
+            variant="secondary"
+            @click="nextDateShift()"
+            class="ml-3 mr-3 shadow-sm"
+            v-show="!(date == dateNow && shift == shiftNow)"
+            :disabled="flagButtons"
           >
-          &rsaquo;
-        </b-button>
-        <b-button size="sm"
-          variant="secondary"
-          @click="nowDateShift()"
-          class = 'shadow-sm'
-          v-show='!(date==dateNow && shift==shiftNow)'
+            &rsaquo;
+          </b-button>
+          <b-button
+            size="sm"
+            variant="secondary"
+            @click="nowDateShift()"
+            class="shadow-sm"
+            v-show="!(date == dateNow && shift == shiftNow)"
           >
-          &raquo;
-        </b-button>
-      </b-col>
-    </b-row>
-  </b-container>
+            &raquo;
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-container>
 
-    <div v-for="mech in USM_DATA"
-      :key='mech.id'
-       class='p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 shadow-sm'
-       >
-      <usmProgress :mech='mech'  />
-        <Hours :shift='shift' />
+    <div
+      v-for="mech in USM_DATA"
+      :key="mech.id"
+      class="p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 shadow-sm"
+    >
+      <usmProgress :mech="mech" />
+      <Hours :shift="shift" />
+    </div>
+
+    <div>
+      <span id="bug" variant="primary" class="bug-tooltip">.</span>
+      <b-tooltip show target="bug" variant="light">.</b-tooltip>
+    </div>
   </div>
-
-  <div>
-    <span id="bug" variant="primary" class='bug-tooltip'>.</span>
-    <b-tooltip show target="bug" variant='light' >.</b-tooltip>
-  </div>
-
-</div>
 </template>
 
 <script>
-const usmProgress = () => import ("@/components/ProgressUsm") 
-const Hours = () => import ("@/components/Hours") 
-import {mapActions, mapGetters} from 'vuex'
-import { shiftNow, dateNow, hoursProgress   } from '@/functions/functions';
-import { BTooltip} from 'bootstrap-vue'
-import { BFormDatepicker } from 'bootstrap-vue'
+const usmProgress = () => import("@/components/ProgressUsm");
+const Hours = () => import("@/components/Hours");
+import { mapActions, mapGetters } from "vuex";
+import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
+import { BTooltip } from "bootstrap-vue";
+import { BFormDatepicker } from "bootstrap-vue";
 
 export default {
-  name: 'Usm',
+  name: "Usm",
   data() {
     return {
-        shift: 1,
-        date: '-',
-        shiftNow: 1,
-        dateNow: '-',
-        hours: '',
-        polling: null,
-        dateCal: dateNow(),
-        flagButtons: false,
-    }
+      shift: 1,
+      date: "-",
+      shiftNow: 1,
+      dateNow: "-",
+      hours: "",
+      polling: null,
+      dateCal: dateNow(),
+      flagButtons: false,
+    };
   },
   components: {
     usmProgress,
@@ -103,96 +103,100 @@ export default {
     BTooltip,
     BFormDatepicker,
   },
-   computed: {
-      ...mapGetters([
-           'USM_DATA'
-          ]),
-   },
-   methods: {
-    ...mapActions([
-            'GET_USM_DATA', 'SET_USM_API'
-
-        ]),
+  computed: {
+    ...mapGetters(["USM_DATA"]),
+  },
+  methods: {
+    ...mapActions(["GET_USM_DATA", "SET_USM_API"]),
     pollData() {
-        this.polling = setInterval(() => {
-            this.$store.dispatch('GET_USM_DATA');
-        }, 5000)
+      this.polling = setInterval(() => {
+        this.$store.dispatch("GET_USM_DATA");
+      }, 5000);
     },
-     backDateShift() {
-       if (this.shift==2) {
-         this.shift = 1
-       }
-       else {
-         let parts = this.date.split('.')
-         let newDate = new Date(parts[2], parts[1]-1, parts[0])
-         newDate.setDate(newDate.getDate()-1)
-         this.date =  newDate.getDate()+'.'+String(newDate.getMonth()+1) + '.' + newDate.getFullYear()
-         this.shift = 2
-       }
-       this.SET_USM_API([this.date, this.shift])
-       this.buttonsDisabled() 
-     },
-     nextDateShift() {
-       if (this.shift==1) {
-         this.shift = 2
-       }
-       else {
-         let parts = this.date.split('.')
-         let newDate = new Date(parts[2], parts[1]-1, parts[0])
-         newDate.setDate(newDate.getDate()+1)
-         this.date =  newDate.getDate()+'.'+String(newDate.getMonth()+1) + '.' + newDate.getFullYear()
-         this.shift = 1
-       }
-       this.SET_USM_API([this.date, this.shift])
-       this.buttonsDisabled() 
-     },
-     nowDateShift() {
-       this.shift = shiftNow()
-       this.date = dateNow()
-       this.SET_USM_API([this.date, this.shift])
-     },
-     buttonsDisabled() {
-       this.flagButtons = true
-       setTimeout (() => {this.flagButtons=false}, 1000)
-     },
+    backDateShift() {
+      if (this.shift == 2) {
+        this.shift = 1;
+      } else {
+        let parts = this.date.split(".");
+        let newDate = new Date(parts[2], parts[1] - 1, parts[0]);
+        newDate.setDate(newDate.getDate() - 1);
+        this.date =
+          newDate.getDate() +
+          "." +
+          String(newDate.getMonth() + 1) +
+          "." +
+          newDate.getFullYear();
+        this.shift = 2;
+      }
+      this.SET_USM_API([this.date, this.shift]);
+      this.buttonsDisabled();
     },
-    mounted() {
-        this.shift = shiftNow()
-        this.date = dateNow()
-        this.shiftNow = shiftNow()
-        this.dateNow = dateNow()
-        this.hours = hoursProgress(shiftNow())
-        this.SET_USM_API([this.date, this.shift])
-        this.GET_USM_DATA()
-        this.$nextTick(function() {
-        this.SET_USM_API([dateNow(), shiftNow()])
-          window.addEventListener('focus', this.GET_USM_DATA); // if focus get data
-        })
+    nextDateShift() {
+      if (this.shift == 1) {
+        this.shift = 2;
+      } else {
+        let parts = this.date.split(".");
+        let newDate = new Date(parts[2], parts[1] - 1, parts[0]);
+        newDate.setDate(newDate.getDate() + 1);
+        this.date =
+          newDate.getDate() +
+          "." +
+          String(newDate.getMonth() + 1) +
+          "." +
+          newDate.getFullYear();
+        this.shift = 1;
+      }
+      this.SET_USM_API([this.date, this.shift]);
+      this.buttonsDisabled();
     },
-    watch: {
-      shift: function () {
-        this.SET_USM_API([this.date, this.shift])
-        this.GET_USM_DATA()
-        //this.$store.dispatch('GET_USM_DATA');
-        this.shiftNow = shiftNow()
-        this.dateNow = dateNow()
-      },
+    nowDateShift() {
+      this.shift = shiftNow();
+      this.date = dateNow();
+      this.SET_USM_API([this.date, this.shift]);
+    },
+    buttonsDisabled() {
+      this.flagButtons = true;
+      setTimeout(() => {
+        this.flagButtons = false;
+      }, 1000);
+    },
+  },
+  mounted() {
+    this.shift = shiftNow();
+    this.date = dateNow();
+    this.shiftNow = shiftNow();
+    this.dateNow = dateNow();
+    this.hours = hoursProgress(shiftNow());
+    this.SET_USM_API([this.date, this.shift]);
+    this.GET_USM_DATA();
+    this.$nextTick(function () {
+      this.SET_USM_API([dateNow(), shiftNow()]);
+      window.addEventListener("focus", this.GET_USM_DATA); // if focus get data
+    });
+  },
+  watch: {
+    shift: function () {
+      this.SET_USM_API([this.date, this.shift]);
+      this.GET_USM_DATA();
+      //this.$store.dispatch('GET_USM_DATA');
+      this.shiftNow = shiftNow();
+      this.dateNow = dateNow();
+    },
 
     dateCal: function () {
-      this.date = this.dateCal.split('-').reverse().join('.')
-      this.shift = 1
-      this.SET_KRANS_API([this.date, this.shift])
-      this.$store.dispatch('GET_KRANS_DATA');
-    }
-
-  },
-    beforeDestroy () {
-       clearInterval(this.polling)
-       window.removeEventListener('focus', this.GET_USM_DATA);
+      this.date = this.dateCal.split("-").reverse().join(".");
+      this.shift = 1;
+      this.SET_KRANS_API([this.date, this.shift]);
+      this.$store.dispatch("GET_KRANS_DATA");
     },
-    created() {
-       this.pollData()
-    }
-}
+  },
+  beforeDestroy() {
+    clearInterval(this.polling);
+    window.removeEventListener("focus", this.GET_USM_DATA);
+  },
+  created() {
+    this.pollData();
+  },
+};
 </script>
 

@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
     name: 'Home',
@@ -32,16 +32,17 @@ Vue.use(VueRouter)
     component: () => import('../views/Test.vue')
   },
   {
-    path: '/archive',
-    name: 'Archive',
-    component: () => import('../views/Archive.vue')
+    path: '/video',
+    name: 'Video',
+    component: () => import('../views/Video.vue')
   },
   {
     path: '/loginRegistr',
     name: 'LoginRegistr',
     component: () => import('../views/LoginRegistr.vue')
   },
-  { path: "*",
+  {
+    path: "*",
     component: () => import('../views/NotFound.vue')
   },
 ]
@@ -55,7 +56,7 @@ export default router
 
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/LoginRegistr' ];
+  const publicPages = ['/LoginRegistr'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
   if (authRequired && !loggedIn) {

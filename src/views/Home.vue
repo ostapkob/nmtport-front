@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <Areas msg="Растановка механизмов по причалам"/>
+    <Areas msg="Растановка механизмов по причалам" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Areas from '@/components/Areas.vue'
+import Areas from "@/components/Areas.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    Areas
-  }
-}
+    Areas,
+  },
+};
 </script>

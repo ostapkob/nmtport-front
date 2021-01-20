@@ -8,9 +8,9 @@ const API_URL = 'https://m1.nmtport.ru:3000/api/auth/'
 class AuthService {
   login(user) {
     return axios.post(API_URL + 'signin', {
-        username: user.username,
-        password: user.password,
-      })
+      username: user.username,
+      password: user.password,
+    })
       .then(response => {
         console.log(response)
         if (response.data.accessToken) {

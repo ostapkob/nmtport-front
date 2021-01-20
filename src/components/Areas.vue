@@ -29,55 +29,58 @@
     <!--   <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li> -->
     <!--   <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li> -->
     <!-- </ul> -->
-  <div>
-    <div class="m-3" >
-      <b-card-group deck class="mb-3">
-          <b-card header-bg-variant="info" 
-                  header-text-variant="white" 
-                  border-variant="dark" 
-                  header="8-9 причал" 
-                  class="text-center">
+    <div>
+      <div class="m-3">
+        <b-card-group deck class="mb-3">
+          <b-card
+            header-bg-variant="info"
+            header-text-variant="white"
+            header="8-9 причал"
+            class="jorder rounded mb-2 shadow-sm"
+          >
             <b-card-text> 7 кранов </b-card-text>
             <b-card-text> 4 УСМ </b-card-text>
           </b-card>
 
-          <b-card header-bg-variant="info" 
-                  header-text-variant="white" 
-                  border-variant="dark" 
-                  header="10-11 причал" 
-                  class="text-center">
+          <b-card
+            header-bg-variant="info"
+            header-text-variant="white"
+            header="10-11 причал"
+            class="jorder rounded bg-light mb-2 shadow-sm"
+          >
             <b-card-text> 4 кранов </b-card-text>
             <b-card-text> 2 УСМ </b-card-text>
           </b-card>
 
-          <b-card header-bg-variant="info" 
-                  header-text-variant="white" 
-                  border-variant="dark" 
-                  header="12-14 причал" 
-                  class="text-center">
+          <b-card
+            header-bg-variant="info"
+            header-text-variant="white"
+            header="12-14 причал"
+            class="jorder rounded bg-light mb-2 shadow-sm"
+          >
             <b-card-text> 4 кранов </b-card-text>
             <b-card-text> 3 УСМ </b-card-text>
           </b-card>
-      </b-card-group>
+        </b-card-group>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import { BCard, BCardGroup, BCardText } from 'bootstrap-vue'
+import { BCard, BCardGroup, BCardText } from "bootstrap-vue";
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   components: {
     BCard,
-    BCardGroup, 
-    BCardText, 
+    BCardGroup,
+    BCardText,
   },
 
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import getters from "./getters/getters"
 import mutations from "./mutations/mutations"
 import actions from "./actions/actions"
-import {auth} from './auth.module'
+import { auth } from './auth.module'
 
 Vue.use(Vuex)
 
@@ -14,7 +14,7 @@ export default new Vuex.Store({
     usm_data: [],
     selectedFeatures: [],
     // ip:'http://m1.nmtport.ru',
-    ip:'https://m1.nmtport.ru',
+    ip: 'https://m1.nmtport.ru',
     // ip:      'http://127.0.0.1:5000',
     last_data_api: '',
     kran_api: '',

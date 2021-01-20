@@ -1,16 +1,15 @@
-
 <template>
   <div>
-        <div  class="time-line-mechUp">
-          <span  v-for="(hour, keyH) in arrows" :key=keyH> {{hour}} </span>
-        </div>
-        <div  class="time-line-mech" v-if="shift==1">
-          <span  v-for="(hour, keyH) in hours_08_20" :key=keyH> {{hour}} </span>
-        </div>
+      <div  class="time-line-mechUp">
+        <span  v-for="(hour, keyH) in arrows" :key=keyH> {{hour}} </span>
+      </div>
+      <div  class="time-line-mech" v-if="shift==1">
+        <span  v-for="(hour, keyH) in hours_08_20" :key=keyH> {{hour}} </span>
+      </div>
 
-        <div  class="time-line-mech" v-if="shift==2">
-          <span  v-for="(hour, keyH) in hours_20_08" :key=keyH> {{hour}} </span>
-        </div>
+      <div  class="time-line-mech" v-if="shift==2">
+        <span  v-for="(hour, keyH) in hours_20_08" :key=keyH> {{hour}} </span>
+      </div>
   </div>
 </template>
 

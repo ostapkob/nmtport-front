@@ -1,5 +1,5 @@
 export default class User {
-  constructor(username, invite, password){
+  constructor(username, invite, password) {
     this.username = username;
     this.invite = invite;
     this.password = password;

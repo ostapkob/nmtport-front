@@ -1,36 +1,61 @@
 <template>
   <div id="app">
-  <b-card title="Card Title" no-body>
-    <b-card-header header-tag="nav">
-      <b-nav card-header tabs >
-        <b-nav-item to="/mapol" exact exact-active-class="active" :disabled=!loggedIn>Карта</b-nav-item>
-        <b-nav-item to="/usm" exact exact-active-class="active" :disabled=!loggedIn>Усм</b-nav-item>
-        <b-nav-item to="/krans" exact exact-active-class="active" :disabled=!loggedIn>Краны</b-nav-item>
-        <b-nav-item-dropdown
-          id="my-nav-dropdown"
-          left
+    <b-card title="Card Title" no-body>
+      <b-card-header header-tag="nav">
+        <b-nav card-header tabs>
+          <b-nav-item
+            to="/mapol"
+            exact
+            exact-active-class="active"
+            :disabled="!loggedIn"
+            >Карта</b-nav-item
           >
-          <b-dropdown-item to='/'>Растановка</b-dropdown-item>
-          <!-- <b-dropdown-item to='/archive'>Архив</b-dropdown-item> -->
-        </b-nav-item-dropdown>
-        <b-nav-item to="/loginRegistr"  exact exact-active-class="active">Аккаунт</b-nav-item>
-        <!-- <b-nav-item v-if=!loggedIn to="/register" >Register</b-nav-item> -->
-        <!-- <b-nav-item v-if=loggedIn @click=logOut >Выйти</b-nav-item> -->
-      </b-nav>
-    </b-card-header>
-    <div class="mb-5">
-      <router-view></router-view>
-    </div>
-  </b-card>
+          <b-nav-item
+            to="/usm"
+            exact
+            exact-active-class="active"
+            :disabled="!loggedIn"
+            >Усм</b-nav-item
+          >
+          <b-nav-item
+            to="/krans"
+            exact
+            exact-active-class="active"
+            :disabled="!loggedIn"
+            >Краны</b-nav-item
+          >
+          <b-nav-item-dropdown id="my-nav-dropdown" left>
+            <b-dropdown-item to="/">Растановка</b-dropdown-item>
+            <b-dropdown-item to="/video">Видео</b-dropdown-item>
+            <!-- <b-dropdown-item to='/archive'>Архив</b-dropdown-item> -->
+          </b-nav-item-dropdown>
+          <b-nav-item to="/loginRegistr" exact exact-active-class="active"
+            >Аккаунт</b-nav-item
+          >
+          <!-- <b-nav-item v-if=!loggedIn to="/register" >Register</b-nav-item> -->
+          <!-- <b-nav-item v-if=loggedIn @click=logOut >Выйти</b-nav-item> -->
+        </b-nav>
+      </b-card-header>
+      <div class="mb-5">
+        <router-view></router-view>
+      </div>
+    </b-card>
   </div>
 </template>
 
 
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 
-import {BNav,   BDropdownItem, BNavItemDropdown, BCardHeader, BNavItem,  BCard} from 'bootstrap-vue'
+import {
+  BNav,
+  BDropdownItem,
+  BNavItemDropdown,
+  BCardHeader,
+  BNavItem,
+  BCard,
+} from "bootstrap-vue";
 
 export default {
   components: {
@@ -39,24 +64,21 @@ export default {
     BCardHeader,
     BCard,
     BNavItemDropdown,
-    BDropdownItem
+    BDropdownItem,
   },
-   methods: {
-    ...mapActions([
-      'GET_IP',
-      'SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE'
-    ]),
-   },
+  methods: {
+    ...mapActions(["GET_IP", "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE"]),
+  },
   computed: {
     loggedIn() {
-      return this.$store.state.auth.status.loggedIn
-      }
+      return this.$store.state.auth.status.loggedIn;
+    },
   },
-    mounted() {
-      this.GET_IP() 
-      this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE()
-    }
-}
+  mounted() {
+    this.GET_IP();
+    this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
+  },
+};
 </script>
 <style lang="scss">
 #app {

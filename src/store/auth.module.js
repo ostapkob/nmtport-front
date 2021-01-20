@@ -2,8 +2,8 @@ import AuthService from '../services/auth.service'
 
 const user = JSON.parse(localStorage.getItem('user'))
 const initialState = user
-  ? {status: {loggedIn: true}, user}
-  : {status: {loggedIn: false}, user: null}
+  ? { status: { loggedIn: true }, user }
+  : { status: { loggedIn: false }, user: null }
 
 export const auth = {
   namespaced: true,
@@ -26,10 +26,10 @@ export const auth = {
       AuthService.logout();
       commit('logout');
     },
-    register({ commit }, user ) {
+    register({ commit }, user) {
       return AuthService.register(user).then(
         response => {
-          commit ('registerSuccess')
+          commit('registerSuccess')
           return Promise.resolve(response.data)
         },
         error => {
@@ -40,14 +40,14 @@ export const auth = {
     }
   },
   mutations: {
-    loginSucces(state, user){
+    loginSucces(state, user) {
       state.status.loggedIn = true;
       state.user = user;
     },
-    loginFailure(state){
+    loginFailure(state) {
       state.status.loggedIn = false;
     },
-    logout(state){
+    logout(state) {
       state.status.loggedIn = false;
       state.user = null
     },

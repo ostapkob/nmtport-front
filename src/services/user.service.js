@@ -11,14 +11,14 @@ class UserService {
     return axios.get(API_URL + 'all')
   }
   getUserBoard() {
-    return axios.get(API_URL + 'user', {headers: authHeader()})
+    return axios.get(API_URL + 'user', { headers: authHeader() })
   }
   getManagerBoard() {
-    console.log('authHeader: ',  authHeader());
-    return axios.get(API_URL + 'manager', {headers: authHeader()})
+    console.log('authHeader: ', authHeader());
+    return axios.get(API_URL + 'manager', { headers: authHeader() })
   }
   getAdminBoard() {
-    return axios.get(API_URL + 'admin', {headers: authHeader()})
+    return axios.get(API_URL + 'admin', { headers: authHeader() })
   }
 }
 export default new UserService();

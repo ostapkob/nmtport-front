@@ -16,7 +16,7 @@ Vue.use(VueClipboard)
 // import 'bootstrap/dist/css/bootstrap.css'
 // import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './registerServiceWorker'
-import { BContainer, BRow, BCol, BButton} from 'bootstrap-vue'
+import { BContainer, BRow, BCol, BButton } from 'bootstrap-vue'
 
 
 // Vue.component(BContainer)

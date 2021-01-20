@@ -1,25 +1,25 @@
 export default {
   SET_LAST_DATA_TO_STATE: (state, values) => {
-    if (state.mechFilter){
+    if (state.mechFilter) {
       for (let mech in values) {
         if (
           !state.mechFilter.includes(values[mech].state)
-       && 
+          &&
           state.mechFilter.includes(values[mech].type)
         ) {
-          values[mech]['filter']=true
+          values[mech]['filter'] = true
           // delete values[mech]
           // console.log('+', values[mech].name)
         }
         else {
-          values[mech]['filter']=false
+          values[mech]['filter'] = false
           // console.log('-', values[mech].name)
         }
       }
     }
     state.last_data = values;
   },
-  SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE: (state ) => {
+  SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE: (state) => {
     state.mechFilter = localStorage.getItem('mechFilter')
   },
   SET_KRANS_DATA_TO_STATE: (state, values) => {
