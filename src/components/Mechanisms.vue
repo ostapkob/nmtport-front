@@ -54,12 +54,14 @@
     </div>
 
     <div
-      v-for="mech in KRANS_DATA"
+      v-for="mech in $store.getters[typeMECH + '_DATA']"
       class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
     >
-      <kranProgress :mech="mech" />
-      <Hours :shift="shift" />
+    <progressKRANS :mech="mech" v-if="typeMECH=='KRANS'"/>
+    <progressUSM :mech="mech" v-if="typeMECH=='USM'"/>
+    <progressSenebog :mech="mech" v-if="typeMECH=='SENEBOG'"/>
+    <Hours :shift="shift" />
     </div>
 
     <div>
@@ -70,10 +72,9 @@
 </template>
 
 <script>
-const kranProgress = () => import("@/components/ProgressKran");
 const Hours = () => import("@/components/Hours");
 
-import { mapActions, mapGetters } from "vuex";
+//import { mapActions } from "vuex";
 import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
@@ -93,20 +94,21 @@ export default {
       flagButtonsVisible: false,
     };
   },
+  props: {
+    typeMECH: String,
+  },
   components: {
-    kranProgress,
     Hours,
     BTooltip,
     BFormDatepicker,
-  },
-  computed: {
-    ...mapGetters(["KRANS_DATA"]),
+    progressKRANS: () => import('@/components/ProgressKran'),
+    progressUSM: () => import('@/components/ProgressUsm'),
   },
   methods: {
-    ...mapActions(["GET_KRANS_DATA", "SET_KRANS_API"]),
+    //...mapActions(["GET_KRANS_DATA", "SET_KRANS_API"]),
     pollData() {
       this.polling = setInterval(() => {
-        this.$store.dispatch("GET_KRANS_DATA");
+        this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
       }, 5000);
     },
     backDateShift() {
@@ -124,7 +126,8 @@ export default {
           newDate.getFullYear();
         this.shift = 2;
       }
-      this.SET_KRANS_API([this.date, this.shift]);
+      //this.SET_KRANS_API([this.date, this.shift]);
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
       this.buttonsDisabled();
       this.buttonsVisible();
     },
@@ -144,14 +147,16 @@ export default {
           newDate.getFullYear();
         this.shift = 1;
       }
-      this.SET_KRANS_API([this.date, this.shift]);
+      //this.SET_KRANS_API([this.date, this.shift]);
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
       this.buttonsDisabled();
       this.buttonsVisible();
     },
     nowDateShift() {
       this.shift = shiftNow();
       this.date = dateNow();
-      this.SET_KRANS_API([this.date, this.shift]);
+      //this.SET_KRANS_API([this.date, this.shift]);
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
       this.buttonsVisible();
     },
     buttonsDisabled() {
@@ -175,7 +180,8 @@ export default {
       } else {
         this.flagButtonsVisible = true;
       }
-      this.SET_KRANS_API([this.date, this.shift]);
+      //this.SET_KRANS_API([this.date, this.shift]);
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
     },
   },
   mounted() {
@@ -184,9 +190,10 @@ export default {
     this.shiftNow = shiftNow();
     this.dateNow = dateNow();
     this.hours = hoursProgress(shiftNow());
-    this.SET_KRANS_API([this.date, this.shift]);
-    this.GET_KRANS_DATA();
-
+    //this.SET_KRANS_API([this.date, this.shift]);
+    this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
+    //this.GET_KRANS_DATA();
+    this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
@@ -199,8 +206,8 @@ export default {
     dateCal: function () {
       this.date = this.dateCal.split("-").reverse().join(".");
       this.shift = 1;
-      this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("GET_KRANS_DATA");
+      //this.SET_KRANS_API([this.date, this.shift]);
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
     },
   },
 

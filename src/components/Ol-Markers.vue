@@ -98,10 +98,11 @@ export default {
     },
 
     alarm(markerAlarm) {
+      const timeline = new TimelineMax({
+        repeat: 2,
+      });
+      timeline.clear();
       if (markerAlarm && this.isFocus) {
-        const timeline = new TimelineMax({
-          repeat: 3,
-        });
         // timeline.remove();
         timeline.progress(0).clear();
         const { mechIcon, circleIcon } = this.$refs;
@@ -135,7 +136,9 @@ export default {
           },
           "-=1.2"
         );
+
       }
+
     },
     push() {
       const { mechIcon } = this.$refs;

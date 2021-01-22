@@ -157,7 +157,7 @@ export default {
   height: 70vh;
   width: 100%;
   background: #ccc;
-  top: -20px;
+  top: -26px;
 }
 #overlay {
   background: blue;
@@ -167,7 +167,7 @@ export default {
 }
 .slidebar {
   position: absolute;
-  bottom: 2px;
+  bottom: 28px;
   right: 2px;
 }
 .settings {
@@ -177,7 +177,7 @@ export default {
 }
 .terminal {
   position: absolute;
-  bottom: 2px;
+  bottom: 28px;
   left: 2px;
 }
 .wrapper {
