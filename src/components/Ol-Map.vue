@@ -157,7 +157,7 @@ export default {
   height: 70vh;
   width: 100%;
   background: #ccc;
-  margin-top: 5px;
+  top: -20px;
 }
 #overlay {
   background: blue;

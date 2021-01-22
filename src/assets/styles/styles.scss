@@ -41,13 +41,40 @@ input {
   font-style: normal;
 }
 
+.header {
+    position: fixed;
+    top: -5px;
+    z-index: 102;
+    width: 100%;
+    background: #f9f9f9;
+}
+.date-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  overflow: hidden;
+  position: fixed;
+  z-index: 101;
+  margin-top: 17px;
+  background: #fff;
+  top: 32px;
+  left: 0px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 0),  );
+  // background: green;
+}
 .date-header {
   font-size: 1em;
   color: #555;
   padding: 0px 0px 5px 0px;
   text-align: center;
+  justify-content: center;
 }
-
+.main {
+    padding: 20px 10px 0px 10px;
+    text-align: center; 
+}
 .name-mech {
   font-size: 1.3em;
   font-weight: bold;

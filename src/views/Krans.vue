@@ -1,8 +1,7 @@
 <template>
-  <div class="krans ml-2 mr-2">
-    <b-container class="bv-example-row mt-3 mb-3">
-      <b-row class="justify-content-md-center">
-        <b-col class="text-right pr-0">
+  <div class="main">
+    <div class="date-toggle">
+      <div class="text-right">
           <b-form-datepicker
             button-only
             id="example-datepicker"
@@ -26,16 +25,12 @@
           >
             &lsaquo;
           </b-button>
-        </b-col>
-
-        <b-col cols="4" class="text-left pl-0 pr-0">
-          <div class="date-header">
+      </div>
+      <div class="date-header">
             <strong>{{ date }}</strong> смена:
             <strong>{{ shift }}</strong>
-          </div>
-        </b-col>
-
-        <b-col class="text-left pl-0">
+      </div>
+      <div class="text-left">
           <b-button
             size="sm"
             variant="secondary"
@@ -55,9 +50,8 @@
           >
             &raquo;
           </b-button>
-        </b-col>
-      </b-row>
-    </b-container>
+      </div>
+    </div>
 
     <div
       v-for="mech in KRANS_DATA"

@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <b-card title="Card Title" no-body>
-      <b-card-header header-tag="nav">
+      <b-card-header header-tag="nav" class="header">
+        <!-- <b-nav card-header tabs> -->
         <b-nav card-header tabs>
           <b-nav-item
             to="/mapol"
@@ -36,6 +37,7 @@
           <!-- <b-nav-item v-if=loggedIn @click=logOut >Выйти</b-nav-item> -->
         </b-nav>
       </b-card-header>
+      <div id="empty-top"> </div>
       <div class="mb-5">
         <router-view></router-view>
       </div>
@@ -98,6 +100,9 @@ export default {
       color: #42b983;
     }
   }
+}
+#empty-top {
+  height: 80px;
 }
 </style>
 
