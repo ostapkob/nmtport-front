@@ -1,9 +1,7 @@
 <template>
   <div>
-    <Mechanisms typeMECH="KRANS" > 
-    </Mechanisms>
+    <Mechanisms typeMECH="KRANS"> </Mechanisms>
   </div>
-
 </template>
 
 <script>
@@ -15,15 +13,12 @@ export default {
   components: {
     Mechanisms,
   },
-   data() {
-     return {
-     }
-   },
-  methods: {
+  data() {
+    return {};
   },
-  computed: {
-  },
-}
+  methods: {},
+  computed: {},
+};
 </script>
 
 <style lang="scss" scoped>
