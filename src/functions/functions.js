@@ -106,3 +106,13 @@ export function isVisible() {
   return handleVisibilityChange()
 }
 
+export  function showNotification(title, options) {
+  Notification.requestPermission(function(result) {
+    if (result === 'granted') {
+      navigator.serviceWorker.ready.then(function(registration) {
+        registration.showNotification(title, options);
+        console.log(registration)
+      });
+    }
+  });
+}
