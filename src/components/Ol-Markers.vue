@@ -19,6 +19,7 @@ import Overlay from "ol/Overlay";
 import { transform } from "ol/proj";
 import { mapActions, mapGetters } from "vuex";
 import { TimelineLite, TimelineMax, Back, Elastic, Expo } from "gsap/dist/gsap";
+import { showNotification } from "@/functions/functions";
 
 export default {
   props: {
@@ -78,12 +79,6 @@ export default {
       }
       this.push();
     },
-    //    pollData () {
-    //      this.poll = setInterval(() => {
-    //        this.changePosition()
-    //        this.alarm(this.marker.alarm)
-    //      }, 20000)
-    //    },
     changePosition() {
       if (this.marker.filter) {
         let position = transform(
@@ -96,49 +91,17 @@ export default {
         this.overlayIcon.setPosition(undefined);
       }
     },
-
     alarm(markerAlarm) {
-      const timeline = new TimelineMax({
-        repeat: 2,
-      });
-      timeline.clear();
-      if (markerAlarm && this.isFocus) {
-        // timeline.remove();
-        timeline.progress(0).clear();
-        const { mechIcon, circleIcon } = this.$refs;
-        timeline.to(mechIcon, 0.4, {
-          scale: 1.8,
-          rotation: 16,
-          ease: Back.easeOut.config(1.7),
+      if (markerAlarm) {
+        showNotification(this.marker.name, {
+          body: this.marker.state,
+          icon: require("@/assets/img/icon.png"),
+          badge: require("@/assets/img/icon512.png"),
         });
-        timeline.to(
-          circleIcon,
-          0.5,
-          {
-            scale: 12,
-            opacity: 0.7,
-            background: "#f34",
-          },
-          "-=0.6"
-        ),
-          timeline.to(mechIcon, 1.2, {
-            scale: 1,
-            rotation: "-=16",
-            ease: Elastic.easeOut(2.5, 0.5),
-          });
-        timeline.to(
-          circleIcon,
-          1.1,
-          {
-            scale: 1,
-            opacity: 0,
-            ease: Expo.easeOut,
-          },
-          "-=1.2"
-        );
-
+        if (this.isFocus) {
+          this.animationAlarm();
+        }
       }
-
     },
     push() {
       const { mechIcon } = this.$refs;
@@ -151,6 +114,44 @@ export default {
         scale: 1,
         ease: Elastic.easeOut(2.5, 0.5),
       });
+    },
+    animationAlarm() {
+      const timeline = new TimelineMax({
+        repeat: 2,
+      });
+      // timeline.clear();
+      // timeline.progress(0).clear();
+      const { mechIcon, circleIcon } = this.$refs;
+      timeline.to(mechIcon, 0.4, {
+        scale: 1.8,
+        rotation: 16,
+        ease: Back.easeOut.config(1.7),
+      });
+      timeline.to(
+        circleIcon,
+        0.5,
+        {
+          scale: 12,
+          opacity: 0.7,
+          background: "#f34",
+        },
+        "-=0.6"
+      ),
+        timeline.to(mechIcon, 1.2, {
+          scale: 1,
+          rotation: "-=16",
+          ease: Elastic.easeOut(2.5, 0.5),
+        });
+      timeline.to(
+        circleIcon,
+        1.1,
+        {
+          scale: 1,
+          opacity: 0,
+          ease: Expo.easeOut,
+        },
+        "-=1.2"
+      );
     },
     getIconCss() {
       let state = this.marker.state;
