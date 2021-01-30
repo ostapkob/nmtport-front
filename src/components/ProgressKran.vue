@@ -73,7 +73,7 @@
           :variant="colorProgress(item.value)"
         >
           {{
-            showSteps(item.time, timeTo(key, mech.data), item.value, item.total)
+            showSteps(item.time, timeTo(key, mech.data), item.value, item.total, mech.total_180)
           }}
         </b-tooltip>
         <div v-show="item.step > 20" class="time-in-progress text-left">
@@ -117,8 +117,9 @@ export default {
     };
   },
   methods: {
-    showSteps: function (timeStep, timeTo, typeStep, totalStep) {
+    showSteps: function (timeStep, timeTo, typeStep, totalStep, total_180) {
       if (typeStep == 2) {
+        if (totalStep === undefined) {totalStep=total_180}
         return `c ${timeStep} - ${totalStep} поворотов по 180°`;
       }
       if (typeStep == 1 || typeStep == 3) {

@@ -51,7 +51,7 @@ input {
 .date-toggle {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  overflow: hidden;
+  // overflow: hidden;
   position: fixed;
   z-index: 101;
   margin-top: 17px;
@@ -79,7 +79,6 @@ input {
   font-size: 1.3em;
   font-weight: bold;
 }
-
 .time-line-mechUp {
   color: #aaa;
   font-size: .6em;

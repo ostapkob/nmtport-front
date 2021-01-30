@@ -109,7 +109,7 @@ export default {
     pollData() {
       this.polling = setInterval(() => {
         this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
-      }, 5000);
+      }, 45000);
     },
     backDateShift() {
       if (this.shift == 2) {
@@ -199,9 +199,12 @@ export default {
     });
   },
   watch: {
-    // shift: function () {
-    //   this.refresh();
-    // },
+     shift: function () {
+       this.refresh();
+     },
+     date: function () {
+       this.refresh();
+     },
 
     dateCal: function () {
       this.date = this.dateCal.split("-").reverse().join(".");

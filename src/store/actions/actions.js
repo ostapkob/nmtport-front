@@ -44,6 +44,12 @@ export default {
             })
     },
 
+    SET_FLAG_NOTIFICATION({ commit }, value) {
+       commit('SET_FLAG_NOTIFICATION_TO_STATE', value);
+     },
+    SET_FLAG_AUDIO({ commit }, value) {
+       commit('SET_FLAG_AUDIO_TO_STATE', value);
+     },
     SET_KRANS_API({ commit }, value) {
         commit('CHANGE_KRANS_API', value);
         return axios(this.state.kran_api, {

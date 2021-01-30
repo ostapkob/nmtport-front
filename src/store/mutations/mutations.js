@@ -35,6 +35,18 @@ export default {
     state.mechFilter = values
     localStorage.setItem('mechFilter', state.mechFilter)
   },
+  SET_FILTER_LAST_DATA({ commit }, value) {
+      commit('SET_FILTER_LAST_DATA_TO_STATE', value);
+  },
+  SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE({ commit }) {
+      commit('SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE');
+  },
+  SET_FLAG_AUDIO_TO_STATE: (state, flag) => {
+    state.flagAudio = flag;
+  },
+  SET_FLAG_NOTIFICATION_TO_STATE: (state, flag) => {
+    state.flagNotification = flag;
+  },
   ERROR_STATE_LAST_DATA: (state) => {
     state.errored_last_data = true;
   },

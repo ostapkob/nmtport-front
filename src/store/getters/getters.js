@@ -18,4 +18,10 @@ export default {
   FILTER_LAST_DATA(state) {
     return state.mechFilter
   },
+  FLAG_AUDIO(state) {
+    return state.flagAudio
+  },
+  FLAG_NOTIFICATION(state) {
+    return state.flagNotification
+  }
 }

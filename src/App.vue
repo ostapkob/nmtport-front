@@ -45,10 +45,9 @@
   </div>
 </template>
 
-
-
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import { showNotification } from "@/functions/functions";
 
 import {
   BNav,
@@ -60,6 +59,11 @@ import {
 } from "bootstrap-vue";
 
 export default {
+  data() {
+    return {
+      polling: null,
+    }
+  },
   components: {
     BNav,
     BNavItem,
@@ -69,17 +73,69 @@ export default {
     BDropdownItem,
   },
   methods: {
-    ...mapActions(["GET_IP", "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE"]),
+    ...mapActions([
+      "GET_IP",
+      "GET_LAST_DATA",
+      "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
+      "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
+    ]),
+    audioAlarm() {
+      for (var mech in this.LAST_DATA) {
+        if (this.LAST_DATA[mech].filter ) {
+          if (this.LAST_DATA[mech].alarm ) {
+            if ( this.FLAG_AUDIO) {
+              console.log(this.LAST_DATA[mech].name, 'audio')
+              this.playSound();
+            }
+            if ( this.FLAG_NOTIFICATION) {
+            console.log(this.LAST_DATA[mech].name, 'notification')
+            showNotification(this.LAST_DATA[mech].name, 
+              {
+                body: "Остановка не по графику",
+                icon: require("@/assets/img/icon.png"),
+                badge: require("@/assets/img/icon512.png"),
+                tag: this.LAST_DATA[mech].number,
+                vibrate: [ 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500, ],
+              });
+            }
+            return
+          }
+        }
+      }
+    },
+    playSound() {
+      let audio = new Audio(require("@/assets/sound/test.mp3"));
+      audio.play();
+    },
+    pollData() {
+      this.polling = setInterval(() => {
+        this.GET_LAST_DATA();
+        console.log(this.FLAG_AUDIO)
+        console.log(this.FLAG_NOTIFICATION)
+        this.audioAlarm()
+      }, 30000); // timer
+    },
   },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
+    ...mapGetters([
+      "FLAG_AUDIO",
+      "FLAG_NOTIFICATION",
+      "LAST_DATA"
+    ]),
   },
   mounted() {
     this.GET_IP();
     this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
   },
+  created() {
+    this.pollData();
+  },
+  beforeDestroy() {
+    clearInterval(this.polling);
+  }
 };
 </script>
 <style lang="scss">

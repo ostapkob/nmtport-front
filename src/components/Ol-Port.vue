@@ -87,7 +87,7 @@ export default {
     pollData() {
       this.polling = setInterval(() => {
         //this.$store.dispatch('GET_LAST_DATA')
-        this.GET_LAST_DATA();
+        //this.GET_LAST_DATA();
         this.shift = shiftNow();
         this.date = dateNow();
         this.SET_KRANS_API([this.date, this.shift]);
@@ -113,7 +113,7 @@ export default {
     if (!this.FILTER_LAST_DATA) {
       this.SET_FILTER_LAST_DATA(["usm", "kran"]);
     }
-    this.GET_LAST_DATA();
+    //this.GET_LAST_DATA();
     this.shift = shiftNow();
     this.date = dateNow();
     this.hours = hoursProgress(shiftNow());

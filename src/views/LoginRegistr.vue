@@ -18,7 +18,7 @@
           </b-card-text>
         </b-tab>
 
-        <b-tab v-if="loggedIn" title="Профиль">
+        <b-tab v-if="loggedIn" size='sm' title="Профиль">
           <b-card-text>
             <cProfile />
           </b-card-text>

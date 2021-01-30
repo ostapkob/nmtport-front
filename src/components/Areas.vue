@@ -36,7 +36,7 @@
             header-bg-variant="info"
             header-text-variant="white"
             header="8-9 причал"
-            class="jorder rounded mb-2 shadow-sm"
+            class="jorder rounded bg-light mb-2 shadow-sm"
           >
             <b-card-text> 7 кранов </b-card-text>
             <b-card-text> 4 УСМ </b-card-text>
