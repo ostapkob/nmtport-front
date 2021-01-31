@@ -111,8 +111,6 @@ export default {
     pollData() {
       this.polling = setInterval(() => {
         this.GET_LAST_DATA();
-        console.log(this.FLAG_AUDIO)
-        console.log(this.FLAG_NOTIFICATION)
         this.audioAlarm()
       }, 30000); // timer
     },

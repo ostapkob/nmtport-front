@@ -116,3 +116,9 @@ export function showNotification(title, options) {
     }
   });
 }
+export async function requestPermission() {
+  const permission = await window.Notification.requestPermission();
+    if(permission !== 'granted'){
+        throw new Error('Permission not granted for Notification');
+    }
+}

@@ -46,6 +46,7 @@
 import { BIconPersonCircle, BIconKeyFill, BIconVolumeUp } from "bootstrap-vue";
 import { BFormCheckbox } from "bootstrap-vue";
 import { mapActions, mapGetters } from "vuex";
+import { requestPermission } from "@/functions/functions";
 
 export default {
   name: "Profile",
@@ -81,16 +82,16 @@ export default {
   watch: {
     flagAudio: function(){
       this.SET_FLAG_AUDIO(this.flagAudio)
-      console.log("a>", this.FLAG_AUDIO)
     },
     flagNotification: function(){
+      if (this.FLAG_NOTIFICATION == null) {
+        console.log(null)
+        requestPermission()
+      }
       this.SET_FLAG_NOTIFICATION(this.flagNotification)
-      console.log("n>", this.FLAG_NOTIFICATION)
     }
   },
   mounted() {
-    console.log("a>", this.FLAG_AUDIO)
-    console.log("n>", this.FLAG_NOTIFICATION)
     this.flagAudio = this.FLAG_AUDIO;
     this.flagNotification = this.FLAG_NOTIFICATION;
     if (!this.currentUser) {
