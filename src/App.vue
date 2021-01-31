@@ -80,21 +80,22 @@ export default {
       "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
     ]),
     audioAlarm() {
-      for (var mech in this.LAST_DATA) {
-        if (this.LAST_DATA[mech].filter ) {
-          if (this.LAST_DATA[mech].alarm ) {
+      for (let mech in this.LAST_DATA) {
+        let mechanism =   this.LAST_DATA[mech]
+        if (mechanism.filter ) {
+          if (mechanism.alarm ) {
             if ( this.FLAG_AUDIO) {
-              console.log(this.LAST_DATA[mech].name, 'audio')
+              console.log(mechanism.name, 'audio')
               this.playSound();
             }
             if ( this.FLAG_NOTIFICATION) {
-            console.log(this.LAST_DATA[mech].name, 'notification')
-            showNotification(this.LAST_DATA[mech].name, 
+            console.log(mechanism.name, 'notification')
+            showNotification(mechanism.name, 
               {
                 body: "Остановка не по графику",
                 icon: require("@/assets/img/icon.png"),
                 badge: require("@/assets/img/icon512.png"),
-                tag: this.LAST_DATA[mech].number,
+                tag: mechanism.number,
                 vibrate: [ 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500, ],
               });
             }

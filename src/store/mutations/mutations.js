@@ -19,8 +19,10 @@ export default {
     }
     state.last_data = values;
   },
-  SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE: (state) => {
+  SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE: (state) => { //filter and flag
     state.mechFilter = localStorage.getItem('mechFilter')
+    state.flagAudio = localStorage.getItem('flagAudio')
+    state.flagNotification = localStorage.getItem('flagNotification')
   },
   SET_KRANS_DATA_TO_STATE: (state, values) => {
     state.krans_data = values;
@@ -43,9 +45,11 @@ export default {
   },
   SET_FLAG_AUDIO_TO_STATE: (state, flag) => {
     state.flagAudio = flag;
+    localStorage.setItem('flagAudio', state.flagAudio)
   },
   SET_FLAG_NOTIFICATION_TO_STATE: (state, flag) => {
     state.flagNotification = flag;
+    localStorage.setItem('flagNotification', state.flagNotification)
   },
   ERROR_STATE_LAST_DATA: (state) => {
     state.errored_last_data = true;

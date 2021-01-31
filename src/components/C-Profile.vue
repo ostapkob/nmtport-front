@@ -45,15 +45,15 @@
 //import { BIconBoxArrowInRight } from 'bootstrap-vue'
 import { BIconPersonCircle, BIconKeyFill, BIconVolumeUp } from "bootstrap-vue";
 import { BFormCheckbox } from "bootstrap-vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Profile",
   data() {
     return {
       changeColor: "text-dark",
-      flagAudio: true,
-      flagNotification: true,
+      flagAudio: false,
+      flagNotification: false,
     };
   },
   components: {
@@ -64,6 +64,10 @@ export default {
     BIconVolumeUp
   },
   computed: {
+    ...mapGetters([
+    "FLAG_AUDIO",
+    "FLAG_NOTIFICATION"
+    ]),
     currentUser() {
       return this.$store.state.auth.user;
     },
@@ -77,12 +81,18 @@ export default {
   watch: {
     flagAudio: function(){
       this.SET_FLAG_AUDIO(this.flagAudio)
+      console.log("a>", this.FLAG_AUDIO)
     },
     flagNotification: function(){
       this.SET_FLAG_NOTIFICATION(this.flagNotification)
+      console.log("n>", this.FLAG_NOTIFICATION)
     }
   },
   mounted() {
+    console.log("a>", this.FLAG_AUDIO)
+    console.log("n>", this.FLAG_NOTIFICATION)
+    this.flagAudio = this.FLAG_AUDIO;
+    this.flagNotification = this.FLAG_NOTIFICATION;
     if (!this.currentUser) {
       this.$router.push("/login");
     }
