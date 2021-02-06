@@ -91,7 +91,7 @@ export default {
 
     perpendicular_line_equation(k1, b1, mx, my) {
       let k2 = -(1 / k1);
-      let b2 = y - k2 * mx;
+      let b2 = my - k2 * mx;
       return [k2, b2];
     },
 
