@@ -12,6 +12,7 @@
         >
         </Markers>
         <Polygons :map="map"> </Polygons>
+        <Points :map="map"> </Points>
         <SlideBar />
       </template>
     </olMap>
@@ -45,6 +46,7 @@
 import olMap from "@/components/Ol-Map";
 import Markers from "@/components/Ol-Markers";
 import Polygons from "@/components/Ol-Polygons";
+import Points from "@/components/Ol-Points";
 import { mapActions, mapGetters } from "vuex";
 import kranProgress from "@/components/ProgressKran.vue";
 import usmProgress from "@/components/ProgressUsm.vue";
@@ -71,6 +73,7 @@ export default {
   components: {
     Markers,
     Polygons,
+    Points,
     olMap,
     kranProgress,
     usmProgress,
