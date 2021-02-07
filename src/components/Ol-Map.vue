@@ -8,6 +8,7 @@
         class="terminal"
         size="sm"
         variant="outline-info"
+
       >
         {{ nameTerminal }}
       </b-button>
@@ -107,6 +108,8 @@ export default {
         var coord = evt.coordinate;
         var degrees = transform(coord, "EPSG:3857", "EPSG:4326");
         console.log(degrees);
+        //console.log(wt(degrees[1], degrees[0] ))
+
         fun();
       });
     },
@@ -144,6 +147,46 @@ export default {
       console.log(transCenter);
       console.log(this.map);
     },
+
+
+    straight_line_equation(x1, y1, x2, y2) {
+      let k = (y1 - y2) / (x1 - x2);
+      let b = y2 - k * x2;
+      return [k, b];
+    },
+
+    perpendicular_line_equation(k1, b1, mx, my) {
+      let k2 = -(1 / k1)*1.9; //! 1.9 picked up about
+      let b2 = my - k2 * mx;
+      return [k2, b2];
+    },
+
+    intersection_point_of_lines(k1, b1, k2, b2) {
+      let nx = (b2 - b1) / (k1 - k2);
+      let ny = nx * k2 + b2;
+      // console.log('->', nx, ny)
+      return [nx, ny];
+    },
+
+    which_terminal(latitude, longitude) {
+      let k1 = 0.5932709085972241;
+      let b1 = 107.49050635162425;
+      let res_perpendic = this.perpendicular_line_equation(
+        k1,
+        b1,
+        latitude,
+        longitude
+      );
+      let result = this.intersection_point_of_lines(
+        k1,
+        b1,
+        res_perpendic[0],
+        res_perpendic[1]
+      );
+      return result;
+    },
+
+
   },
   components: {},
 };

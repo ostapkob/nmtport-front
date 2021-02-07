@@ -90,7 +90,7 @@ export default {
     },
 
     perpendicular_line_equation(k1, b1, mx, my) {
-      let k2 = -(1 / k1);
+      let k2 = -(1 / k1)*1.9; //! 1.9 picked up about
       let b2 = my - k2 * mx;
       return [k2, b2];
     },
@@ -117,15 +117,7 @@ export default {
         res_perpendic[0],
         res_perpendic[1]
       );
-      // let name_terminal = 9;
-      // for (let el of this.names_terminals) {
-      //   if (ny < el[1]) {
-      //     name_terminal = el[0];
-      //   }
-      // }
-      // console.log(name_terminal);
       return result;
-      // return name_terminal;
     },
 
     addPoints() {
