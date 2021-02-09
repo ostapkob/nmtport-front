@@ -77,19 +77,18 @@ export default {
       "GET_IP",
       "GET_LAST_DATA",
       "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
-      "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
     ]),
     audioAlarm() {
       for (let mech in this.LAST_DATA) {
         let mechanism =   this.LAST_DATA[mech]
         if (mechanism.filter ) {
           if (mechanism.alarm ) {
-            if ( this.FLAG_AUDIO) {
-              console.log(mechanism.name, 'audio')
+            if ( this.FLAG_AUDIO ) {
+              console.log(mechanism.name, '>audio:', this.FLAG_AUDIO)
               this.playSound();
             }
             if ( this.FLAG_NOTIFICATION) {
-            console.log(mechanism.name, 'notification')
+            console.log(mechanism.name, '>notification:', this.FLAG_NOTIFICATION)
             showNotification(mechanism.name, 
               {
                 body: "Остановка не по графику",
@@ -99,7 +98,7 @@ export default {
                 vibrate: [ 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500, ],
               });
             }
-            return
+            return 
           }
         }
       }
@@ -112,7 +111,7 @@ export default {
       this.polling = setInterval(() => {
         this.GET_LAST_DATA();
         this.audioAlarm()
-      }, 30000); // timer
+      }, 10000); // timer
     },
   },
   computed: {
@@ -128,6 +127,8 @@ export default {
   mounted() {
     this.GET_IP();
     this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
+    this.GET_LAST_DATA();
+    this.audioAlarm()
   },
   created() {
     this.pollData();
@@ -135,6 +136,9 @@ export default {
   beforeDestroy() {
     clearInterval(this.polling);
   }
+
+
+
 };
 </script>
 <style lang="scss">

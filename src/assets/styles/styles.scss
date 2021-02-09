@@ -1,8 +1,10 @@
 @import "variables.scss";
-// @import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import '@/assets/themes/lumen/variables.scss';
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
-@import 'node_modules/bootstrap-vue/src/index.scss';
+// @import 'node_modules/@forevolve/bootstrap-dark/scss/bootstrap-dark.scss';
 
+@import '@/assets/themes/lumen/bootswatch.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
 
 * {
   padding: 0;
@@ -46,27 +48,26 @@ input {
     top: -5px;
     z-index: 102;
     width: 100%;
-    background: #f9f9f9;
+    background: $light;
 }
 .date-toggle {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  // overflow: hidden;
   position: fixed;
   z-index: 101;
-  margin-top: 17px;
-  background: #fff;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   top: 32px;
   left: 0px;
-  padding-top: 10px;
-  padding-bottom: 15px;
   width: 100%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 0),  );
-  // background: green;
+  background: $white;
+  // background: linear-gradient(to bottom, rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 100), rgba(255, 255, 255, 0),  );
 }
 .date-header {
   font-size: 1em;
-  color: #555;
+  // color: #555;
+  color: $dark;
   padding: 0px 0px 5px 0px;
   text-align: center;
   justify-content: center;
@@ -80,14 +81,14 @@ input {
   font-weight: bold;
 }
 .time-line-mechUp {
-  color: #aaa;
+  color: $gray-500;
   font-size: .6em;
   display: flex;
   justify-content: space-between;
 }
 
 .time-line-mech {
-  color: #777;
+  color: $gray-700;
   font-size: .8em;
   display: flex;
   justify-content: space-between;
@@ -102,23 +103,23 @@ input {
 }
 
 .time-start-finish {
-  color: #066;
-  font-size: 0.7em;
+  color: $gray-700;
+  font-size: 0.70em;
   padding: 0 5px 0 5px;
 }
 
 .fioBrigada {
-  color: #666;
+  color: $dark;
   font-size: 0.8em;
 }
 
 .fioContract {
-  color: blue;
+  color: $primary;
   font-size: 0.8em;
 }
 
 .icon-usm {
-  color: #f9f9f9;
+  color: $gray-100;
   background: $info-light;
   font-size: 1em;
   height: 25px;
@@ -131,7 +132,7 @@ input {
 }
 
 .icon-kran {
-  color: #f9f9f9;
+  color: $gray-100;
   background: $info-light;
   font-size: 1em;
   height: 25px;
@@ -286,7 +287,7 @@ input {
 
 @media screen and (max-width: 765px) {
   .time-line-mech {
-    color: #777;
+    color: $gray-700;
     font-size: 0.6em;
   }
 

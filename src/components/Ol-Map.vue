@@ -7,7 +7,7 @@
         @click="chengeTerminal()"
         class="terminal"
         size="sm"
-        variant="outline-info"
+        variant="outline-primary"
 
       >
         {{ nameTerminal }}
@@ -18,7 +18,7 @@
         v-b-toggle.sidebar
         class="slidebar"
         size="sm"
-        variant="outline-info"
+        variant="outline-primary"
         >Маркеры</b-button
       >
     </div>

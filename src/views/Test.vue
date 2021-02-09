@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { showNotification } from "@/functions/functions";
+// import { showNotification } from "@/functions/functions";
 
 export default {
   name: "App",
@@ -25,18 +25,18 @@ export default {
     };
   },
   methods: {
-    notif() {
-      showNotification("myTest", this.options);
-      this.playSound();
-    },
-    playSound() {
-      let audio = new Audio(require("@/assets/sound/test.mp3"));
-      audio.play();
-    },
+    // notif() {
+    //   showNotification("myTest", this.options);
+    //   this.playSound();
+    // },
+    // playSound() {
+    //   let audio = new Audio(require("@/assets/sound/test.mp3"));
+    //   audio.play();
+    // },
 
-    showNotif() {
-      setTimeout(this.notif, 4000);
-    },
+    // showNotif() {
+    //   setTimeout(this.notif, 4000);
+    // },
   },
   computed: {},
 };

@@ -123,6 +123,7 @@ export default {
     this.SET_KRANS_API([this.date, this.shift]);
     this.SET_USM_API([this.date, this.shift]);
     this.isFocus = isVisible();
+    this.GET_LAST_DATA();
     this.$nextTick(function () {
       window.addEventListener("focus", this.GET_LAST_DATA);
       //window.addEventListener('blur', this.focusFalse);

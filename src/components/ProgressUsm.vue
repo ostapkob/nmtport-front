@@ -33,7 +33,7 @@
               Время работы в часах
             </b-tooltip>
           </b-badge>
-          <b-badge variant="warning ml-2" :id="mech.id + 'notWork'">
+          <b-badge variant="warning text-dark ml-2" :id="mech.id + 'notWork'">
             {{ Math.round((mech.total_time - mech.work_time) * 10) / 10 }}
             <b-tooltip :target="mech.id + 'notWork'" variant="warning">
               Время простоя в часах

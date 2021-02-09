@@ -60,7 +60,7 @@
     >
     <progressKRANS :mech="mech" v-if="typeMECH=='KRANS'"/>
     <progressUSM :mech="mech" v-if="typeMECH=='USM'"/>
-    <progressSenebog :mech="mech" v-if="typeMECH=='SENEBOG'"/>
+    <progressSenebog :mech="mech" v-if="typeMECH=='SENNEBOG'"/>
     <Hours :shift="shift" />
     </div>
 

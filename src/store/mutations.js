@@ -2,18 +2,15 @@ export default {
   SET_LAST_DATA_TO_STATE: (state, values) => {
     if (state.mechFilter) {
       for (let mech in values) {
-        if (
-          !state.mechFilter.includes(values[mech].state)
-          &&
-          state.mechFilter.includes(values[mech].type)
-        ) {
-          values[mech]['filter'] = true
-          // delete values[mech]
-          // console.log('+', values[mech].name)
-        }
-        else {
-          values[mech]['filter'] = false
-          // console.log('-', values[mech].name)
+        if (values[mech].name) { // ? becouse i get html and object
+          if (
+            !state.mechFilter.includes(values[mech].state) &&
+            state.mechFilter.includes(values[mech].type)
+          ) {
+            values[mech]['filter'] = true
+          } else {
+            values[mech]['filter'] = false
+          }
         }
       }
     }
@@ -21,8 +18,8 @@ export default {
   },
   SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE: (state) => { //filter and flag
     state.mechFilter = localStorage.getItem('mechFilter')
-    state.flagAudio = localStorage.getItem('flagAudio')
-    state.flagNotification = localStorage.getItem('flagNotification')
+    state.flagAudio = localStorage.getItem('flagAudio') == 'true'
+    state.flagNotification = localStorage.getItem('flagNotification') == 'true'
   },
   SET_KRANS_DATA_TO_STATE: (state, values) => {
     state.krans_data = values;
@@ -37,11 +34,15 @@ export default {
     state.mechFilter = values
     localStorage.setItem('mechFilter', state.mechFilter)
   },
-  SET_FILTER_LAST_DATA({ commit }, value) {
-      commit('SET_FILTER_LAST_DATA_TO_STATE', value);
+  SET_FILTER_LAST_DATA({
+    commit
+  }, value) {
+    commit('SET_FILTER_LAST_DATA_TO_STATE', value);
   },
-  SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE({ commit }) {
-      commit('SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE');
+  SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE({
+    commit
+  }) {
+    commit('SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE');
   },
   SET_FLAG_AUDIO_TO_STATE: (state, flag) => {
     state.flagAudio = flag;
