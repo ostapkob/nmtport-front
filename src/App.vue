@@ -37,7 +37,7 @@
           <!-- <b-nav-item v-if=loggedIn @click=logOut >Выйти</b-nav-item> -->
         </b-nav>
       </b-card-header>
-      <div id="empty-top"> </div>
+      <div id="empty-top"></div>
       <div class="mb-5">
         <router-view></router-view>
       </div>
@@ -62,7 +62,9 @@ export default {
   data() {
     return {
       polling: null,
-    }
+      list_alarm: [],
+      tmp_list_alarm: [],
+    };
   },
   components: {
     BNav,
@@ -80,25 +82,29 @@ export default {
     ]),
     audioAlarm() {
       for (let mech in this.LAST_DATA) {
-        let mechanism =   this.LAST_DATA[mech]
-        if (mechanism.filter ) {
-          if (mechanism.alarm ) {
-            if ( this.FLAG_AUDIO ) {
-              console.log(mechanism.name, '>audio:', this.FLAG_AUDIO)
+        let mechanism = this.LAST_DATA[mech];
+        if (mechanism.filter) {
+          if (mechanism.alarm) {
+            if (this.FLAG_AUDIO) {
+              console.log(mechanism.name, ">audio:", this.FLAG_AUDIO);
               this.playSound();
             }
-            if ( this.FLAG_NOTIFICATION) {
-            console.log(mechanism.name, '>notification:', this.FLAG_NOTIFICATION)
-            showNotification(mechanism.name, 
-              {
+            if (this.FLAG_NOTIFICATION) {
+              console.log(
+                mechanism.name,
+                ">notification:",
+                this.FLAG_NOTIFICATION
+              );
+              showNotification(mechanism.name, {
                 body: "Остановка не по графику",
                 icon: require("@/assets/img/icon.png"),
                 badge: require("@/assets/img/icon512.png"),
                 tag: mechanism.number,
-                vibrate: [ 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500, ],
+                vibrate: [ 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500,
+                ],
               });
             }
-            return 
+            return;
           }
         }
       }
@@ -110,35 +116,28 @@ export default {
     pollData() {
       this.polling = setInterval(() => {
         this.GET_LAST_DATA();
-        this.audioAlarm()
-      }, 10000); // timer
+        this.audioAlarm();
+      }, 45000); // timer
     },
   },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-    ...mapGetters([
-      "FLAG_AUDIO",
-      "FLAG_NOTIFICATION",
-      "LAST_DATA"
-    ]),
+    ...mapGetters(["FLAG_AUDIO", "FLAG_NOTIFICATION", "LAST_DATA"]),
   },
   mounted() {
     this.GET_IP();
     this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
     this.GET_LAST_DATA();
-    this.audioAlarm()
+    this.audioAlarm();
   },
   created() {
     this.pollData();
   },
   beforeDestroy() {
     clearInterval(this.polling);
-  }
-
-
-
+  },
 };
 </script>
 <style lang="scss">

@@ -2,7 +2,7 @@ export default {
   SET_LAST_DATA_TO_STATE: (state, values) => {
     if (state.mechFilter) {
       for (let mech in values) {
-        if (values[mech].name) { // ? becouse i get html and object
+        if (values[mech].name) { // ? because i get html and object
           if (
             !state.mechFilter.includes(values[mech].state) &&
             state.mechFilter.includes(values[mech].type)
