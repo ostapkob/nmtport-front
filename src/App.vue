@@ -62,8 +62,7 @@ export default {
   data() {
     return {
       polling: null,
-      list_alarm: [],
-      tmp_list_alarm: [],
+      tmpSetAlarm: new Set()
     };
   },
   components: {
@@ -81,19 +80,20 @@ export default {
       "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
     ]),
     audioAlarm() {
+      console.log(this.tmpSetAlarm)
+      console.log("filter, alarm, id")
       for (let mech in this.LAST_DATA) {
         let mechanism = this.LAST_DATA[mech];
+        console.log(mechanism.filter, mechanism.alarm, mechanism.type, mechanism.number)
         if (mechanism.filter) {
-          if (mechanism.alarm) {
+          if (mechanism.alarm && this.tmpSetAlarm.has(mechanism.id)) {
+            this.tmpSetAlarm.delete(mechanism.id) 
             if (this.FLAG_AUDIO) {
               console.log(mechanism.name, ">audio:", this.FLAG_AUDIO);
               this.playSound();
             }
             if (this.FLAG_NOTIFICATION) {
-              console.log(
-                mechanism.name,
-                ">notification:",
-                this.FLAG_NOTIFICATION
+              console.log( mechanism.name, ">notification:", this.FLAG_NOTIFICATION
               );
               showNotification(mechanism.name, {
                 body: "Остановка не по графику",
@@ -104,10 +104,13 @@ export default {
                 ],
               });
             }
-            return;
+          }
+          if (!mechanism.alarm) {
+            this.tmpSetAlarm.add(mechanism.id)
           }
         }
       }
+      return;
     },
     playSound() {
       let audio = new Audio(require("@/assets/sound/test.mp3"));
