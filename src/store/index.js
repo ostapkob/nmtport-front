@@ -15,7 +15,6 @@ export default new Vuex.Store({
     selectedFeatures: [],
     ip: 'https://m1.nmtport.ru',
     // ip:      'http://127.0.0.1:5000',
-    // ip:      'http://192.168.8.112:5000',
     last_data_api: '',
     kran_api: '',
     usm_api: '',

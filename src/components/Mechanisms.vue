@@ -2,54 +2,54 @@
   <div class="main">
     <div class="date-toggle">
       <div class="text-right">
-          <b-form-datepicker
-            button-only
-            id="example-datepicker"
-            size="sm"
-            v-model="dateCal"
-            class="mr-3"
-            selected-variant="info"
-            nav-button-variant="info"
-            today-variant="info"
-            locale="ru-RU"
-            start-weekday="1"
-          >
-          </b-form-datepicker>
+        <b-form-datepicker
+          button-only
+          id="example-datepicker"
+          size="sm"
+          v-model="dateCal"
+          class="mr-3"
+          selected-variant="info"
+          nav-button-variant="info"
+          today-variant="info"
+          locale="ru-RU"
+          start-weekday="1"
+        >
+        </b-form-datepicker>
 
-          <b-button
-            size="sm"
-            variant="secondary"
-            @click="backDateShift()"
-            class="shadow-sm mr-3"
-            :disabled="flagButtonsDisabled"
-          >
-            &lsaquo;
-          </b-button>
+        <b-button
+          size="sm"
+          variant="secondary"
+          @click="backDateShift()"
+          class="shadow-sm mr-3"
+          :disabled="flagButtonsDisabled"
+        >
+          &lsaquo;
+        </b-button>
       </div>
       <div class="date-header">
-            <strong>{{ date }}</strong> смена:
-            <strong>{{ shift }}</strong>
+        <strong>{{ date }}</strong> смена:
+        <strong>{{ shift }}</strong>
       </div>
       <div class="text-left">
-          <b-button
-            size="sm"
-            variant="secondary"
-            @click="nextDateShift()"
-            class="ml-3 mr-3 shadow-sm"
-            v-show="flagButtonsVisible"
-            :disabled="flagButtonsDisabled"
-          >
-            &rsaquo;
-          </b-button>
-          <b-button
-            size="sm"
-            variant="secondary"
-            @click="nowDateShift()"
-            class="shadow-sm"
-            v-show="flagButtonsVisible"
-          >
-            &raquo;
-          </b-button>
+        <b-button
+          size="sm"
+          variant="secondary"
+          @click="nextDateShift()"
+          class="ml-3 mr-3 shadow-sm"
+          v-show="!isNow"
+          :disabled="flagButtonsDisabled"
+        >
+          &rsaquo;
+        </b-button>
+        <b-button
+          size="sm"
+          variant="secondary"
+          @click="nowDateShift()"
+          class="shadow-sm"
+          v-show="!isNow"
+        >
+          &raquo;
+        </b-button>
       </div>
     </div>
 
@@ -58,10 +58,10 @@
       class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
     >
-    <progressKRANS :mech="mech" v-if="typeMECH=='KRANS'"/>
-    <progressUSM :mech="mech" v-if="typeMECH=='USM'"/>
-    <progressSenebog :mech="mech" v-if="typeMECH=='SENNEBOG'"/>
-    <Hours :shift="shift" />
+      <progressKRANS :mech="mech" v-if="typeMECH == 'KRANS'" />
+      <progressUSM :mech="mech" v-if="typeMECH == 'USM'" />
+      <progressSenebog :mech="mech" v-if="typeMECH == 'SENNEBOG'" />
+      <Hours :shift="shift" />
     </div>
 
     <div>
@@ -91,7 +91,6 @@ export default {
       polling: null,
       dateCal: dateNow(),
       flagButtonsDisabled: false,
-      flagButtonsVisible: false,
     };
   },
   props: {
@@ -101,8 +100,13 @@ export default {
     Hours,
     BTooltip,
     BFormDatepicker,
-    progressKRANS: () => import('@/components/ProgressKran'),
-    progressUSM: () => import('@/components/ProgressUsm'),
+    progressKRANS: () => import("@/components/ProgressKran"),
+    progressUSM: () => import("@/components/ProgressUsm"),
+  },
+  computed: {
+    isNow: function () {
+      return this.date == this.dateNow && this.shift == this.shiftNow;
+    },
   },
   methods: {
     //...mapActions(["GET_KRANS_DATA", "SET_KRANS_API"]),
@@ -112,6 +116,7 @@ export default {
       }, 45000);
     },
     backDateShift() {
+      console.log("Back");
       if (this.shift == 2) {
         this.shift = 1;
       } else {
@@ -127,12 +132,14 @@ export default {
         this.shift = 2;
       }
       //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+        this.date,
+        this.shift,
+      ]);
       this.buttonsDisabled();
-      this.buttonsVisible();
     },
-
     nextDateShift() {
+      console.log("Next");
       if (this.shift == 1) {
         this.shift = 2;
       } else {
@@ -148,16 +155,21 @@ export default {
         this.shift = 1;
       }
       //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+        this.date,
+        this.shift,
+      ]);
       this.buttonsDisabled();
-      this.buttonsVisible();
     },
     nowDateShift() {
+      console.log("Now");
       this.shift = shiftNow();
       this.date = dateNow();
       //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
-      this.buttonsVisible();
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+        this.date,
+        this.shift,
+      ]);
     },
     buttonsDisabled() {
       this.flagButtonsDisabled = true;
@@ -165,33 +177,28 @@ export default {
         this.flagButtonsDisabled = false;
       }, 1000);
     },
-    buttonsVisible() {
-      if (!(this.date == this.dateNow && this.shift == this.shiftNow)) {
-        this.flagButtonsVisible = true;
-      } else {
-        this.flagButtonsVisible = false;
-      }
-    },
     refresh() {
-      this.shiftNow = shiftNow();
-      this.dateNow = dateNow();
-      if (this.date == this.dateNow && this.shift == this.shiftNow) {
-        this.flagButtonsVisible = false;
-      } else {
-        this.flagButtonsVisible = true;
+      if (this.isNow) {
+        console.log("Refresh");
+        this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+          this.date,
+          this.shift,
+        ]);
       }
-      //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
     },
   },
   mounted() {
+    console.log("Mounted");
     this.shift = shiftNow();
     this.date = dateNow();
     this.shiftNow = shiftNow();
     this.dateNow = dateNow();
     this.hours = hoursProgress(shiftNow());
     //this.SET_KRANS_API([this.date, this.shift]);
-    this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
+    this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+      this.date,
+      this.shift,
+    ]);
     //this.GET_KRANS_DATA();
     this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
     this.$nextTick(function () {
@@ -199,18 +206,15 @@ export default {
     });
   },
   watch: {
-     shift: function () {
-       this.refresh();
-     },
-     date: function () {
-       this.refresh();
-     },
-
     dateCal: function () {
+      console.log("DateCal");
       this.date = this.dateCal.split("-").reverse().join(".");
       this.shift = 1;
       //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", ([this.date, this.shift]));
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+        this.date,
+        this.shift,
+      ]);
     },
   },
 

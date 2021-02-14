@@ -56,18 +56,20 @@ export default {
     state.errored_last_data = true;
   },
   CHANGE_KRANS_API: (state, date_shift) => {
+    console.log(date_shift);
     let date = date_shift[0]
     let shift = date_shift[1]
-    state.kran_api = state.ip + '/api/v1.0/get_data_period_with_fio/kran/' + date + '/' + shift
+    state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio/kran/' + date + '/' + shift
   },
   CHANGE_USM_API: (state, date_shift) => {
+    console.log(date_shift);
     let date = date_shift[0]
     let shift = date_shift[1]
-    state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio/usm/' + date + '/' + shift
+    state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio/usm/' + date + '/' + shift
   },
   CHANGE_IP: (state) => {
     state.last_data_api = state.ip + '/api/v1.0/get_all_last_data_state'
-    state.kran_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/kran'
-    state.usm_api = state.ip + '/api/v1.0/get_data_period_with_fio_now/usm'
-  },
+    state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/kran'
+    state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/usm'
+  }
 }

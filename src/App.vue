@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       polling: null,
-      tmpSetAlarm: new Set()
+      tmpSetAlarm: new Set(),
     };
   },
   components: {
@@ -80,33 +80,35 @@ export default {
       "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
     ]),
     audioAlarm() {
-      console.log(this.tmpSetAlarm)
-      console.log("filter, alarm, id")
+      // console.log(this.tmpSetAlarm)
+      // console.log("filter, alarm, id")
       for (let mech in this.LAST_DATA) {
         let mechanism = this.LAST_DATA[mech];
-        console.log(mechanism.filter, mechanism.alarm, mechanism.type, mechanism.number)
+        // console.log(mechanism.filter, mechanism.alarm, mechanism.type, mechanism.number)
         if (mechanism.filter) {
           if (mechanism.alarm && this.tmpSetAlarm.has(mechanism.id)) {
-            this.tmpSetAlarm.delete(mechanism.id) 
+            this.tmpSetAlarm.delete(mechanism.id);
             if (this.FLAG_AUDIO) {
               console.log(mechanism.name, ">audio:", this.FLAG_AUDIO);
               this.playSound();
             }
             if (this.FLAG_NOTIFICATION) {
-              console.log( mechanism.name, ">notification:", this.FLAG_NOTIFICATION
+              console.log(
+                mechanism.name,
+                ">notification:",
+                this.FLAG_NOTIFICATION
               );
               showNotification(mechanism.name, {
                 body: "Остановка не по графику",
                 icon: require("@/assets/img/icon.png"),
                 badge: require("@/assets/img/icon512.png"),
                 tag: mechanism.number,
-                vibrate: [ 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500,
-                ],
+                vibrate: [ 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500, ],
               });
             }
           }
           if (!mechanism.alarm) {
-            this.tmpSetAlarm.add(mechanism.id)
+            this.tmpSetAlarm.add(mechanism.id);
           }
         }
       }
