@@ -25,7 +25,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["SET_KRANS_API"]),
+    ...mapActions(["SET_KRAN_API"]),
     backDateShift() {
       if (this.shift == 2) {
         this.shift = 1;
@@ -41,7 +41,7 @@ export default {
           newDate.getFullYear();
         this.shift = 2;
       }
-      this.SET_KRANS_API([this.date, this.shift]);
+      this.SET_KRAN_API([this.date, this.shift]);
     },
 
     nextDateShift() {
@@ -59,7 +59,7 @@ export default {
           newDate.getFullYear();
         this.shift = 1;
       }
-      this.SET_KRANS_API([this.date, this.shift]);
+      this.SET_KRAN_API([this.date, this.shift]);
     },
   },
 };

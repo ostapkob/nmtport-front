@@ -1,6 +1,6 @@
 <template>
   <div>
-    <olMap class="mb-2">
+    <olMap >
       <!-- <olOverInfo class="ol-map"/> -->
       <template v-slot="{ map }">
         <Markers
@@ -17,7 +17,7 @@
       </template>
     </olMap>
     <!-- <span v-for='(m, k) in SELECTED_FEATURES' :key=k> {{m}} </span> -->
-    <div v-for="mech in KRANS_DATA" :key="mech.id">
+    <div v-for="mech in KRAN_DATA" :key="mech.id">
       <div
         v-if="SELECTED_FEATURES.includes(mech.id)"
         class="p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 ml-2 mr-2 shadow-sm"
@@ -83,7 +83,7 @@ export default {
   methods: {
     ...mapActions([
       "GET_LAST_DATA",
-      "SET_KRANS_API",
+      "SET_KRAN_API",
       "SET_USM_API",
       "SET_FILTER_LAST_DATA",
     ]),
@@ -93,7 +93,7 @@ export default {
         //this.GET_LAST_DATA();
         this.shift = shiftNow();
         this.date = dateNow();
-        this.SET_KRANS_API([this.date, this.shift]);
+        this.SET_KRAN_API([this.date, this.shift]);
         this.SET_USM_API([this.date, this.shift]);
         this.isFocus = isVisible();
       }, 30000); // timer
@@ -107,7 +107,7 @@ export default {
     ...mapGetters([
       "SELECTED_FEATURES",
       "LAST_DATA",
-      "KRANS_DATA",
+      "KRAN_DATA",
       "USM_DATA",
       "FILTER_LAST_DATA",
     ]),
@@ -120,7 +120,7 @@ export default {
     this.shift = shiftNow();
     this.date = dateNow();
     this.hours = hoursProgress(shiftNow());
-    this.SET_KRANS_API([this.date, this.shift]);
+    this.SET_KRAN_API([this.date, this.shift]);
     this.SET_USM_API([this.date, this.shift]);
     this.isFocus = isVisible();
     this.GET_LAST_DATA();

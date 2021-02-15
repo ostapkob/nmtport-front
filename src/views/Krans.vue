@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Mechanisms typeMECH="KRANS"> </Mechanisms>
+    <Mechanisms typeMECH="KRAN"> </Mechanisms>
   </div>
 </template>
 

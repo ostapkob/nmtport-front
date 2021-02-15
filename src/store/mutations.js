@@ -16,13 +16,13 @@ export default {
     }
     state.last_data = values;
   },
-  SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE: (state) => { //filter and flag
+  SET_STATE_FROM_LOCALSTORAGE: (state) => { //filter and flag
     state.mechFilter = localStorage.getItem('mechFilter')
     state.flagAudio = localStorage.getItem('flagAudio') == 'true'
     state.flagNotification = localStorage.getItem('flagNotification') == 'true'
   },
-  SET_KRANS_DATA_TO_STATE: (state, values) => {
-    state.krans_data = values;
+  SET_KRAN_DATA_TO_STATE: (state, values) => {
+    state.kran_data = values;
   },
   SET_USM_DATA_TO_STATE: (state, values) => {
     state.usm_data = values;
@@ -42,7 +42,7 @@ export default {
   SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE({
     commit
   }) {
-    commit('SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE');
+    commit('SET_STATE_FROM_LOCALSTORAGE');
   },
   SET_FLAG_AUDIO_TO_STATE: (state, flag) => {
     state.flagAudio = flag;
@@ -52,10 +52,14 @@ export default {
     state.flagNotification = flag;
     localStorage.setItem('flagNotification', state.flagNotification)
   },
+  SET_HASH: (state) => {
+    // console.log(state.kran_api)
+    localStorage.setItem(state.kran_api, JSON.stringify(state.kran_data))
+  },
   ERROR_STATE_LAST_DATA: (state) => {
     state.errored_last_data = true;
   },
-  CHANGE_KRANS_API: (state, date_shift) => {
+  CHANGE_KRAN_API: (state, date_shift) => {
     console.log(date_shift);
     let date = date_shift[0]
     let shift = date_shift[1]

@@ -21,14 +21,15 @@ export default {
                 return error;
             })
     },
-    GET_KRANS_DATA({
+    GET_KRAN_DATA({
         commit
     }) {
         return axios(this.state.kran_api, {
             method: "GET"
         })
             .then(args => {
-                commit('SET_KRANS_DATA_TO_STATE', args.data);
+                // commit('SET_KRAN_DATA_TO_STATE', args.data);
+                commit('SET_HASH');
                 return args;
             })
             .catch(error => {
@@ -52,6 +53,11 @@ export default {
             })
     },
 
+    // GET_HASH: (state, api) => {
+    //   localStorage.setItem(state.kran_api, JSON.stringify(state.kran_data))
+    //   var retrievedObject = localStorage.getItem(api);
+    //   console.log(JSON.parse(retrievedObject));
+    // },
     SET_FLAG_NOTIFICATION({
         commit
     }, value) {
@@ -62,15 +68,15 @@ export default {
     }, value) {
         commit('SET_FLAG_AUDIO_TO_STATE', value);
     },
-    SET_KRANS_API({
+    SET_KRAN_API({
         commit
     }, value) {
-        commit('CHANGE_KRANS_API', value);
+        commit('CHANGE_KRAN_API', value);
         return axios(this.state.kran_api, {
             method: "GET"
         })
             .then(args => {
-                commit('SET_KRANS_DATA_TO_STATE', args.data);
+                commit('SET_KRAN_DATA_TO_STATE', args.data);
                 return args;
             })
             .catch(error => {
@@ -107,6 +113,6 @@ export default {
     SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE({
         commit
     }) {
-        commit('SET_LAST_DATA_TO_STATE_FROM_LOCALSTORAGE');
+        commit('SET_STATE_FROM_LOCALSTORAGE');
     },
 }

@@ -19,7 +19,6 @@ import Overlay from "ol/Overlay";
 import { transform } from "ol/proj";
 import { mapActions, mapGetters } from "vuex";
 import { TimelineLite, TimelineMax, Back, Elastic, Expo } from "gsap/dist/gsap";
-import { showNotification } from "@/functions/functions";
 
 export default {
   props: {
@@ -92,15 +91,8 @@ export default {
       }
     },
     alarm(markerAlarm) {
-      if (markerAlarm) {
-        showNotification(this.marker.name, {
-          body: this.marker.state,
-          icon: require("@/assets/img/icon.png"),
-          badge: require("@/assets/img/icon512.png"),
-        });
-        if (this.isFocus) {
+      if (markerAlarm && this.isFocus) {
           this.animationAlarm();
-        }
       }
     },
     push() {

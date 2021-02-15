@@ -5,13 +5,6 @@
         <!-- <b-nav card-header tabs> -->
         <b-nav card-header tabs>
           <b-nav-item
-            to="/mapol"
-            exact
-            exact-active-class="active"
-            :disabled="!loggedIn"
-            >Карта</b-nav-item
-          >
-          <b-nav-item
             to="/usm"
             exact
             exact-active-class="active"
@@ -25,14 +18,26 @@
             :disabled="!loggedIn"
             >Краны</b-nav-item
           >
+          <b-nav-item
+            to="/mapol"
+            exact
+            exact-active-class="active"
+            :disabled="!loggedIn"
+            >
+            <b-icon-map  variant="primary" />
+
+          </b-nav-item
+          >
+          <b-nav-item to="/loginRegistr" exact exact-active-class="active"
+            >
+            <b-icon-gear-fill  variant="primary" />
+            </b-nav-item
+          >
           <b-nav-item-dropdown id="my-nav-dropdown" left>
             <b-dropdown-item to="/">Растановка</b-dropdown-item>
             <b-dropdown-item to="/video">Видео</b-dropdown-item>
             <!-- <b-dropdown-item to='/archive'>Архив</b-dropdown-item> -->
           </b-nav-item-dropdown>
-          <b-nav-item to="/loginRegistr" exact exact-active-class="active"
-            >Аккаунт</b-nav-item
-          >
           <!-- <b-nav-item v-if=!loggedIn to="/register" >Register</b-nav-item> -->
           <!-- <b-nav-item v-if=loggedIn @click=logOut >Выйти</b-nav-item> -->
         </b-nav>
@@ -48,7 +53,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { showNotification } from "@/functions/functions";
-
+import { BIconGearFill, BIconMap } from "bootstrap-vue";
 import {
   BNav,
   BDropdownItem,
@@ -72,6 +77,8 @@ export default {
     BCard,
     BNavItemDropdown,
     BDropdownItem,
+    BIconGearFill,
+    BIconMap,
   },
   methods: {
     ...mapActions([
@@ -121,6 +128,8 @@ export default {
     pollData() {
       this.polling = setInterval(() => {
         this.GET_LAST_DATA();
+        //this.$store.dispatch("GET_KRAN_DATA"); //! use in then make localstorage
+        //this.$store.dispatch("GET_USM_DATA");
         this.audioAlarm();
       }, 45000); // timer
     },

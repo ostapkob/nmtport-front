@@ -1,15 +1,15 @@
 export default {
   LAST_DATA(state) {
     //console.log(state.ip)
-    //console.log('store last_data getters');
+    console.log('last_data getters', state.last_data);
     return state.last_data;
   },
-  KRANS_DATA(state) {
-    // console.log('store kran  getters');
-    return state.krans_data;
+  KRAN_DATA(state) {
+    console.log('->  kran  getters', state.kran_api);
+    return state.kran_data;
   },
   USM_DATA(state) {
-    // console.log('store usm  getters');
+    console.log('->  usm  getters', state.usm_api);
     return state.usm_data;
   },
   SELECTED_FEATURES(state) {

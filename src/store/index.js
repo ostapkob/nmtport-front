@@ -10,7 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     last_data: [],
-    krans_data: [],
+    kran_data: [],
     usm_data: [],
     selectedFeatures: [],
     ip: 'https://m1.nmtport.ru',

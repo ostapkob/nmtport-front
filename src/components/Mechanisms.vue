@@ -58,7 +58,7 @@
       class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
     >
-      <progressKRANS :mech="mech" v-if="typeMECH == 'KRANS'" />
+      <progressKRAN :mech="mech" v-if="typeMECH == 'KRAN'" />
       <progressUSM :mech="mech" v-if="typeMECH == 'USM'" />
       <progressSenebog :mech="mech" v-if="typeMECH == 'SENNEBOG'" />
       <Hours :shift="shift" />
@@ -100,7 +100,7 @@ export default {
     Hours,
     BTooltip,
     BFormDatepicker,
-    progressKRANS: () => import("@/components/ProgressKran"),
+    progressKRAN: () => import("@/components/ProgressKran"),
     progressUSM: () => import("@/components/ProgressUsm"),
   },
   computed: {
@@ -109,11 +109,13 @@ export default {
     },
   },
   methods: {
-    //...mapActions(["GET_KRANS_DATA", "SET_KRANS_API"]),
     pollData() {
       this.polling = setInterval(() => {
-        this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
-      }, 45000);
+        if (this.isNow) {
+          console.log('polling')
+          this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+        }
+      }, 5000);
     },
     backDateShift() {
       console.log("Back");
@@ -131,12 +133,7 @@ export default {
           newDate.getFullYear();
         this.shift = 2;
       }
-      //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-        this.date,
-        this.shift,
-      ]);
-      this.buttonsDisabled();
+      this.clickAnyButtons()
     },
     nextDateShift() {
       console.log("Next");
@@ -154,22 +151,13 @@ export default {
           newDate.getFullYear();
         this.shift = 1;
       }
-      //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-        this.date,
-        this.shift,
-      ]);
-      this.buttonsDisabled();
+      this.clickAnyButtons()
     },
     nowDateShift() {
       console.log("Now");
       this.shift = shiftNow();
       this.date = dateNow();
-      //this.SET_KRANS_API([this.date, this.shift]);
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-        this.date,
-        this.shift,
-      ]);
+      this.clickAnyButtons()
     },
     buttonsDisabled() {
       this.flagButtonsDisabled = true;
@@ -180,12 +168,17 @@ export default {
     refresh() {
       if (this.isNow) {
         console.log("Refresh");
-        this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-          this.date,
-          this.shift,
-        ]);
+        this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
       }
     },
+    clickAnyButtons() {
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+        this.date,
+        this.shift,
+      ]);
+      this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+      this.buttonsDisabled();
+    }
   },
   mounted() {
     console.log("Mounted");
@@ -194,13 +187,11 @@ export default {
     this.shiftNow = shiftNow();
     this.dateNow = dateNow();
     this.hours = hoursProgress(shiftNow());
-    //this.SET_KRANS_API([this.date, this.shift]);
     this.$store.dispatch("SET_" + this.typeMECH + "_API", [
       this.date,
       this.shift,
     ]);
-    //this.GET_KRANS_DATA();
-    this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+    //this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
@@ -210,7 +201,6 @@ export default {
       console.log("DateCal");
       this.date = this.dateCal.split("-").reverse().join(".");
       this.shift = 1;
-      //this.SET_KRANS_API([this.date, this.shift]);
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
         this.date,
         this.shift,
