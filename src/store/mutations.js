@@ -60,13 +60,13 @@ export default {
     state.errored_last_data = true;
   },
   CHANGE_KRAN_API: (state, date_shift) => {
-    console.log(date_shift);
+    // console.log(date_shift);
     let date = date_shift[0]
     let shift = date_shift[1]
     state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio/kran/' + date + '/' + shift
   },
   CHANGE_USM_API: (state, date_shift) => {
-    console.log(date_shift);
+    // console.log(date_shift);
     let date = date_shift[0]
     let shift = date_shift[1]
     state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio/usm/' + date + '/' + shift

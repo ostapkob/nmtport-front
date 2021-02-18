@@ -305,6 +305,9 @@ input {
     // margin:: -3.7px 0px 0px 0px;
   }
 
+  .text-nav {
+    display: none;
+  }
   %mech-icon-phone {
     z-index: 2;
     width: $mech-size-phone;

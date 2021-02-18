@@ -5,18 +5,31 @@
         <!-- <b-nav card-header tabs> -->
         <b-nav card-header tabs>
           <b-nav-item
-            to="/usm"
-            exact
-            exact-active-class="active"
-            :disabled="!loggedIn"
-            >Усм</b-nav-item
-          >
-          <b-nav-item
             to="/krans"
             exact
             exact-active-class="active"
             :disabled="!loggedIn"
-            >Краны</b-nav-item
+            >
+            <img
+              src="@/assets/img/kran_blue.svg"
+              height="18"
+            />
+            <span class="text-nav"> Краны</span>
+            </b-nav-item
+          >
+          <b-nav-item
+            to="/usm"
+            exact
+            exact-active-class="active"
+            :disabled="!loggedIn"
+            >
+            <img
+              src="@/assets/img/usm_blue.svg"
+              height="16"
+              class="mb-1"
+            />
+            <span class="text-nav"> Усм</span>
+            </b-nav-item
           >
           <b-nav-item
             to="/mapol"
@@ -25,12 +38,13 @@
             :disabled="!loggedIn"
             >
             <b-icon-map  variant="primary" />
-
+            <span class="text-nav">  Карта</span>
           </b-nav-item
           >
           <b-nav-item to="/loginRegistr" exact exact-active-class="active"
             >
-            <b-icon-gear-fill  variant="primary" />
+            <b-icon-gear-fill  variant="primary" /> 
+            <span class="text-nav"> Настройки</span>
             </b-nav-item
           >
           <b-nav-item-dropdown id="my-nav-dropdown" left>

@@ -44,7 +44,8 @@ export default {
             method: "GET"
         })
             .then(args => {
-                commit('SET_USM_DATA_TO_STATE', args.data);
+                // commit('SET_USM_DATA_TO_STATE', args.data);
+                commit('SET_HASH');
                 return args;
             })
             .catch(error => {

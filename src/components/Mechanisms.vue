@@ -113,9 +113,13 @@ export default {
       this.polling = setInterval(() => {
         if (this.isNow) {
           console.log('polling')
+          this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+            this.date,
+            this.shift,
+          ]);
           this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
         }
-      }, 5000);
+      }, 45000);
     },
     backDateShift() {
       console.log("Back");
@@ -168,6 +172,12 @@ export default {
     refresh() {
       if (this.isNow) {
         console.log("Refresh");
+        this.shift = shiftNow();
+        this.date = dateNow()
+        this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+          this.date,
+          this.shift,
+        ]);
         this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
       }
     },
@@ -209,6 +219,7 @@ export default {
   },
 
   beforeDestroy() {
+    console.log('Destroy', this.typeMECH)
     clearInterval(this.polling);
     window.removeEventListener("focus", this.refresh);
   },
