@@ -52,9 +52,15 @@ export default {
     state.flagNotification = flag;
     localStorage.setItem('flagNotification', state.flagNotification)
   },
-  SET_HASH: (state) => {
-    // console.log(state.kran_api)
-    localStorage.setItem(state.kran_api, JSON.stringify(state.kran_data))
+  HASH_KRAN: (state) => {
+    if (state.kran_api) {
+      console.log('get')
+      return sessionStorage.getItem(state.kran_api)
+    }
+    else {
+      console.log('set')
+      return sessionStorage.setItem(state.kran_api, JSON.stringify(state.kran_data))
+    }
   },
   ERROR_STATE_LAST_DATA: (state) => {
     state.errored_last_data = true;

@@ -5,7 +5,7 @@ export default {
     return state.last_data;
   },
   KRAN_DATA(state) {
-    // console.log('->  kran  getters', state.kran_api);
+    console.log('->  kran  getters', state.kran_api);
     return state.kran_data;
   },
   USM_DATA(state) {

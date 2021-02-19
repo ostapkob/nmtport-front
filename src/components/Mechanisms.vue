@@ -15,7 +15,6 @@
           start-weekday="1"
         >
         </b-form-datepicker>
-
         <b-button
           size="sm"
           variant="secondary"
@@ -63,7 +62,6 @@
       <progressSenebog :mech="mech" v-if="typeMECH == 'SENNEBOG'" />
       <Hours :shift="shift" />
     </div>
-
     <div>
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
       <b-tooltip show target="bug" variant="light">.</b-tooltip>
@@ -85,8 +83,6 @@ export default {
     return {
       shift: 1,
       date: "-",
-      shiftNow: 1,
-      dateNow: "-",
       hours: "",
       polling: null,
       dateCal: dateNow(),
@@ -105,24 +101,16 @@ export default {
   },
   computed: {
     isNow: function () {
-      return this.date == this.dateNow && this.shift == this.shiftNow;
+      return this.date == dateNow() && this.shift == shiftNow();
     },
   },
   methods: {
     pollData() {
       this.polling = setInterval(() => {
-        if (this.isNow) {
-          console.log('polling')
-          this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-            this.date,
-            this.shift,
-          ]);
-          this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
-        }
+        this.refresh();
       }, 45000);
     },
     backDateShift() {
-      console.log("Back");
       if (this.shift == 2) {
         this.shift = 1;
       } else {
@@ -140,7 +128,6 @@ export default {
       this.clickAnyButtons()
     },
     nextDateShift() {
-      console.log("Next");
       if (this.shift == 1) {
         this.shift = 2;
       } else {
@@ -158,7 +145,6 @@ export default {
       this.clickAnyButtons()
     },
     nowDateShift() {
-      console.log("Now");
       this.shift = shiftNow();
       this.date = dateNow();
       this.clickAnyButtons()
@@ -167,16 +153,14 @@ export default {
       this.flagButtonsDisabled = true;
       setTimeout(() => {
         this.flagButtonsDisabled = false;
-      }, 1000);
+      }, 1500);
     },
     refresh() {
       if (this.isNow) {
-        console.log("Refresh");
-        this.shift = shiftNow();
-        this.date = dateNow()
+        console.log('refresh now')
         this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-          this.date,
-          this.shift,
+          dateNow(),
+          shiftNow()
         ]);
         this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
       }
@@ -190,36 +174,33 @@ export default {
       this.buttonsDisabled();
     }
   },
+  
   mounted() {
-    console.log("Mounted");
     this.shift = shiftNow();
     this.date = dateNow();
-    this.shiftNow = shiftNow();
-    this.dateNow = dateNow();
     this.hours = hoursProgress(shiftNow());
     this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-      this.date,
-      this.shift,
+      dateNow(),
+      shiftNow(),
     ]);
-    //this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+    this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
   },
   watch: {
     dateCal: function () {
-      console.log("DateCal");
       this.date = this.dateCal.split("-").reverse().join(".");
       this.shift = 1;
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
         this.date,
         this.shift,
       ]);
+      this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
     },
   },
 
   beforeDestroy() {
-    console.log('Destroy', this.typeMECH)
     clearInterval(this.polling);
     window.removeEventListener("focus", this.refresh);
   },

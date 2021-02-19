@@ -28,8 +28,8 @@ export default {
             method: "GET"
         })
             .then(args => {
-                // commit('SET_KRAN_DATA_TO_STATE', args.data);
-                commit('SET_HASH');
+                commit('SET_KRAN_DATA_TO_STATE', args.data);
+                // commit('HASH_KRAN');
                 return args;
             })
             .catch(error => {
@@ -44,8 +44,8 @@ export default {
             method: "GET"
         })
             .then(args => {
-                // commit('SET_USM_DATA_TO_STATE', args.data);
-                commit('SET_HASH');
+                commit('SET_USM_DATA_TO_STATE', args.data);
+                // commit('HASH');
                 return args;
             })
             .catch(error => {
@@ -54,11 +54,6 @@ export default {
             })
     },
 
-    // GET_HASH: (state, api) => {
-    //   localStorage.setItem(state.kran_api, JSON.stringify(state.kran_data))
-    //   var retrievedObject = localStorage.getItem(api);
-    //   console.log(JSON.parse(retrievedObject));
-    // },
     SET_FLAG_NOTIFICATION({
         commit
     }, value) {
@@ -77,7 +72,7 @@ export default {
             method: "GET"
         })
             .then(args => {
-                commit('SET_KRAN_DATA_TO_STATE', args.data);
+                // commit('SET_KRAN_DATA_TO_STATE', args.data);
                 return args;
             })
             .catch(error => {
@@ -98,7 +93,7 @@ export default {
             method: "GET"
         })
             .then(args => {
-                commit('SET_USM_DATA_TO_STATE', args.data);
+                // commit('SET_USM_DATA_TO_STATE', args.data);
                 return args;
             })
             .catch(error => {
