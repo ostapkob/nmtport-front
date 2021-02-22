@@ -56,7 +56,7 @@
       v-for="mech in $store.getters[typeMECH + '_DATA']"
       class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
-      v-show="mech.total_180>5 || mech.totalStep_90 > 5"
+      v-show="mech.total_180>5 || mech.totalStep_90 > 5 || mech.total_time>0.1"
     >
       <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'"
       
