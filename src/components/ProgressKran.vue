@@ -68,12 +68,19 @@
         :striped="stripedProgress(item.value)"
         :id="mech.id + '-' + key"
       >
-        <b-tooltip v-if="item.step>20" 
+        <b-tooltip
+          v-if="item.step > 20"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >
           {{
-            showSteps(item.time, timeTo(key, mech.data), item.value, item.total, mech.total_180)
+            showSteps(
+              item.time,
+              timeTo(key, mech.data),
+              item.value,
+              item.total,
+              mech.total_180
+            )
           }}
         </b-tooltip>
         <div v-show="item.step > 20" class="time-in-progress text-left">
@@ -81,7 +88,7 @@
         </div>
       </b-progress-bar>
     </b-progress>
-      <Hours :shift=shift   />
+    <Hours :shift="shift" />
   </div>
 </template>
 
@@ -123,7 +130,9 @@ export default {
   methods: {
     showSteps: function (timeStep, timeTo, typeStep, totalStep, total_180) {
       if (typeStep == 2) {
-        if (totalStep === undefined) {totalStep=total_180}
+        if (totalStep === undefined) {
+          totalStep = total_180;
+        }
         return `c ${timeStep} - ${totalStep} поворотов по 180°`;
       }
       if (typeStep == 1 || typeStep == 3) {

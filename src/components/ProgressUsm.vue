@@ -71,6 +71,7 @@
         </div>
       </b-progress-bar>
     </b-progress>
+    <Hours :shift="shift" />
   </div>
 </template>
 
@@ -83,11 +84,13 @@ import {
   BListGroup,
   BListGroupItem,
 } from "bootstrap-vue";
+const Hours = () => import("@/components/Hours");
 
 export default {
   name: "UsmProgress",
   props: {
     mech: Object,
+    shift: Number,
   },
   data() {
     return {};
@@ -99,6 +102,7 @@ export default {
     BBadge,
     BListGroup,
     BListGroupItem,
+    Hours,
   },
   methods: {
     showSteps: function (timeStep, timeTo, typeStep, totalStep) {

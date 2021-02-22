@@ -58,11 +58,9 @@
       :key="mech.id"
       v-show="mech.total_180>5 || mech.totalStep_90 > 5 || mech.total_time>0.1"
     >
-      <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'"
-      
-       />
-      <progressUSM :mech="mech" v-if="typeMECH == 'USM'" />
-      <progressSenebog :mech="mech" v-if="typeMECH == 'SENNEBOG'" />
+      <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
+      <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
+      <progressSenebog :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOG'" />
     </div>
     <div>
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
