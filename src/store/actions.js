@@ -28,6 +28,7 @@ export default {
             method: "GET"
         })
             .then(args => {
+                console.log('#', this.state.kran_api)
                 commit('SET_KRAN_DATA_TO_STATE', args.data);
                 // commit('HASH_KRAN');
                 return args;
@@ -67,11 +68,14 @@ export default {
     SET_KRAN_API({
         commit
     }, value) {
+        console.log('1:', this.state.kran_api)
         commit('CHANGE_KRAN_API', value);
         return axios(this.state.kran_api, {
             method: "GET"
         })
             .then(args => {
+
+                console.log('2:', this.state.kran_api)
                 // commit('SET_KRAN_DATA_TO_STATE', args.data);
                 return args;
             })

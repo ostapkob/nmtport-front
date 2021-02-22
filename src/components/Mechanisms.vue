@@ -56,11 +56,13 @@
       v-for="mech in $store.getters[typeMECH + '_DATA']"
       class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
+      v-show="mech.total_180>5 || mech.totalStep_90 > 5"
     >
-      <progressKRAN :mech="mech" v-if="typeMECH == 'KRAN'" />
+      <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'"
+      
+       />
       <progressUSM :mech="mech" v-if="typeMECH == 'USM'" />
       <progressSenebog :mech="mech" v-if="typeMECH == 'SENNEBOG'" />
-      <Hours :shift="shift" />
     </div>
     <div>
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
@@ -70,7 +72,6 @@
 </template>
 
 <script>
-const Hours = () => import("@/components/Hours");
 
 //import { mapActions } from "vuex";
 import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
@@ -93,7 +94,6 @@ export default {
     typeMECH: String,
   },
   components: {
-    Hours,
     BTooltip,
     BFormDatepicker,
     progressKRAN: () => import("@/components/ProgressKran"),
@@ -107,6 +107,7 @@ export default {
   methods: {
     pollData() {
       this.polling = setInterval(() => {
+        console.log(this.isNow)
         this.refresh();
       }, 45000);
     },
@@ -156,6 +157,7 @@ export default {
       }, 1500);
     },
     refresh() {
+      console.log('>>', this.date, this.shift, this.isNow)
       if (this.isNow) {
         console.log('refresh now')
         this.$store.dispatch("SET_" + this.typeMECH + "_API", [

@@ -68,7 +68,7 @@
         :striped="stripedProgress(item.value)"
         :id="mech.id + '-' + key"
       >
-        <b-tooltip
+        <b-tooltip v-if="item.step>20" 
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >
@@ -81,6 +81,7 @@
         </div>
       </b-progress-bar>
     </b-progress>
+      <Hours :shift=shift   />
   </div>
 </template>
 
@@ -93,11 +94,13 @@ import {
   BListGroup,
   BListGroupItem,
 } from "bootstrap-vue";
+const Hours = () => import("@/components/Hours");
 
 export default {
   name: "KranProgress",
   props: {
     mech: Object,
+    shift: Number,
   },
   components: {
     BProgress,
@@ -106,6 +109,7 @@ export default {
     BBadge,
     BListGroup,
     BListGroupItem,
+    Hours,
   },
   data() {
     return {
