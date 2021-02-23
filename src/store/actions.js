@@ -8,50 +8,29 @@ export default {
     GET_LAST_DATA({
         commit
     }) {
-        return axios(this.state.last_data_api, {
-            method: "GET"
-        })
-            .then(args => {
-                commit('SET_LAST_DATA_TO_STATE', args.data);
-                return args;
-            })
-            .catch(error => {
-                commit('ERROR_STATE_LAST_DATA');
-                console.log(error)
-                return error;
-            })
+      axios.get(this.state.last_data_api).then(
+        response=> {
+          commit('SET_LAST_DATA_TO_STATE', response.data)
+        }
+      )
     },
     GET_KRAN_DATA({
         commit
     }) {
-        return axios(this.state.kran_api, {
-            method: "GET"
-        })
-            .then(args => {
-                commit('SET_KRAN_DATA_TO_STATE', args.data);
-                // commit('HASH_KRAN');
-                return args;
-            })
-            .catch(error => {
-                console.log(error)
-                return error;
-            })
+      axios.get(this.state.kran_api).then(
+        response=> {
+          commit('SET_KRAN_DATA_TO_STATE', response.data)
+        }
+      )
     },
     GET_USM_DATA({
         commit
     }) {
-        return axios(this.state.usm_api, {
-            method: "GET"
-        })
-            .then(args => {
-                commit('SET_USM_DATA_TO_STATE', args.data);
-                // commit('HASH');
-                return args;
-            })
-            .catch(error => {
-                console.log(error)
-                return error;
-            })
+      axios.get(this.state.usm_api).then(
+        response=> {
+          commit('SET_USM_DATA_TO_STATE', response.data)
+        }
+      )
     },
 
     SET_FLAG_NOTIFICATION({
@@ -67,21 +46,7 @@ export default {
     SET_KRAN_API({
         commit
     }, value) {
-        console.log('1:', this.state.kran_api)
-        commit('CHANGE_KRAN_API', value);
-        return axios(this.state.kran_api, {
-            method: "GET"
-        })
-            .then(args => {
-
-                console.log('2:', this.state.kran_api)
-                // commit('SET_KRAN_DATA_TO_STATE', args.data);
-                return args;
-            })
-            .catch(error => {
-                console.log(error)
-                return error;
-            })
+        commit('CHANGE_KRAN_API', value)
     },
     SET_SELECTED_FEATURES({
         commit

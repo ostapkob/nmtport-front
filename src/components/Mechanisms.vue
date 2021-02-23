@@ -56,7 +56,7 @@
       v-for="mech in $store.getters[typeMECH + '_DATA']"
       class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
-      v-show="mech.total_180>5 || mech.totalStep_90 > 5 || mech.total_time>0.1"
+      v-show="isNow || mech.total_180>5 || mech.total_90 > 5 || mech.total_time>0.1"
     >
       <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
       <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
@@ -154,7 +154,6 @@ export default {
       }, 1500);
     },
     refresh() {
-      console.log('refresh, isNow =', this.isNow )
       if (this.isNow) {
         this.$store.dispatch("SET_" + this.typeMECH + "_API", [
           dateNow(),
@@ -185,16 +184,10 @@ export default {
     this.shift = shiftNow();
     this.date = dateNow();
     this.hours = hoursProgress(shiftNow());
-    this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
-    this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-      dateNow(),
-      shiftNow(),
-    ]).then(
-        this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
-    )
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
+    this.clickAnyButtons();
   },
   watch: {
     dateCal: function () {

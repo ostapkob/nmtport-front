@@ -103,8 +103,6 @@ export default {
       "SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE",
     ]),
     audioAlarm() {
-      // console.log(this.tmpSetAlarm)
-      // console.log("filter, alarm, id")
       for (let mech in this.LAST_DATA) {
         let mechanism = this.LAST_DATA[mech];
         // console.log(mechanism.filter, mechanism.alarm, mechanism.type, mechanism.number)
@@ -154,7 +152,7 @@ export default {
         this.GET_LAST_DATA();
         this.SET_GET_MECH();
         this.audioAlarm();
-      }, 30000); // timer
+      }, 45000); // timer
     },
     flagTypeMechanism(type) {
       if (type=='KRAN') {
@@ -182,7 +180,6 @@ export default {
     this.GET_LAST_DATA();
     this.$store.dispatch("GET_KRAN_DATA"); 
     this.$store.dispatch("GET_USM_DATA");
-
     this.audioAlarm();
   },
   created() {

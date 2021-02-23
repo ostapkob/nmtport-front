@@ -97,7 +97,11 @@ input {
   margin-right: -0.4em;
   font-family: 'OCRB BT';
 }
-
+.fio_progress {
+  background: #faa;
+  // position: absolute;
+  // left: 160px;
+}
 .time-in-progress {
   visibility: visible;
 }

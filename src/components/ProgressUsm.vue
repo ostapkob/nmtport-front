@@ -7,7 +7,26 @@
         <div class="icon-usm">
           <strong>{{ mech.number }} </strong>
         </div>
-        <span class="mr-auto">
+        <span class="mr-auto mx-3">
+          <b-badge variant="dark ml-1 p-1" :id="mech.id + 'coalTime'">
+            {{ mech.time_coal }}
+            <b-tooltip :target="mech.id + 'coalTime'" variant="dark">
+              Время нахождения угля на ленте часах
+            </b-tooltip>
+          </b-badge>
+          <b-badge variant="primary ml-1 p-1" :id="mech.id + 'workTime'">
+            {{ mech.work_time }}
+            <b-tooltip :target="mech.id + 'workTime'" variant="primary">
+              Время работы в часах
+            </b-tooltip>
+          </b-badge>
+          <b-badge variant="warning text-dark ml-1 p-1" :id="mech.id + 'notWork'">
+            {{ Math.round((mech.total_time - mech.work_time) * 10) / 10 }}
+            <b-tooltip :target="mech.id + 'notWork'" variant="warning">
+              Время простоя в часах
+            </b-tooltip>
+          </b-badge>
+        </span>
           <small
             :class="{
               fioBrigada: mech.contract == 1,
@@ -16,29 +35,10 @@
           >
             {{ mech.fio }}
           </small>
-          <small class="time-start-finish" v-if="mech.start">
+          <small class="time-start-finish ml-3" v-if="mech.start">
             {{ mech.start }} - {{ mech.finish }}
           </small>
-        </span>
         <span class="text-left">
-          <b-badge variant="dark ml-2" :id="mech.id + 'coalTime'">
-            {{ mech.time_coal }}
-            <b-tooltip :target="mech.id + 'coalTime'" variant="dark">
-              Время нахождения угля на ленте часах
-            </b-tooltip>
-          </b-badge>
-          <b-badge variant="primary ml-2" :id="mech.id + 'workTime'">
-            {{ mech.work_time }}
-            <b-tooltip :target="mech.id + 'workTime'" variant="primary">
-              Время работы в часах
-            </b-tooltip>
-          </b-badge>
-          <b-badge variant="warning text-dark ml-2" :id="mech.id + 'notWork'">
-            {{ Math.round((mech.total_time - mech.work_time) * 10) / 10 }}
-            <b-tooltip :target="mech.id + 'notWork'" variant="warning">
-              Время простоя в часах
-            </b-tooltip>
-          </b-badge>
         </span>
       </b-list-group-item>
     </b-list-group>

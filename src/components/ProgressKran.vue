@@ -7,22 +7,10 @@
         <div class="icon-kran">
           <strong>{{ mech.number }} </strong>
         </div>
-        <span class="mr-auto">
-          <small
-            :class="{
-              fioBrigada: mech.contract == 1,
-              fioContract: mech.contract == 0,
-            }"
-          >
-            {{ mech.fio }}
-          </small>
-          <small class="time-start-finish" v-if="mech.start">
-            {{ mech.start }} - {{ mech.finish }}
-          </small>
-        </span>
-        <span>
+        <span class="mr-auto mx-3">
           <b-badge
-            v-show="mech.total_180 > 9"
+            class="mr-1"
+            v-show="mech.total_180 > 10"
             variant="primary"
             :id="mech.id + '180'"
           >
@@ -39,10 +27,9 @@
           </b-badge>
 
           <b-badge
-            v-show="mech.total_90 > 13"
+            v-show="mech.total_90 > 10"
             variant="dark"
             :id="mech.id + '90'"
-            class="ml-1"
           >
             <img
               class="catalog-item-img"
@@ -54,6 +41,19 @@
               Количество поворотов 90° туда обратно
             </b-tooltip>
           </b-badge>
+        </span >
+          <small
+            :class="{
+              fioBrigada: mech.contract == 1,
+              fioContract: mech.contract == 0,
+            }"
+          >
+            {{ mech.fio }}  
+          </small>
+          <small class="time-start-finish ml-3" v-if="mech.start">
+            {{ mech.start }} - {{ mech.finish }}
+          </small>
+        <span>
         </span>
       </b-list-group-item>
     </b-list-group>
