@@ -3,6 +3,13 @@
     <h5>{{ msg }}</h5>
     <div>
       <div class="m-3">
+        <b-overlay
+          :show="getPlacement[9].kran==0 && getPlacement[11].kran==0 && getPlacement[13].kran==0"
+          spinner-variant="primary"
+          spinner-type="grow"
+          spinner-small
+          rounded="lg"
+        >
         <b-card-group deck class="mb-3">
           <b-card
             header-bg-variant="info"
@@ -34,6 +41,7 @@
             <b-card-text> {{getPlacement[13].usm}}  УСМ </b-card-text>
           </b-card>
         </b-card-group>
+        </b-overlay>
       </div>
     </div>
   <div>
@@ -43,14 +51,18 @@
 </template>
 
 <script>
+
+            //v-show="getPlacement[13].kran!=0 || getPlacement[13].usm!=0"
 import { BCard, BCardGroup, BCardText } from "bootstrap-vue";
 import { mapActions, mapGetters } from "vuex";
+import { BOverlay } from 'bootstrap-vue'
 export default {
   name: "HelloWorld",
   components: {
     BCard,
     BCardGroup,
     BCardText,
+    BOverlay,
   },
   data() {
     return {

@@ -75,7 +75,6 @@
 import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
-import {  mapGetters } from "vuex";
 
 export default {
   name: "Krans",
@@ -102,9 +101,6 @@ export default {
     isNow: function () {
       return this.date == dateNow() && this.shift == shiftNow();
     },
-    ...mapGetters([
-                   "FLAG_KRAN_NOW"
-    ]),
   },
   methods: {
     pollData() {
@@ -158,29 +154,29 @@ export default {
       }, 1500);
     },
     refresh() {
-      console.log('refresh now')
+      console.log('refresh, isNow =', this.isNow )
       if (this.isNow) {
         this.$store.dispatch("SET_" + this.typeMECH + "_API", [
           dateNow(),
           shiftNow()
-        ]);
-        this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+        ]).then(
+          this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
+        )
       }
     },
     clickAnyButtons() {
       if (this.isNow) {
-        console.log('NOW')
         this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
       }
       else {
-        console.log('NOT NOW')
         this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
       }
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
         this.date,
         this.shift,
-      ]);
-      this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+      ]).then(
+        this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
+      );
       this.buttonsDisabled();
     }
   },
@@ -190,12 +186,12 @@ export default {
     this.date = dateNow();
     this.hours = hoursProgress(shiftNow());
     this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
-    this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
     this.$store.dispatch("SET_" + this.typeMECH + "_API", [
       dateNow(),
       shiftNow(),
-    ]);
-    this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+    ]).then(
+        this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
+    )
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
@@ -207,8 +203,9 @@ export default {
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
         this.date,
         this.shift,
-      ]);
-      this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+      ]).then(
+        this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
+      )
     },
   },
 

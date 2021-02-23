@@ -139,8 +139,9 @@ export default {
           this.$store.dispatch("SET_" + typeMechanism + "_API", [
             dateNow(),
             shiftNow()
-          ]);
-          this.$store.dispatch("GET_" + typeMechanism + "_DATA");
+          ]).then(
+            this.$store.dispatch("GET_" + typeMechanism + "_DATA")
+          )
         }
       }
     },
