@@ -75,6 +75,7 @@
 import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
+import {  mapGetters } from "vuex";
 
 export default {
   name: "Krans",
@@ -83,7 +84,7 @@ export default {
       shift: 1,
       date: "-",
       hours: "",
-      polling: null,
+      //polling: null,
       dateCal: dateNow(),
       flagButtonsDisabled: false,
     };
@@ -101,13 +102,15 @@ export default {
     isNow: function () {
       return this.date == dateNow() && this.shift == shiftNow();
     },
+    ...mapGetters([
+                   "FLAG_KRAN_NOW"
+    ]),
   },
   methods: {
     pollData() {
-      this.polling = setInterval(() => {
-        console.log(this.isNow)
-        this.refresh();
-      }, 45000);
+      //this.polling = setInterval(() => {
+      //  this.refresh();
+      //}, 45000);
     },
     backDateShift() {
       if (this.shift == 2) {
@@ -155,9 +158,8 @@ export default {
       }, 1500);
     },
     refresh() {
-      console.log('>>', this.date, this.shift, this.isNow)
+      console.log('refresh now')
       if (this.isNow) {
-        console.log('refresh now')
         this.$store.dispatch("SET_" + this.typeMECH + "_API", [
           dateNow(),
           shiftNow()
@@ -166,6 +168,14 @@ export default {
       }
     },
     clickAnyButtons() {
+      if (this.isNow) {
+        console.log('NOW')
+        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
+      }
+      else {
+        console.log('NOT NOW')
+        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
+      }
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
         this.date,
         this.shift,
@@ -179,6 +189,8 @@ export default {
     this.shift = shiftNow();
     this.date = dateNow();
     this.hours = hoursProgress(shiftNow());
+    this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
+    this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
     this.$store.dispatch("SET_" + this.typeMECH + "_API", [
       dateNow(),
       shiftNow(),
@@ -201,7 +213,7 @@ export default {
   },
 
   beforeDestroy() {
-    clearInterval(this.polling);
+    //clearInterval(this.polling);
     window.removeEventListener("focus", this.refresh);
   },
   created() {

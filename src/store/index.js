@@ -18,6 +18,8 @@ export default new Vuex.Store({
     last_data_api: '',
     kran_api: '',
     usm_api: '',
+    flagKranNow: true,
+    flagUsmNow: true,
     // kran_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/kran',
     // usm_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/usm',
     errored_last_data: false,

@@ -68,6 +68,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { showNotification } from "@/functions/functions";
 import { BIconGearFill, BIconMap } from "bootstrap-vue";
+import { shiftNow, dateNow  } from "@/functions/functions";
 import {
   BNav,
   BDropdownItem,
@@ -82,6 +83,7 @@ export default {
     return {
       polling: null,
       tmpSetAlarm: new Set(),
+      typeMechanisms: ['KRAN', 'USM'],
     };
   },
   components: {
@@ -114,11 +116,7 @@ export default {
               this.playSound();
             }
             if (this.FLAG_NOTIFICATION) {
-              console.log(
-                mechanism.name,
-                ">notification:",
-                this.FLAG_NOTIFICATION
-              );
+              console.log( mechanism.name, ">notification:", this.FLAG_NOTIFICATION );
               showNotification(mechanism.name, {
                 body: "Остановка не по графику",
                 icon: require("@/assets/img/icon.png"),
@@ -135,6 +133,17 @@ export default {
       }
       return;
     },
+    SET_GET_MECH() {
+      for (let typeMechanism of this.typeMechanisms) {
+        if (this.flagTypeMechanism(typeMechanism)) {
+          this.$store.dispatch("SET_" + typeMechanism + "_API", [
+            dateNow(),
+            shiftNow()
+          ]);
+          this.$store.dispatch("GET_" + typeMechanism + "_DATA");
+        }
+      }
+    },
     playSound() {
       let audio = new Audio(require("@/assets/sound/test.mp3"));
       audio.play();
@@ -142,22 +151,37 @@ export default {
     pollData() {
       this.polling = setInterval(() => {
         this.GET_LAST_DATA();
-        //this.$store.dispatch("GET_KRAN_DATA"); //! use in then make localstorage
-        //this.$store.dispatch("GET_USM_DATA");
+        this.SET_GET_MECH();
         this.audioAlarm();
-      }, 45000); // timer
+      }, 30000); // timer
     },
+    flagTypeMechanism(type) {
+      if (type=='KRAN') {
+        return  this.FLAG_KRAN_NOW
+      }
+      if (type=='USM') {
+        return  this.FLAG_USM_NOW
+      }
+    }
   },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-    ...mapGetters(["FLAG_AUDIO", "FLAG_NOTIFICATION", "LAST_DATA"]),
+    ...mapGetters(["FLAG_AUDIO",
+                   "FLAG_NOTIFICATION", 
+                   "LAST_DATA",
+                   "FLAG_KRAN_NOW",
+                   "FLAG_USM_NOW"
+    ]),
   },
   mounted() {
     this.GET_IP();
     this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
     this.GET_LAST_DATA();
+    this.$store.dispatch("GET_KRAN_DATA"); 
+    this.$store.dispatch("GET_USM_DATA");
+
     this.audioAlarm();
   },
   created() {

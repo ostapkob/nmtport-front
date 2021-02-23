@@ -5,7 +5,6 @@ export default {
     return state.last_data;
   },
   KRAN_DATA(state) {
-    console.log('->  kran  getters', state.kran_api);
     return state.kran_data;
   },
   USM_DATA(state) {
@@ -23,5 +22,11 @@ export default {
   },
   FLAG_NOTIFICATION(state) {
     return state.flagNotification
+  },
+  FLAG_KRAN_NOW(state) {
+    return state.flagKranNow
+  },
+  FLAG_USM_NOW(state) {
+    return state.flagUsmNow
   }
 }

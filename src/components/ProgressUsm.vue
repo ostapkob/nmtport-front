@@ -53,7 +53,8 @@
         :striped="stripedProgress(item.value)"
         :id="mech.id + '-' + key"
       >
-        <b-tooltip
+        <b-tooltip 
+          v-if="item.step > 20"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >

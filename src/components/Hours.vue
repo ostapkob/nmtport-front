@@ -1,6 +1,9 @@
 <template>
   <div>
-      <div  class="time-line-mechUp">
+      <div  class="time-line-mechUp" v-if="shift==1">
+        <span  v-for="(hour, keyH) in arrows" :key=keyH> {{hour}} </span>
+      </div>
+      <div  class="time-line-mechUp" v-if="shift==2">
         <span  v-for="(hour, keyH) in arrows" :key=keyH> {{hour}} </span>
       </div>
       <div  class="time-line-mech" v-if="shift==1">

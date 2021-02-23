@@ -28,7 +28,6 @@ export default {
             method: "GET"
         })
             .then(args => {
-                console.log('#', this.state.kran_api)
                 commit('SET_KRAN_DATA_TO_STATE', args.data);
                 // commit('HASH_KRAN');
                 return args;
@@ -115,4 +114,10 @@ export default {
     }) {
         commit('SET_STATE_FROM_LOCALSTORAGE');
     },
+    SET_FLAG_KRAN_NOW({commit}, value) {
+        commit('CHANGE_FLAG_KRAN_NOW', value)
+    },
+    SET_FLAG_USM_NOW({commit}, value) {
+        commit('CHANGE_FLAG_USM_NOW', value)
+    }
 }
