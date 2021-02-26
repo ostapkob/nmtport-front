@@ -93,10 +93,6 @@ export default {
     ]),
     pollData() {
       this.polling = setInterval(() => {
-        //this.$store.dispatch('GET_LAST_DATA')
-        //this.GET_LAST_DATA();
-        this.shift = shiftNow();
-        this.date = dateNow();
         this.SET_KRAN_API([this.date, this.shift]);
         this.SET_USM_API([this.date, this.shift]);
         this.isFocus = isVisible();
@@ -121,11 +117,12 @@ export default {
       this.SET_FILTER_LAST_DATA(["usm", "kran"]);
     }
     //this.GET_LAST_DATA();
-    this.shift = shiftNow();
-    this.date = dateNow();
+    console.log(dateNow())
     this.hours = hoursProgress(shiftNow());
-    this.SET_KRAN_API([this.date, this.shift]);
-    this.SET_USM_API([this.date, this.shift]);
+    this.SET_KRAN_API([dateNow(), shiftNow()]);
+    this.$store.dispatch("GET_KRAN_DATA")
+    this.SET_USM_API([dateNow(), shiftNow()]);
+    this.$store.dispatch("GET_USM_DATA")
     this.isFocus = isVisible();
     this.GET_LAST_DATA();
     this.$nextTick(function () {
@@ -134,7 +131,7 @@ export default {
     });
   },
   created() {
-    this.pollData();
+    //this.pollData();
   },
   beforeDestroy() {
     clearInterval(this.polling);
