@@ -1,3 +1,5 @@
+import { shiftNow, dateNow } from "@/functions/functions";
+
 export default {
   SET_LAST_DATA_TO_STATE: (state, values) => {
     if (state.mechFilter) {
@@ -79,8 +81,10 @@ export default {
   },
   CHANGE_IP: (state) => {
     state.last_data_api = state.ip + '/api/v1.0/get_all_last_data_state'
-    state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/kran'
-    state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/usm'
+    state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio/usm/' + dateNow() + '/' + shiftNow()
+    state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio/kran/' + dateNow() + '/' + shiftNow()
+    // state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/kran'
+    // state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/usm'
   },
   CHANGE_FLAG_KRAN_NOW: (state, val) => {
     state.flagKranNow = val

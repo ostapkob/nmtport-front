@@ -6,7 +6,6 @@
         <b-overlay
           :show="getPlacement[9].kran==0 && getPlacement[11].kran==0 && getPlacement[13].kran==0"
           spinner-variant="primary"
-          spinner-type="grow"
           spinner-small
           rounded="lg"
         >

@@ -42,17 +42,17 @@
             </b-tooltip>
           </b-badge>
         </span >
-          <small
+          <span
             :class="{
               fioBrigada: mech.contract == 1,
               fioContract: mech.contract == 0,
             }"
           >
             {{ mech.fio }}  
-          </small>
-          <small class="time-start-finish ml-3" v-if="mech.start">
+          </span>
+          <span class="time-start-finish ml-3" v-if="mech.start">
             {{ mech.start }} - {{ mech.finish }}
-          </small>
+          </span>
         <span>
         </span>
       </b-list-group-item>
@@ -175,6 +175,10 @@ export default {
   mounted() {
     //console.log('kran mounted')
   },
+  updated() {
+    console.log('-', this.mech.name)
+  }, 
+
 };
 </script>
 

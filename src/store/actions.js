@@ -48,26 +48,15 @@ export default {
     }, value) {
         commit('CHANGE_KRAN_API', value)
     },
-    SET_SELECTED_FEATURES({
-        commit
-    }, value) {
-        commit('SET_SELECTED_FEATURES_TO_STATE', value);
-    },
     SET_USM_API({
         commit
     }, value) {
         commit('CHANGE_USM_API', value);
-        return axios(this.state.usm_api, {
-            method: "GET"
-        })
-            .then(args => {
-                // commit('SET_USM_DATA_TO_STATE', args.data);
-                return args;
-            })
-            .catch(error => {
-                console.log(error)
-                return error;
-            })
+    },
+    SET_SELECTED_FEATURES({
+        commit
+    }, value) {
+        commit('SET_SELECTED_FEATURES_TO_STATE', value);
     },
     SET_FILTER_LAST_DATA({
         commit

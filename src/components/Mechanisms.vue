@@ -154,14 +154,18 @@ export default {
       }, 1500);
     },
     refresh() {
-      if (this.isNow) {
-        this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-          dateNow(),
-          shiftNow()
-        ]).then(
-          this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
-        )
-      }
+      console.log('rrrrrrrrrrr')
+      // if (this.isNow) {
+      //   this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+      //     dateNow(),
+      //     shiftNow()
+      //   ]).then(
+      //     () =>  {
+      //     console.log('-----Refresh------');
+      //     this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
+      //     }
+      //   )
+      // }
     },
     clickAnyButtons() {
       if (this.isNow) {
@@ -174,7 +178,10 @@ export default {
         this.date,
         this.shift,
       ]).then(
-        this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
+        () =>{
+        console.log('----AnyButtons-----');
+        this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
+        }
       );
       this.buttonsDisabled();
     }
@@ -191,6 +198,7 @@ export default {
   },
   watch: {
     dateCal: function () {
+      console.log('-----watch------');
       this.date = this.dateCal.split("-").reverse().join(".");
       this.shift = 1;
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
@@ -201,7 +209,9 @@ export default {
       )
     },
   },
-
+  updated() {
+    console.log('======UPDATE======');
+  },
   beforeDestroy() {
     //clearInterval(this.polling);
     window.removeEventListener("focus", this.refresh);
