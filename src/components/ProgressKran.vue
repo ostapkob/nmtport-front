@@ -69,7 +69,7 @@
         :id="mech.id + '-' + key"
       >
         <b-tooltip
-          v-if="item.step > 20"
+          v-if="item.step > 14"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >
@@ -136,7 +136,7 @@ export default {
         return `c ${timeStep} - ${totalStep} поворотов по 180°`;
       }
       if (typeStep == 1 || typeStep == 3) {
-        return `c ${timeStep} -  ${totalStep} поворотов по 90°`;
+        return `c ${timeStep} - ${totalStep} поворотов по 90°`;
       }
       if (typeStep == 0) {
         return `c ${timeStep} по ${timeTo} - Простой`;
@@ -171,14 +171,6 @@ export default {
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
   },
-  computed: {},
-  mounted() {
-    //console.log('kran mounted')
-  },
-  updated() {
-    console.log('-', this.mech.name)
-  }, 
-
 };
 </script>
 

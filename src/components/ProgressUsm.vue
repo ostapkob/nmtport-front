@@ -54,7 +54,7 @@
         :id="mech.id + '-' + key"
       >
         <b-tooltip 
-          v-if="item.step > 20"
+          v-if="item.step > 14"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >
@@ -111,7 +111,7 @@ export default {
         if (totalStep === undefined) {
           return `c ${timeStep} -  ${this.mech.time_coal} часов уголь на ленте `;
         } else {
-          return `c ${timeStep} -  ${totalStep} часов уголь на ленте `;
+          return `c ${timeStep} - ${totalStep} часов уголь на ленте `;
         }
       }
       if (typeStep == 0) {

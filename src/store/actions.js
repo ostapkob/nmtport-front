@@ -10,13 +10,13 @@ export default {
     }) {
       axios.get(this.state.last_data_api).then(
         response=> {
-          commit('SET_LAST_DATA_TO_STATE', response.data)
+            commit('SET_LAST_DATA_TO_STATE', response.data)
         }
       )
     },
     GET_KRAN_DATA({
         commit
-    }) {
+    } ) {
       axios.get(this.state.kran_api).then(
         response=> {
           commit('SET_KRAN_DATA_TO_STATE', response.data)

@@ -3,12 +3,6 @@
     <h5>{{ msg }}</h5>
     <div>
       <div class="m-3">
-        <b-overlay
-          :show="getPlacement[9].kran==0 && getPlacement[11].kran==0 && getPlacement[13].kran==0"
-          spinner-variant="primary"
-          spinner-small
-          rounded="lg"
-        >
         <b-card-group deck class="mb-3">
           <b-card
             header-bg-variant="info"
@@ -16,8 +10,15 @@
             header="8-9 причал"
             class="jorder rounded bg-light mb-2 shadow-sm"
           >
+        <b-overlay
+          :show="getPlacement[9].kran==0 && getPlacement[11].kran==0 && getPlacement[13].kran==0"
+          spinner-variant="primary"
+          spinner-small
+          rounded="lg"
+        >
             <b-card-text> {{getPlacement[9].kran}}  кранов </b-card-text>
             <b-card-text> {{getPlacement[9].usm}}  УСМ </b-card-text>
+        </b-overlay>
           </b-card>
 
           <b-card
@@ -26,8 +27,15 @@
             header="10-11 причал"
             class="jorder rounded bg-light mb-2 shadow-sm"
           >
+        <b-overlay
+          :show="getPlacement[9].kran==0 && getPlacement[11].kran==0 && getPlacement[13].kran==0"
+          spinner-variant="primary"
+          spinner-small
+          rounded="lg"
+        >
             <b-card-text> {{getPlacement[11].kran}}  кранов </b-card-text>
             <b-card-text> {{getPlacement[11].usm}}  УСМ </b-card-text>
+        </b-overlay>
           </b-card>
 
           <b-card
@@ -36,11 +44,17 @@
             header="12-14 причал"
             class="jorder rounded bg-light mb-2 shadow-sm"
           >
+        <b-overlay
+          :show="getPlacement[9].kran==0 && getPlacement[11].kran==0 && getPlacement[13].kran==0"
+          spinner-variant="primary"
+          spinner-small
+          rounded="lg"
+        >
             <b-card-text> {{getPlacement[13].kran}}  кранов </b-card-text>
             <b-card-text> {{getPlacement[13].usm}}  УСМ </b-card-text>
+        </b-overlay>
           </b-card>
         </b-card-group>
-        </b-overlay>
       </div>
     </div>
   <div>

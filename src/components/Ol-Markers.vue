@@ -123,7 +123,7 @@ export default {
         circleIcon,
         0.5,
         {
-          scale: 12,
+          scale: 16,
           opacity: 0.7,
           background: "#f34",
         },

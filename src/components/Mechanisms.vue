@@ -26,8 +26,12 @@
         </b-button>
       </div>
       <div class="date-header">
-        <strong>{{ date }}</strong> смена:
-        <strong>{{ shift }}</strong>
+        <span
+         v-show="flagOverlay"
+          >
+          <strong>{{ date }}</strong> смена:
+          <strong>{{ shift }}</strong>
+        </span>
       </div>
       <div class="text-left">
         <b-button
@@ -58,9 +62,16 @@
       :key="mech.id"
       v-show="isNow || mech.total_180>5 || mech.total_90 > 5 || mech.total_time>0.1"
     >
-      <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
-      <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
-      <progressSenebog :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOG'" />
+      <b-overlay
+        :show="!flagOverlay"
+        spinner-variant="primary"
+        spinner-small
+        rounded="lg"
+      >
+        <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
+        <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
+        <progressSenebog :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOG'" />
+      </b-overlay>
     </div>
     <div>
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
@@ -71,10 +82,10 @@
 
 <script>
 
-//import { mapActions } from "vuex";
 import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
+import { BOverlay } from 'bootstrap-vue'
 
 export default {
   name: "Krans",
@@ -83,15 +94,16 @@ export default {
       shift: 1,
       date: "-",
       hours: "",
-      //polling: null,
       dateCal: dateNow(),
       flagButtonsDisabled: false,
+      flagOverlay: false,
     };
   },
   props: {
     typeMECH: String,
   },
   components: {
+    BOverlay,
     BTooltip,
     BFormDatepicker,
     progressKRAN: () => import("@/components/ProgressKran"),
@@ -103,11 +115,6 @@ export default {
     },
   },
   methods: {
-    pollData() {
-      //this.polling = setInterval(() => {
-      //  this.refresh();
-      //}, 45000);
-    },
     backDateShift() {
       if (this.shift == 2) {
         this.shift = 1;
@@ -154,18 +161,9 @@ export default {
       }, 1500);
     },
     refresh() {
-      console.log('rrrrrrrrrrr')
-      // if (this.isNow) {
-      //   this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-      //     dateNow(),
-      //     shiftNow()
-      //   ]).then(
-      //     () =>  {
-      //     console.log('-----Refresh------');
-      //     this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
-      //     }
-      //   )
-      // }
+       if (this.isNow) {
+         this.GET_SET( dateNow(), shiftNow(), 300 )
+       }
     },
     clickAnyButtons() {
       if (this.isNow) {
@@ -174,19 +172,23 @@ export default {
       else {
         this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
       }
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-        this.date,
-        this.shift,
-      ]).then(
-        () =>{
-        console.log('----AnyButtons-----');
-        this.$store.dispatch("GET_" + this.typeMECH + "_DATA");
-        }
-      );
+      this.GET_SET(this.date, this.shift, 1000)
       this.buttonsDisabled();
-    }
+    },
+  GET_SET(date, shift, timer) {
+      this.flagOverlay=false
+      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
+        date,
+        shift,
+      ]).then(
+        setTimeout(this.GET_MECH, timer ) // becouse don't work promise
+      );
   },
-  
+    GET_MECH() {
+          this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
+          this.flagOverlay=true
+    },
+  },
   mounted() {
     this.shift = shiftNow();
     this.date = dateNow();
@@ -194,30 +196,19 @@ export default {
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
-    this.clickAnyButtons();
+    this.GET_SET(dateNow(), shiftNow(), 300)
   },
   watch: {
     dateCal: function () {
-      console.log('-----watch------');
       this.date = this.dateCal.split("-").reverse().join(".");
       this.shift = 1;
-      this.$store.dispatch("SET_" + this.typeMECH + "_API", [
-        this.date,
-        this.shift,
-      ]).then(
-        this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
-      )
+      this.GET_SET(this.date, 1, 1000)
     },
   },
   updated() {
-    console.log('======UPDATE======');
   },
   beforeDestroy() {
-    //clearInterval(this.polling);
     window.removeEventListener("focus", this.refresh);
-  },
-  created() {
-    this.pollData();
   },
 };
 </script>

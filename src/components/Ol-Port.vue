@@ -1,7 +1,6 @@
 <template>
   <div>
     <olMap >
-      <!-- <olOverInfo class="ol-map"/> -->
       <template v-slot="{ map }">
         <Markers
           v-for="marker in LAST_DATA"
@@ -17,7 +16,6 @@
         <SlideBar />
       </template>
     </olMap>
-    <!-- <span v-for='(m, k) in SELECTED_FEATURES' :key=k> {{m}} </span> -->
     <div v-for="mech in KRAN_DATA" :key="mech.id">
       <div
         v-if="SELECTED_FEATURES.includes(mech.id)"
@@ -38,11 +36,7 @@
     </div>
   </div>
 </template>
-
 <script>
-//import olMap from "@/components/Ol-map";
-//import olOverInfo from "@/components/Ol-OverInfo";
-//import testMarkers from "@/components/testLastData";
 
 import olMap from "@/components/Ol-Map";
 import Markers from "@/components/Ol-Markers";
@@ -56,7 +50,6 @@ import Hours from "@/components/Hours.vue";
 import {
   shiftNow,
   dateNow,
-  hoursProgress,
   isVisible,
 } from "@/functions/functions";
 import SlideBar from "@/components/SlideBar";
@@ -65,10 +58,8 @@ export default {
   name: "App",
   data() {
     return {
-      polling: null,
       shift: 1,
       date: "-",
-      hours: "",
       isFocus: null, // animate only focus
     };
   },
@@ -91,17 +82,6 @@ export default {
       "SET_USM_API",
       "SET_FILTER_LAST_DATA",
     ]),
-    pollData() {
-      this.polling = setInterval(() => {
-        this.SET_KRAN_API([this.date, this.shift]);
-        this.SET_USM_API([this.date, this.shift]);
-        this.isFocus = isVisible();
-      }, 30000); // timer
-    },
-    //    focusTrue() {
-    //      console.log(Date(), 'Focus')
-    //      this.GET_LAST_DATA()
-    //    },
   },
   computed: {
     ...mapGetters([
@@ -116,27 +96,19 @@ export default {
     if (!this.FILTER_LAST_DATA) {
       this.SET_FILTER_LAST_DATA(["usm", "kran"]);
     }
-    //this.GET_LAST_DATA();
-    console.log(dateNow())
-    this.hours = hoursProgress(shiftNow());
     this.SET_KRAN_API([dateNow(), shiftNow()]);
     this.$store.dispatch("GET_KRAN_DATA")
     this.SET_USM_API([dateNow(), shiftNow()]);
     this.$store.dispatch("GET_USM_DATA")
     this.isFocus = isVisible();
-    this.GET_LAST_DATA();
     this.$nextTick(function () {
       window.addEventListener("focus", this.GET_LAST_DATA);
-      //window.addEventListener('blur', this.focusFalse);
     });
   },
   created() {
-    //this.pollData();
   },
   beforeDestroy() {
-    clearInterval(this.polling);
     window.removeEventListener("focus", this.GET_LAST_DATA);
-    //window.removeEventListener('blur', this.focusFalse);
   },
 };
 </script>

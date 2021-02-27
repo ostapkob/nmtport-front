@@ -138,7 +138,7 @@ export default {
             dateNow(),
             shiftNow()
           ]).then(
-            this.$store.dispatch("GET_" + typeMechanism + "_DATA")
+            this.$store.dispatch("GET_" + typeMechanism + "_DATA", true)
           )
         }
       }
