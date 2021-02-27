@@ -14,7 +14,7 @@ class UserService {
     return axios.get(API_URL + 'user', { headers: authHeader() })
   }
   getManagerBoard() {
-    console.log('authHeader: ', authHeader());
+    //console.log('authHeader: ', authHeader());
     return axios.get(API_URL + 'manager', { headers: authHeader() })
   }
   getAdminBoard() {

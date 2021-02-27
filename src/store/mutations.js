@@ -56,11 +56,9 @@ export default {
   },
   HASH_KRAN: (state) => {
     if (state.kran_api) {
-      console.log('get')
       return sessionStorage.getItem(state.kran_api)
     }
     else {
-      console.log('set')
       return sessionStorage.setItem(state.kran_api, JSON.stringify(state.kran_data))
     }
   },

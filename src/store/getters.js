@@ -1,11 +1,8 @@
 export default {
   LAST_DATA(state) {
-    //console.log(state.ip)
-    // console.log('last_data getters', state.last_data);
     return state.last_data;
   },
   KRAN_DATA(state) {
-    console.log('<< get >>');
     return state.kran_data;
   },
   USM_DATA(state) {

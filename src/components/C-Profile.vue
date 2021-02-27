@@ -85,7 +85,7 @@ export default {
     },
     flagNotification: function(){
       if (this.FLAG_NOTIFICATION == null) {
-        console.log(null)
+        //console.log(null)
         requestPermission()
       }
       this.SET_FLAG_NOTIFICATION(this.flagNotification)

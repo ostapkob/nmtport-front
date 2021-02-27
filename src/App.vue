@@ -110,11 +110,11 @@ export default {
           if (mechanism.alarm && this.tmpSetAlarm.has(mechanism.id)) {
             this.tmpSetAlarm.delete(mechanism.id);
             if (this.FLAG_AUDIO) {
-              console.log(mechanism.name, ">audio:", this.FLAG_AUDIO);
+              //console.log(mechanism.name, ">audio:", this.FLAG_AUDIO);
               this.playSound();
             }
             if (this.FLAG_NOTIFICATION) {
-              console.log( mechanism.name, ">notification:", this.FLAG_NOTIFICATION );
+              //console.log( mechanism.name, ">notification:", this.FLAG_NOTIFICATION );
               showNotification(mechanism.name, {
                 body: "Остановка не по графику",
                 icon: require("@/assets/img/icon.png"),
