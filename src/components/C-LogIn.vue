@@ -71,7 +71,7 @@ export default {
         this.$store.dispatch("auth/login", this.user).then(
           () => {
             this.$router.push("/mapol").catch((err) => {
-              //console.log(err);
+              console.log(err);
             });
           },
           (error) => {
