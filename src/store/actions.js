@@ -20,6 +20,7 @@ export default {
       axios.get(this.state.kran_api).then(
         response=> {
           commit('SET_KRAN_DATA_TO_STATE', response.data)
+          console.log(this.state.kran_api)
         }
       )
     },

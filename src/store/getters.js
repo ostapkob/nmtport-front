@@ -3,6 +3,7 @@ export default {
     return state.last_data;
   },
   KRAN_DATA(state) {
+    console.log('<<get>>');
     return state.kran_data;
   },
   USM_DATA(state) {

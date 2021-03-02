@@ -8,11 +8,10 @@
           size="sm"
           v-model="dateCal"
           class="mr-3"
-          selected-variant="info"
-          nav-button-variant="info"
-          today-variant="info"
           locale="ru-RU"
           start-weekday="1"
+          label-help=''
+          :max="today"
         >
         </b-form-datepicker>
         <b-button
@@ -60,7 +59,6 @@
       v-for="mech in $store.getters[typeMECH + '_DATA']"
       class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
-      v-show="isNow || mech.total_180>5 || mech.total_90 > 5 || mech.total_time>0.1"
     >
       <b-overlay
         :show="!flagOverlay"
@@ -82,6 +80,7 @@
 
 <script>
 
+//v-show="isNow || mech.total_180>5 || mech.total_90 > 5 || mech.total_time>0.1"
 import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
@@ -97,6 +96,7 @@ export default {
       dateCal: dateNow(),
       flagButtonsDisabled: false,
       flagOverlay: false,
+      today: new Date(),
     };
   },
   props: {
@@ -162,7 +162,7 @@ export default {
     },
     refresh() {
        if (this.isNow) {
-         this.GET_SET( dateNow(), shiftNow(), 300 )
+         this.GET_SET( dateNow(), shiftNow(), 10 )
        }
     },
     clickAnyButtons() {
@@ -172,7 +172,7 @@ export default {
       else {
         this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
       }
-      this.GET_SET(this.date, this.shift, 1000)
+      this.GET_SET(this.date, this.shift, 1300)
       this.buttonsDisabled();
     },
   GET_SET(date, shift, timer) {
