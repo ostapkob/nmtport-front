@@ -11,6 +11,7 @@ export default {
       axios.get(this.state.last_data_api).then(
         response=> {
             commit('SET_LAST_DATA_TO_STATE', response.data)
+            console.log(this.state.last_data_api)
         }
       )
     },
@@ -30,6 +31,7 @@ export default {
       axios.get(this.state.usm_api).then(
         response=> {
           commit('SET_USM_DATA_TO_STATE', response.data)
+          console.log(this.state.usm_api)
         }
       )
     },

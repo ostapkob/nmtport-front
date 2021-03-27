@@ -78,7 +78,7 @@ export default {
     state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio/usm/' + date + '/' + shift
   },
   CHANGE_IP: (state) => {
-    state.last_data_api = state.ip + '/api/v1.0/get_all_last_data_state'
+    state.last_data_api = state.ip + '/api/v2.0/get_all_last_data_state'
     state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio/usm/' + dateNow() + '/' + shiftNow()
     state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio/kran/' + dateNow() + '/' + shiftNow()
     // state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/kran'

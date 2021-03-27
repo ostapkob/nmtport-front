@@ -16,7 +16,7 @@
           spinner-small
           rounded="lg"
         >
-            <b-card-text> {{getPlacement[9].kran}}  кранов </b-card-text>
+            <b-card-text> {{getPlacement[9].kran}}  крана </b-card-text>
             <b-card-text> {{getPlacement[9].usm}}  УСМ </b-card-text>
         </b-overlay>
           </b-card>
@@ -33,7 +33,7 @@
           spinner-small
           rounded="lg"
         >
-            <b-card-text> {{getPlacement[11].kran}}  кранов </b-card-text>
+            <b-card-text> {{getPlacement[11].kran}}  крана </b-card-text>
             <b-card-text> {{getPlacement[11].usm}}  УСМ </b-card-text>
         </b-overlay>
           </b-card>
@@ -50,7 +50,7 @@
           spinner-small
           rounded="lg"
         >
-            <b-card-text> {{getPlacement[13].kran}}  кранов </b-card-text>
+            <b-card-text> {{getPlacement[13].kran}}  крана </b-card-text>
             <b-card-text> {{getPlacement[13].usm}}  УСМ </b-card-text>
         </b-overlay>
           </b-card>
@@ -102,7 +102,7 @@ export default {
       };
       let data = this.LAST_DATA;
       for (let mech in data) {
-        if (data[mech].state != "long_no_power") {
+        if (data[mech].state != "long_no_power" && data[mech].terminal) {
           placement[data[mech].terminal][data[mech].type]++;
         }
       }
