@@ -11,7 +11,6 @@ export default {
       axios.get(this.state.last_data_api).then(
         response=> {
             commit('SET_LAST_DATA_TO_STATE', response.data)
-            console.log(this.state.last_data_api)
         }
       )
     },
@@ -21,7 +20,7 @@ export default {
       axios.get(this.state.kran_api).then(
         response=> {
           commit('SET_KRAN_DATA_TO_STATE', response.data)
-          console.log(this.state.kran_api)
+          commit('SET_TOTAL_180_TO_STATE', response.data)
         }
       )
     },

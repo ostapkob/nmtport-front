@@ -122,3 +122,7 @@ export async function requestPermission() {
         throw new Error('Permission not granted for Notification');
     }
 }
+export function separateNumber(n){
+  n = ''+ Math.round(n,0)
+  return  n.replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ');
+}

@@ -27,7 +27,9 @@ export default new Vuex.Store({
     flagAudio: null,
     flagNotification: null,
     mechFilter: ['usm', 'kran'],
+    total_terminal_180: {},
     listAlarm: [],
+    total_terminals_180: {},
     // mechFilter: [],
   },
   actions,
@@ -35,6 +37,11 @@ export default new Vuex.Store({
   getters,
   modules: {
     auth
+  },
+  methods: {
+    eee: function (val) {
+      console.log(val + val)
+    },
   }
 }
 

@@ -22,7 +22,7 @@
             {{ mech.total_180 }}
 
             <b-tooltip :target="mech.id + '180'" variant="primary">
-              Количество поворотов 180° туда обратно
+              Количество циклов 180° 
             </b-tooltip>
           </b-badge>
 
@@ -38,9 +38,21 @@
             />
             {{ mech.total_90 }}
             <b-tooltip :target="mech.id + '90'" variant="dark">
-              Количество поворотов 90° туда обратно
+              Количество циклов 90° 
             </b-tooltip>
           </b-badge>
+
+          <b-badge
+            v-show="mech.total_180 > 10"
+            variant="secondary"
+            :id="mech.id + 'grab'"
+          >
+            <b-tooltip :target="mech.id + 'grab'" variant="secondary">
+              Обьём грейфера
+            </b-tooltip>
+          {{ mech.grab}} м<sup>3</sup>
+          </b-badge>
+
         </span >
           <span
             :class="{

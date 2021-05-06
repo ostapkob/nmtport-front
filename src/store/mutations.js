@@ -54,7 +54,33 @@ export default {
     state.flagNotification = flag;
     localStorage.setItem('flagNotification', state.flagNotification)
   },
-  HASH_KRAN: (state) => {
+  SET_TOTAL_180_TO_STATE: (state, values) => {
+    // i don't do it in backend
+    let total_terminals_180 = {}
+    for (let mech in values) { // create zero object
+      if (values[mech].total_terminals_180) {
+        for (let terminal in values[mech].total_terminals_180) {
+          if (!total_terminals_180[terminal]) {
+            total_terminals_180[terminal] = {}
+              total_terminals_180[terminal] = {
+                                                'turns':0,
+                                                'tons':0
+              }
+            }
+          }
+        }
+      }
+    for (let mech in values) { // fill object 
+      if (values[mech].total_terminals_180) {
+        for(let terminal in values[mech].total_terminals_180) {
+            total_terminals_180[terminal]['turns'] += values[mech].total_terminals_180[terminal]
+            total_terminals_180[terminal]['tons'] += values[mech].total_terminals_180[terminal]*values[mech].grab
+        }
+      }
+    }
+    state.total_terminals_180 = total_terminals_180;
+  },
+  HASH_KRAN: (state) => {// not use
     if (state.kran_api) {
       return sessionStorage.getItem(state.kran_api)
     }

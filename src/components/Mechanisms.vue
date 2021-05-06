@@ -75,16 +75,50 @@
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
       <b-tooltip show target="bug" variant="light">.</b-tooltip>
     </div>
+    <div
+      v-show="typeMECH=='KRAN'" 
+       class="mt-4"
+      >
+      <b-overlay
+        :show="!flagOverlay"
+        spinner-variant="primary"
+        spinner-small
+        rounded="lg"
+      >
+        <b-list-group 
+         v-for="(values, terminal) in TOTAL_180" 
+         :key=terminal
+         class="mt-1"
+          >
+          <div
+            
+            >
+          <b-list-group-item v-if="values.turns>15"> 
+          <h6>{{terminal}} причал  </h6>
+            <b-badge 
+              variant="primary" 
+              size="lg"
+              class="p-2"
+              >
+              {{separateNumber1(values.tons)}} тонн
+            </b-badge>
+          </b-list-group-item>
+          </div>
+          </b-list-group>
+      </b-overlay>
+    </div>
   </div>
 </template>
 
 <script>
 
 //v-show="isNow || mech.total_180>5 || mech.total_90 > 5 || mech.total_time>0.1"
-import { shiftNow, dateNow, hoursProgress } from "@/functions/functions";
+import { shiftNow, dateNow, hoursProgress, separateNumber } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
 import { BOverlay } from 'bootstrap-vue'
+import { BListGroup, BListGroupItem, BBadge } from 'bootstrap-vue'
+import { mapGetters } from "vuex";
 
 export default {
   name: "Krans",
@@ -106,10 +140,14 @@ export default {
     BOverlay,
     BTooltip,
     BFormDatepicker,
+    BListGroup,
+    BListGroupItem,
+    BBadge,
     progressKRAN: () => import("@/components/ProgressKran"),
     progressUSM: () => import("@/components/ProgressUsm"),
   },
   computed: {
+    ...mapGetters(["TOTAL_180"]),
     isNow: function () {
       return this.date == dateNow() && this.shift == shiftNow();
     },
@@ -175,7 +213,7 @@ export default {
       this.GET_SET(this.date, this.shift, 1300)
       this.buttonsDisabled();
     },
-  GET_SET(date, shift, timer) {
+    GET_SET(date, shift, timer) {
       this.flagOverlay=false
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
         date,
@@ -183,11 +221,14 @@ export default {
       ]).then(
         setTimeout(this.GET_MECH, timer ) // becouse don't work promise
       );
-  },
+    },
     GET_MECH() {
           this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
           this.flagOverlay=true
     },
+    separateNumber1(n) {
+      return separateNumber(n)
+    }
   },
   mounted() {
     this.shift = shiftNow();

@@ -26,5 +26,8 @@ export default {
   },
   FLAG_USM_NOW(state) {
     return state.flagUsmNow
+  },
+  TOTAL_180(state) {
+    return state.total_terminals_180
   }
 }

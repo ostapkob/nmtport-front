@@ -96,6 +96,7 @@ export default {
     if (!this.FILTER_LAST_DATA) {
       this.SET_FILTER_LAST_DATA(["usm", "kran"]);
     }
+    this.shift = shiftNow();
     this.SET_KRAN_API([dateNow(), shiftNow()]);
     this.$store.dispatch("GET_KRAN_DATA")
     this.SET_USM_API([dateNow(), shiftNow()]);
