@@ -81,7 +81,6 @@
         :id="mech.id + '-' + key"
       >
         <b-tooltip
-          v-if="item.step > 14"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >

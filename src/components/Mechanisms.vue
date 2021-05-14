@@ -65,6 +65,7 @@
         spinner-variant="primary"
         spinner-small
         rounded="lg"
+        class= "border-secondary"
       >
         <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
         <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
@@ -75,38 +76,35 @@
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
       <b-tooltip show target="bug" variant="light">.</b-tooltip>
     </div>
-    <div
-      v-show="typeMECH=='KRAN'" 
-       class="mt-4"
-      >
       <b-overlay
         :show="!flagOverlay"
         spinner-variant="primary"
         spinner-small
         rounded="lg"
       >
-        <b-list-group 
-         v-for="(values, terminal) in TOTAL_180" 
-         :key=terminal
-         class="mt-1"
-          >
           <div
-            
+            v-if="typeMECH=='KRAN'" 
+             class="mt-4 d-flex justify-content-around"
             >
-          <b-list-group-item v-if="values.turns>15"> 
-          <h6>{{terminal}} причал  </h6>
-            <b-badge 
-              variant="primary" 
-              size="lg"
-              class="p-2"
-              >
-              {{separateNumber1(values.tons)}} тонн
-            </b-badge>
-          </b-list-group-item>
+            <div
+             v-for="(values, terminal) in TOTAL_180" 
+             :key=terminal
+            >
+              <div
+              v-if="values.turns>15"
+              > 
+                <div> {{terminal}} причал  </div>
+                <b-badge 
+                  variant="primary" 
+                  size="lg"
+                  class="p-2 mt-1"
+                  >
+                  {{separateNumber1(values.tons*1.07)}} тонн
+                </b-badge>
+              </div>
+            </div>
           </div>
-          </b-list-group>
-      </b-overlay>
-    </div>
+    </b-overlay>
   </div>
 </template>
 
@@ -117,7 +115,7 @@ import { shiftNow, dateNow, hoursProgress, separateNumber } from "@/functions/fu
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
 import { BOverlay } from 'bootstrap-vue'
-import { BListGroup, BListGroupItem, BBadge } from 'bootstrap-vue'
+import { BBadge } from 'bootstrap-vue'
 import { mapGetters } from "vuex";
 
 export default {
@@ -140,8 +138,6 @@ export default {
     BOverlay,
     BTooltip,
     BFormDatepicker,
-    BListGroup,
-    BListGroupItem,
     BBadge,
     progressKRAN: () => import("@/components/ProgressKran"),
     progressUSM: () => import("@/components/ProgressUsm"),
