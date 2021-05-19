@@ -87,7 +87,7 @@
              class="mt-4 d-flex justify-content-around"
             >
             <div
-             v-for="(values, terminal) in TOTAL_180" 
+             v-for="(values, terminal) in filterTurns(TOTAL_180, 15)" 
              :key=terminal
             >
               <div
@@ -99,12 +99,13 @@
                   size="lg"
                   class="p-2 mt-1"
                   >
-                  {{separateNumber1(values.tons*1.07)}} тонн
+                  {{separateNumber1(values.tons*1.1)}} тонн
                 </b-badge>
               </div>
             </div>
           </div>
     </b-overlay>
+  <br>
   </div>
 </template>
 
@@ -224,6 +225,15 @@ export default {
     },
     separateNumber1(n) {
       return separateNumber(n)
+    },
+    filterTurns(obj, limit) {
+      let filterObj = {}
+      for (let pair of Object.entries(obj)) {
+        if (pair[1].turns>limit) {
+            filterObj[pair[0]] = pair[1]
+        }
+      }
+      return filterObj
     }
   },
   mounted() {
