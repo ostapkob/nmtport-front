@@ -29,6 +29,9 @@ export default {
   SET_USM_DATA_TO_STATE: (state, values) => {
     state.usm_data = values;
   },
+  SET_SENNEBOGEN_DATA_TO_STATE: (state, values) => {
+    state.sennebogen_data = values;
+  },
   SET_SELECTED_FEATURES_TO_STATE: (state, values) => {
     state.selectedFeatures = values
   },
@@ -106,10 +109,17 @@ export default {
     let shift = date_shift[1]
     state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio/usm/' + date + '/' + shift
   },
+  CHANGE_SENNEBOGEN_API: (state, date_shift) => {
+    // console.log(date_shift);
+    let date = date_shift[0]
+    let shift = date_shift[1]
+    state.sennebogen_api = state.ip + '/api/v2.0/get_data_period_with_fio/sennebogen/' + date + '/' + shift
+  },
   CHANGE_IP: (state) => {
     state.last_data_api = state.ip + '/api/v2.0/get_all_last_data_state'
     state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio/usm/' + dateNow() + '/' + shiftNow()
     state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio/kran/' + dateNow() + '/' + shiftNow()
+    state.sennebogen_api = state.ip + '/api/v2.0/get_data_period_with_fio/sennebogen/' + dateNow() + '/' + shiftNow()
     // state.kran_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/kran'
     // state.usm_api = state.ip + '/api/v2.0/get_data_period_with_fio_now/usm'
   },
@@ -118,5 +128,8 @@ export default {
   },
   CHANGE_FLAG_USM_NOW: (state, val) => {
     state.flagUsmNow = val
+  },
+  CHANGE_FLAG_SENNEBOGEN_NOW: (state, val) => {
+    state.flagSennebogenNow = val
   }
 }

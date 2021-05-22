@@ -34,6 +34,15 @@
         <Hours :shift="shift" />
       </div>
     </div>
+    <div v-for="mech in SENNEBOGEN_DATA" :key="mech.id">
+      <div
+        v-if="SELECTED_FEATURES.includes(mech.id)"
+        class="p-3 p-3 pb-3 pl-3 border rounded bg-light mb-2 ml-2 mr-2 shadow-sm"
+      >
+        <sennebogenProgress :mech="mech" />
+        <Hours :shift="shift" />
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -46,6 +55,7 @@ import Polygons from "@/components/Ol-Polygons";
 import { mapActions, mapGetters } from "vuex";
 import kranProgress from "@/components/ProgressKran.vue";
 import usmProgress from "@/components/ProgressUsm.vue";
+import sennebogenProgress from "@/components/ProgressSennebogen.vue";
 import Hours from "@/components/Hours.vue";
 import {
   shiftNow,
@@ -71,6 +81,7 @@ export default {
     olMap,
     kranProgress,
     usmProgress,
+    sennebogenProgress,
     Hours,
     SlideBar,
 
@@ -80,6 +91,7 @@ export default {
       "GET_LAST_DATA",
       "SET_KRAN_API",
       "SET_USM_API",
+      "SET_SENNEBOGEN_API",
       "SET_FILTER_LAST_DATA",
     ]),
   },
@@ -89,6 +101,7 @@ export default {
       "LAST_DATA",
       "KRAN_DATA",
       "USM_DATA",
+      "SENNEBOGEN_DATA",
       "FILTER_LAST_DATA",
     ]),
   },
@@ -101,6 +114,8 @@ export default {
     this.$store.dispatch("GET_KRAN_DATA")
     this.SET_USM_API([dateNow(), shiftNow()]);
     this.$store.dispatch("GET_USM_DATA")
+    this.SET_SENNEBOGEN_API([dateNow(), shiftNow()]);
+    this.$store.dispatch("GET_SENNEBOGEN_DATA")
     this.isFocus = isVisible();
     this.$nextTick(function () {
       window.addEventListener("focus", this.GET_LAST_DATA);

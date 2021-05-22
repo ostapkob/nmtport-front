@@ -177,6 +177,20 @@ export default {
           return `${type}-icon-green`;
         }
       }
+      if (type == "sennebogen") {
+        console.log(type, state)
+        if (state == "work") {
+          return `${type}-icon-blue`;
+        } else if (state == "stay") {
+          return `${type}-icon-yellow`;
+        } else if (state == "no_power") {
+          return `${type}-icon-red`;
+        } else if (state == "long_no_power") {
+          return `${type}-icon-gray`;
+        } else {
+          return `${type}-icon-green`;
+        }
+      }
     },
   },
   beforeDestroy() {

@@ -9,6 +9,10 @@ export default {
     // console.log('->  usm  getters', state.usm_api);
     return state.usm_data;
   },
+  SENNEBOGEN_DATA(state) {
+    // console.log('->  sennebogen  getters', state.sennebogen_api);
+    return state.sennebogen_data;
+  },
   SELECTED_FEATURES(state) {
     return state.selectedFeatures
   },
@@ -25,6 +29,9 @@ export default {
     return state.flagKranNow
   },
   FLAG_USM_NOW(state) {
+    return state.flagUsmNow
+  },
+  FLAG_SENNEBOGEN_NOW(state) {
     return state.flagUsmNow
   },
   TOTAL_180(state) {

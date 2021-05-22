@@ -22,6 +22,11 @@ const routes = [
     component: () => import('../views/Krans.vue')
   },
   {
+    path: '/sennebogen',
+    name: 'Sennebogen',
+    component: () => import('../views/Sennebogen.vue')
+  },
+  {
     path: '/mapol',
     name: 'MapOl',
     component: () => import('../views/MapOl.vue')

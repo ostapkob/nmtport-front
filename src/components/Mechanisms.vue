@@ -69,7 +69,7 @@
       >
         <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
         <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
-        <progressSenebog :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOG'" />
+        <progressSENNEBOGEN :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOGEN'" />
       </b-overlay>
     </div>
     <div>
@@ -99,12 +99,13 @@
                   size="lg"
                   class="p-2 mt-1"
                   >
-                  {{separateNumber1(values.tons*1.1)}} тонн
+                  {{separateNumber1(values.tons*1.15)}} тонн
                 </b-badge>
               </div>
             </div>
           </div>
     </b-overlay>
+    {{typeMECH}}
   <br>
   </div>
 </template>
@@ -142,6 +143,7 @@ export default {
     BBadge,
     progressKRAN: () => import("@/components/ProgressKran"),
     progressUSM: () => import("@/components/ProgressUsm"),
+    progressSENNEBOGEN: () => import("@/components/ProgressSennebogen"),
   },
   computed: {
     ...mapGetters(["TOTAL_180"]),

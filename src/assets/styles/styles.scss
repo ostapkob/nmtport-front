@@ -135,6 +135,42 @@ input {
   margin: 0 8px 0 0;
 }
 
+.icon-sennebogen {
+  // color: $gray-100;
+  // background: $info-light;
+  // font-size: 1em;
+  // height: 25px;
+  // width: 25px;
+  // border-radius: 5px;
+  // text-align: center;
+  // vertical-align: middle;
+  // padding: 1px;
+  // margin: 0 8px 0 0;
+
+  border-style: solid;
+  border-color: transparent transparent red transparent;
+  border-width: 0 25px 25px 25px;
+  height: 0;
+  width: 50px;
+  box-sizing: content-box;
+  position: relative;
+  margin: 20px 0 50px 0;
+}
+
+  .icon-sennebogen:after {
+  content: "";
+  position: absolute;
+  top: 25px;
+  left: -25px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: red transparent transparent transparent;
+  border-width: 70px 50px 0 50px;
+  }
+
+
+
 .icon-kran {
   color: $gray-100;
   background: $info-light;
@@ -281,6 +317,46 @@ input {
   font-size: $mech-size-sm/1.7;
 }
 
+.sennebogen-icon-red {
+  @extend %mech-icon;
+  border-radius: 33%;
+  background: #c70c05;
+}
+
+.sennebogen-icon-blue {
+  @extend %mech-icon;
+  border-radius: 33%;
+  background: #0f5ccc;
+}
+
+.sennebogen-icon-yellow {
+  @extend %mech-icon;
+  border-radius: 33%;
+  background: #e6de00;
+  color: #111;
+}
+
+.sennebogen-icon-black {
+  @extend %mech-icon;
+  border-radius: 33%;
+  background: #1a1a1a;
+}
+
+.sennebogen-icon-gren {
+  @extend %mech-icon;
+  border-radius: 33%;
+  background: #1DD300;
+}
+
+.sennebogen-icon-gray {
+  @extend %mech-icon;
+  border-radius: 33%;
+  background: #737373;
+  width: $mech-size-sm;
+  height: $mech-size-sm;
+  border-width: $mech-size-sm/10;
+  font-size: $mech-size-sm/1.7;
+}
 .bug-tooltip {
   background: #fff;
   color: #fff;
@@ -392,6 +468,33 @@ input {
     border-width: $mech-size-phone-sm/10;
     font-size: $mech-size-phone-sm/1.7;
   }
+  .sennebogen-icon-red {
+    @extend %mech-icon-phone;
+  }
+
+  .sennebogen-icon-blue {
+    @extend %mech-icon-phone;
+  }
+
+  .sennebogen-icon-yellow {
+    @extend %mech-icon-phone;
+  }
+
+  .sennebogen-icon-black {
+    @extend %mech-icon-phone;
+  }
+
+  .sennebogen-icon-gren {
+    @extend %mech-icon-phone;
+  }
+
+  .sennebogen-icon-gray {
+    @extend %mech-icon-phone;
+    width: $mech-size-phone-sm;
+    height: $mech-size-phone-sm;
+    border-width: $mech-size-phone-sm/10;
+    font-size: $mech-size-phone-sm/1.7;
+  }
 }
 
 @media screen and (max-width: 430px) {
@@ -465,6 +568,33 @@ input {
   }
 
   .kran-icon-gray {
+    @extend %mech-icon-half-screen;
+    width: $mech-size-half-screen-sm;
+    height: $mech-size-half-screen-sm;
+    border-width: $mech-size-half-screen-sm/10;
+    font-size: $mech-size-half-screen-sm/1.7;
+  }
+  .sennebogen-icon-red {
+    @extend %mech-icon-half-screen;
+  }
+
+  .sennebogen-icon-blue {
+    @extend %mech-icon-half-screen;
+  }
+
+  .sennebogen-icon-yellow {
+    @extend %mech-icon-half-screen;
+  }
+
+  .sennebogen-icon-black {
+    @extend %mech-icon-half-screen;
+  }
+
+  .sennebogen-icon-gren {
+    @extend %mech-icon-half-screen;
+  }
+
+  .sennebogen-icon-gray {
     @extend %mech-icon-half-screen;
     width: $mech-size-half-screen-sm;
     height: $mech-size-half-screen-sm;

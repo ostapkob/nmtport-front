@@ -12,6 +12,7 @@ export default new Vuex.Store({
     last_data: [],
     kran_data: [],
     usm_data: [],
+    sennebogen_data: [],
     selectedFeatures: [],
     ip: 'https://m1.nmtport.ru',
     // ip:      'http://127.0.0.1:5000',
@@ -19,8 +20,10 @@ export default new Vuex.Store({
     kran_api: '',
     tmp_kran_api: '',
     tmp_usm_api: '',
+    tmp_sennebogen_api: '',
     flagKranNow: true,
     flagUsmNow: true,
+    flagSennebogenNow: true,
     // kran_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/kran',
     // usm_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/usm',
     errored_last_data: false,
@@ -39,9 +42,6 @@ export default new Vuex.Store({
     auth
   },
   methods: {
-    eee: function (val) {
-      console.log(val + val)
-    },
   }
 }
 

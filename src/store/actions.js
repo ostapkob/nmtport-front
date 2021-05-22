@@ -35,6 +35,17 @@ export default {
       )
     },
 
+    GET_SENNEBOGEN_DATA({
+        commit
+    }) {
+      axios.get(this.state.sennebogen_api).then(
+        response=> {
+          commit('SET_SENNEBOGEN_DATA_TO_STATE', response.data)
+          console.log(this.state.sennebogen_api)
+        }
+      )
+    },
+
     SET_FLAG_NOTIFICATION({
         commit
     }, value) {
@@ -54,6 +65,11 @@ export default {
         commit
     }, value) {
         commit('CHANGE_USM_API', value);
+    },
+    SET_SENNEBOGEN_API({
+        commit
+    }, value) {
+        commit('CHANGE_SENNEBOGEN_API', value);
     },
     SET_SELECTED_FEATURES({
         commit
@@ -75,5 +91,8 @@ export default {
     },
     SET_FLAG_USM_NOW({commit}, value) {
         commit('CHANGE_FLAG_USM_NOW', value)
+    },
+    SET_FLAG_SENNEBOGEN_NOW({commit}, value) {
+        commit('CHANGE_FLAG_SENNEBOGEN_NOW', value)
     }
 }
