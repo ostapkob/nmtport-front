@@ -83,7 +83,7 @@ export default {
     return {
       polling: null,
       tmpSetAlarm: new Set(),
-      typeMechanisms: ['KRAN', 'USM'],
+      typeMechanisms: ['KRAN', 'USM', 'SENNEBOGEN'],
     };
   },
   components: {
@@ -152,7 +152,7 @@ export default {
         this.GET_LAST_DATA();
         this.SET_GET_MECH();
         this.audioAlarm();
-      }, 45000); // timer
+      }, 30000); // timer
     },
     flagTypeMechanism(type) {
       if (type=='KRAN') {
@@ -160,6 +160,9 @@ export default {
       }
       if (type=='USM') {
         return  this.FLAG_USM_NOW
+      }
+      if (type=='SENNEBOGEN') {
+        return  this.FLAG_SENNEBOGEN_NOW
       }
     }
   },
@@ -171,7 +174,8 @@ export default {
                    "FLAG_NOTIFICATION", 
                    "LAST_DATA",
                    "FLAG_KRAN_NOW",
-                   "FLAG_USM_NOW"
+                   "FLAG_USM_NOW",
+                   "FLAG_SENNEBOGEN_NOW"
     ]),
   },
   mounted() {
@@ -181,8 +185,12 @@ export default {
     this.GET_IP();
     this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
     this.GET_LAST_DATA();
-    this.$store.dispatch("GET_KRAN_DATA"); 
-    this.$store.dispatch("GET_USM_DATA");
+    for (let typeMechanism of this.typeMechanisms) {
+            this.$store.dispatch("GET_" + typeMechanism + "_DATA")
+      }
+    //this.$store.dispatch("GET_KRAN_DATA"); 
+    //this.$store.dispatch("GET_USM_DATA");
+    //this.$store.dispatch("GET_SENNEBOGEN_DATA");
     this.pollData();
   },
   beforeDestroy() {

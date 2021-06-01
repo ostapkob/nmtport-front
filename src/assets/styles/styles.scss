@@ -136,25 +136,17 @@ input {
 }
 
 .icon-sennebogen {
-  // color: $gray-100;
-  // background: $info-light;
-  // font-size: 1em;
-  // height: 25px;
-  // width: 25px;
-  // border-radius: 5px;
-  // text-align: center;
-  // vertical-align: middle;
-  // padding: 1px;
-  // margin: 0 8px 0 0;
+  color: $gray-100;
+  background: $info-light;
+  font-size: 1em;
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 1px;
+  margin: 0 8px 0 0;
 
-  border-style: solid;
-  border-color: transparent transparent red transparent;
-  border-width: 0 25px 25px 25px;
-  height: 0;
-  width: 50px;
-  box-sizing: content-box;
-  position: relative;
-  margin: 20px 0 50px 0;
 }
 
   .icon-sennebogen:after {

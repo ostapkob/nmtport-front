@@ -7,7 +7,7 @@
         <div class="icon-kran">
           <strong>{{ mech.number }} </strong>
         </div>
-        <span class="mr-auto mx-3">
+        <span class="mr-auto mx-1">
           <b-badge
             class="mr-1"
             v-show="mech.total_180 > 10"
@@ -62,7 +62,7 @@
           >
             {{ mech.fio }}  
           </span>
-          <span class="time-start-finish ml-3" v-if="mech.start">
+          <span class="time-start-finish ml-2" v-if="mech.start">
             {{ mech.start }} - {{ mech.finish }}
           </span>
         <span>

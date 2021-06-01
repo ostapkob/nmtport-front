@@ -7,7 +7,7 @@
         <div class="icon-usm">
           <strong>{{ mech.number }} </strong>
         </div>
-        <span class="mr-auto mx-3">
+        <span class="mr-auto mx-1">
           <b-badge variant="dark ml-1 p-1" :id="mech.id + 'coalTime'">
             {{ mech.time_coal }}
             <b-tooltip :target="mech.id + 'coalTime'" variant="dark">
@@ -35,7 +35,7 @@
           >
             {{ mech.fio }}
           </small>
-          <small class="time-start-finish ml-3" v-if="mech.start">
+          <small class="time-start-finish ml-2" v-if="mech.start">
             {{ mech.start }} - {{ mech.finish }}
           </small>
         <span class="text-left">
@@ -54,7 +54,7 @@
         :id="mech.id + '-' + key"
       >
         <b-tooltip 
-          v-if="item.step > 14"
+          v-if="item.step > 10"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >

@@ -105,7 +105,6 @@
             </div>
           </div>
     </b-overlay>
-    {{typeMECH}}
   <br>
   </div>
 </template>
