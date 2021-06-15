@@ -48,7 +48,7 @@
         :id="mech.id + '-' + key"
       >
         <b-tooltip 
-          v-if="item.step > 14"
+          v-if="item.step > 5"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >
@@ -57,7 +57,7 @@
               item.time,
               timeTo(key, mech.data),
               item.value,
-              item.time_coal
+              item.time_move
             )
           }}
         </b-tooltip>
@@ -82,7 +82,7 @@ import {
 const Hours = () => import("@/components/Hours");
 
 export default {
-  name: "UsmProgress",
+  name: "SennebogenProgress",
   props: {
     mech: Object,
     shift: Number,
@@ -103,9 +103,9 @@ export default {
     showSteps: function (timeStep, timeTo, typeStep, totalStep) {
       if (typeStep == 1 || typeStep == 3) {
         if (totalStep === undefined) {
-          return `c ${timeStep} -  ${this.mech.time_coal} часов уголь на ленте `;
+          return `c ${timeStep} -  ${this.mech.time_move} часов в работе`;
         } else {
-          return `c ${timeStep} - ${totalStep} часов уголь на ленте `;
+          return `c ${timeStep} - ${totalStep} часов в работе`;
         }
       }
       if (typeStep == 0) {

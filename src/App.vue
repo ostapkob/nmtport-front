@@ -131,14 +131,17 @@ export default {
       }
       return;
     },
-    SET_GET_MECH() {
+    SET_GET_MECH() { //set and get to store data
       for (let typeMechanism of this.typeMechanisms) {
         if (this.flagTypeMechanism(typeMechanism)) {
           this.$store.dispatch("SET_" + typeMechanism + "_API", [
             dateNow(),
             shiftNow()
-          ]).then(
-            this.$store.dispatch("GET_" + typeMechanism + "_DATA", true)
+          ]).then(() =>{
+            this.$store.dispatch("GET_" + typeMechanism + "_DATA", true);
+            console.log('%c===>', 'color:red;');
+          }
+
           )
         }
       }
@@ -164,6 +167,7 @@ export default {
       if (type=='SENNEBOGEN') {
         return  this.FLAG_SENNEBOGEN_NOW
       }
+      return
     }
   },
   computed: {
@@ -186,7 +190,7 @@ export default {
     this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
     this.GET_LAST_DATA();
     for (let typeMechanism of this.typeMechanisms) {
-            this.$store.dispatch("GET_" + typeMechanism + "_DATA")
+        this.$store.dispatch("GET_" + typeMechanism + "_DATA")
       }
     //this.$store.dispatch("GET_KRAN_DATA"); 
     //this.$store.dispatch("GET_USM_DATA");

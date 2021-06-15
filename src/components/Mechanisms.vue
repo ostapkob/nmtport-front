@@ -190,12 +190,6 @@ export default {
       this.date = dateNow();
       this.clickAnyButtons()
     },
-    buttonsDisabled() {
-      this.flagButtonsDisabled = true;
-      setTimeout(() => {
-        this.flagButtonsDisabled = false;
-      }, 1500);
-    },
     refresh() {
        if (this.isNow) {
          this.GET_SET( dateNow(), shiftNow(), 10 )
@@ -208,21 +202,25 @@ export default {
       else {
         this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
       }
-      this.GET_SET(this.date, this.shift, 1300)
-      this.buttonsDisabled();
+      this.GET_SET(this.date, this.shift)
+      this.flagButtonsDisabled = true;
     },
-    GET_SET(date, shift, timer) {
+    GET_SET(date, shift) {
       this.flagOverlay=false
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
         date,
         shift,
-      ]).then(
-        setTimeout(this.GET_MECH, timer ) // becouse don't work promise
+      ]).then( () => {
+        this.GET_MECH()
+      }
       );
     },
     GET_MECH() {
-          this.$store.dispatch("GET_" + this.typeMECH + "_DATA")
-          this.flagOverlay=true
+          this.$store.dispatch("GET_" + this.typeMECH + "_DATA").then(()=>{
+              setTimeout(()=>{this.flagOverlay=true}, 500 ) 
+              this.flagButtonsDisabled = false;
+            }
+          )
     },
     separateNumber1(n) {
       return separateNumber(n)
@@ -244,13 +242,13 @@ export default {
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
-    this.GET_SET(dateNow(), shiftNow(), 300)
+    this.GET_SET(dateNow(), shiftNow())
   },
   watch: {
     dateCal: function () {
       this.date = this.dateCal.split("-").reverse().join(".");
       this.shift = 1;
-      this.GET_SET(this.date, 1, 1000)
+      this.GET_SET(this.date, 1)
     },
   },
   updated() {
