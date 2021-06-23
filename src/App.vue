@@ -155,7 +155,7 @@ export default {
         this.GET_LAST_DATA();
         this.SET_GET_MECH();
         this.audioAlarm();
-      }, 30000); // timer
+      }, 20000); // timer
     },
     flagTypeMechanism(type) {
       if (type=='KRAN') {
