@@ -57,6 +57,11 @@ export default {
     }, value) {
         commit('SET_FLAG_AUDIO_TO_STATE', value);
     },
+    SET_FLAG_EMPTY_MECH({
+        commit
+    }, value) {
+        commit('SET_FLAG_EMPTY_MECH_TO_STATE', value);
+    },
     SET_KRAN_API({
         commit
     }, value) {

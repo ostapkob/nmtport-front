@@ -18,9 +18,11 @@ export default {
     }
     state.last_data = values;
   },
+
   SET_STATE_FROM_LOCALSTORAGE: (state) => { //filter and flag
     state.mechFilter = localStorage.getItem('mechFilter')
     state.flagAudio = localStorage.getItem('flagAudio') == 'true'
+    state.flagEmptyMech = localStorage.getItem('flagEmptyMech') == 'true'
     state.flagNotification = localStorage.getItem('flagNotification') == 'true'
   },
   SET_KRAN_DATA_TO_STATE: (state, values) => {
@@ -49,14 +51,20 @@ export default {
   }) {
     commit('SET_STATE_FROM_LOCALSTORAGE');
   },
+
   SET_FLAG_AUDIO_TO_STATE: (state, flag) => {
     state.flagAudio = flag;
     localStorage.setItem('flagAudio', state.flagAudio)
+  },
+  SET_FLAG_EMPTY_MECH_TO_STATE: (state, flag) => {
+    state.flagEmptyMech = flag;
+    localStorage.setItem('flagEmptyMech', state.flagEmptyMech)
   },
   SET_FLAG_NOTIFICATION_TO_STATE: (state, flag) => {
     state.flagNotification = flag;
     localStorage.setItem('flagNotification', state.flagNotification)
   },
+
   SET_TOTAL_180_TO_STATE: (state, values) => {
     // i don't do it in backend
     let total_terminals_180 = {}

@@ -15,11 +15,19 @@
       </b-form-checkbox>
       <b-form-checkbox 
         v-model="flagAudio" 
-        class="text-left"  
+        class="text-left pb-3"  
         name="check-button" 
         switch 
         >
         Звук сообщения
+      </b-form-checkbox>
+      <b-form-checkbox 
+        v-model="flagEmptyMech" 
+        class="text-left"  
+        name="check-button" 
+        switch 
+        >
+        Показывать не работающе механизмы 
       </b-form-checkbox>
     </div>
     <hr />
@@ -54,6 +62,7 @@ export default {
     return {
       changeColor: "text-dark",
       flagAudio: false,
+      flagEmptyMech: false,
       flagNotification: false,
     };
   },
@@ -67,6 +76,7 @@ export default {
   computed: {
     ...mapGetters([
     "FLAG_AUDIO",
+    "FLAG_EMPTY_MECH",
     "FLAG_NOTIFICATION"
     ]),
     currentUser() {
@@ -76,6 +86,7 @@ export default {
   methods: {
     ...mapActions([
       "SET_FLAG_AUDIO",
+      "SET_FLAG_EMPTY_MECH",
       "SET_FLAG_NOTIFICATION",
     ]),
   },
@@ -83,9 +94,11 @@ export default {
     flagAudio: function(){
       this.SET_FLAG_AUDIO(this.flagAudio)
     },
+    flagEmptyMech: function(){
+      this.SET_FLAG_EMPTY_MECH(this.flagEmptyMech)
+    },
     flagNotification: function(){
       if (this.FLAG_NOTIFICATION == null) {
-        //console.log(null)
         requestPermission()
       }
       this.SET_FLAG_NOTIFICATION(this.flagNotification)
@@ -93,6 +106,7 @@ export default {
   },
   mounted() {
     this.flagAudio = this.FLAG_AUDIO;
+    this.flagEmptyMech = this.FLAG_EMPTY_MECH;
     this.flagNotification = this.FLAG_NOTIFICATION;
     if (!this.currentUser) {
       this.$router.push("/login");

@@ -22,6 +22,9 @@ export default {
   FLAG_AUDIO(state) {
     return state.flagAudio
   },
+  FLAG_EMPTY_MECH(state) {
+    return state.flagEmptyMech
+  },
   FLAG_NOTIFICATION(state) {
     return state.flagNotification
   },

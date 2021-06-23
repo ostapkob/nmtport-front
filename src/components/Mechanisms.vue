@@ -57,20 +57,24 @@
 
     <div
       v-for="mech in $store.getters[typeMECH + '_DATA']"
-      class="p-2 border rounded bg-light mb-2 shadow-sm"
       :key="mech.id"
     >
-      <b-overlay
-        :show="!flagOverlay"
-        spinner-variant="primary"
-        spinner-small
-        rounded="lg"
-        class= "border-secondary"
+      <div
+        class="p-2 border rounded bg-light mb-2 shadow-sm"
+        v-if="!(!FLAG_EMPTY_MECH && !isMechWork(mech))" 
       >
-        <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
-        <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
-        <progressSENNEBOGEN :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOGEN'" />
-      </b-overlay>
+        <b-overlay
+          :show="!flagOverlay"
+          spinner-variant="primary"
+          spinner-small
+          rounded="lg"
+          class= "border-secondary"
+        >
+          <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
+          <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
+          <progressSENNEBOGEN :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOGEN'" />
+        </b-overlay>
+      </div>
     </div>
     <div>
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
@@ -143,9 +147,9 @@ export default {
     progressKRAN: () => import("@/components/ProgressKran"),
     progressUSM: () => import("@/components/ProgressUsm"),
     progressSENNEBOGEN: () => import("@/components/ProgressSennebogen"),
-  },
+  }, 
   computed: {
-    ...mapGetters(["TOTAL_180"]),
+    ...mapGetters(["TOTAL_180", "FLAG_EMPTY_MECH"]),
     isNow: function () {
       return this.date == dateNow() && this.shift == shiftNow();
     },
@@ -233,7 +237,20 @@ export default {
         }
       }
       return filterObj
+    },
+    isMechWork(data) {
+      if (this.typeMECH=="KRAN" && data.total_180<5 ) {
+          return false
+      }
+      if (this.typeMECH=="USM" && data.time_coal<.05) {
+          return false
+      }
+      if (this.typeMECH=="SENNEBOGEN" && data.work_time<0.05) {
+          return false
+      }
+      return true
     }
+
   },
   mounted() {
     this.shift = shiftNow();
