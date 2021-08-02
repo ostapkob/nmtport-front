@@ -84,7 +84,7 @@ export default {
     for (let mech in values) { // fill object 
       if (values[mech].total_terminals_180) {
         for(let terminal in values[mech].total_terminals_180) {
-            if (terminal == "9" && ![47, 54, 14, 16].includes(+mech)){
+            if (terminal == "9" && ![47, 54, 14, 16, 82].includes(+mech)){
               continue
             }
             total_terminals_180[terminal]['turns'] += values[mech].total_terminals_180[terminal]

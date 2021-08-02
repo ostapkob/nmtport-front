@@ -31,7 +31,7 @@ export default new Vuex.Store({
     flagNotification: null,
     flagEmptyMech: null,
     mechFilter: ['usm', 'kran'],
-    total_terminal_180: {},
+    // total_terminal_180: {},
     listAlarm: [],
     total_terminals_180: {},
     // mechFilter: [],

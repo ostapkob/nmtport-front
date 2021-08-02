@@ -150,10 +150,13 @@ export default {
         return `c ${timeStep} - ${totalStep} поворотов по 90°`;
       }
       if (typeStep == 0) {
-        return `c ${timeStep} по ${timeTo} - Простой`;
+        return `c ${timeStep} по ${timeTo} - простой`;
+      }
+      if (typeStep == 5) {
+        return `c ${timeStep} по ${timeTo} - в работе`;
       }
       if (typeStep == -1) {
-        return `c ${timeStep}  по ${timeTo} - Нет питания⚡`;
+        return `c ${timeStep}  по ${timeTo} - нет питания⚡`;
       }
       return "";
     },
@@ -172,6 +175,8 @@ export default {
         resultColor = "dark";
       } else if (val == 2) {
         resultColor = "primary";
+      } else if (val == 5) {
+        resultColor = "success show-progres text-dark";
       } else {
         resultColor = "danger show-progress";
       }

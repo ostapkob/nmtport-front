@@ -2,7 +2,6 @@
   <div id="app">
     <b-card title="Card Title" no-body>
       <b-card-header header-tag="nav" class="header">
-        <!-- <b-nav card-header tabs> -->
         <b-nav card-header tabs>
           <b-nav-item
             to="/krans"
@@ -50,10 +49,7 @@
           <b-nav-item-dropdown id="my-nav-dropdown" left>
             <b-dropdown-item to="/">Растановка</b-dropdown-item>
             <b-dropdown-item to="/video">Видео</b-dropdown-item>
-            <!-- <b-dropdown-item to='/archive'>Архив</b-dropdown-item> -->
           </b-nav-item-dropdown>
-          <!-- <b-nav-item v-if=!loggedIn to="/register" >Register</b-nav-item> -->
-          <!-- <b-nav-item v-if=loggedIn @click=logOut >Выйти</b-nav-item> -->
         </b-nav>
       </b-card-header>
       <div id="empty-top"></div>
@@ -155,7 +151,7 @@ export default {
         this.GET_LAST_DATA();
         this.SET_GET_MECH();
         this.audioAlarm();
-      }, 20000); // timer
+      }, 30000); // timer
     },
     flagTypeMechanism(type) {
       if (type=='KRAN') {

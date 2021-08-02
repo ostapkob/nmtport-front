@@ -239,7 +239,7 @@ export default {
       return filterObj
     },
     isMechWork(data) {
-      if (this.typeMECH=="KRAN" && data.total_180<5 ) {
+      if (this.typeMECH=="KRAN" && (data.total_180<5 && data.total_90<15)) {
           return false
       }
       if (this.typeMECH=="USM" && data.time_coal<.05) {

@@ -160,6 +160,8 @@ export default {
           return `${type}-icon-red`;
         } else if (state == "long_no_power") {
           return `${type}-icon-gray`;
+        } else if (state == "move") {
+          return `${type}-icon-yellow`;
         } else {
           return `${type}-icon-green`;
         }
