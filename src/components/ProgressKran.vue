@@ -161,7 +161,7 @@ export default {
       return "";
     },
     stripedProgress: function (val) {
-      if (val == -1) {
+      if (val == 5 || val == -1) {
         return true;
       }
       return false;
@@ -176,7 +176,8 @@ export default {
       } else if (val == 2) {
         resultColor = "primary";
       } else if (val == 5) {
-        resultColor = "success show-progres text-dark";
+        //resultColor = "success show-progres text-dark";
+        resultColor = "warning show-progres text-dark";
       } else {
         resultColor = "danger show-progress";
       }
