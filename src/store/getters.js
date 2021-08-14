@@ -7,11 +7,9 @@ export default {
     return state.kran_data;
   },
   USM_DATA(state) {
-    // console.log('->  usm  getters', state.usm_api);
     return state.usm_data;
   },
   SENNEBOGEN_DATA(state) {
-    // console.log('->  sennebogen  getters', state.sennebogen_api);
     return state.sennebogen_data;
   },
   SELECTED_FEATURES(state) {
@@ -39,6 +37,6 @@ export default {
     return state.shift
   },
   ISNOW(state) {
-    return (state.shift == shiftNow()  && state.date == dateNow())
+    return (state.date == dateNow() && state.shift == shiftNow())
   }
 }

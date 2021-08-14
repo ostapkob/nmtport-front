@@ -180,7 +180,7 @@ export default {
         }
       }
       if (type == "sennebogen") {
-        console.log(type, state)
+        //console.log(type, state)
         if (state == "work") {
           return `${type}-icon-blue`;
         } else if (state == "stay") {

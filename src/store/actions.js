@@ -21,7 +21,7 @@ export default {
         response=> {
           commit('SET_KRAN_DATA_TO_STATE', response.data)
           commit('SET_TOTAL_180_TO_STATE', response.data)
-          console.info(this.state.kran_api)
+          //console.info(this.state.kran_api)
         }
       )
     },
@@ -31,7 +31,7 @@ export default {
       axios.get(this.state.usm_api).then(
         response=> {
           commit('SET_USM_DATA_TO_STATE', response.data)
-          console.info(this.state.usm_api)
+          //console.info(this.state.usm_api)
         }
       )
     },
@@ -42,7 +42,7 @@ export default {
       axios.get(this.state.sennebogen_api).then(
         response=> {
           commit('SET_SENNEBOGEN_DATA_TO_STATE', response.data)
-          console.info(this.state.sennebogen_api)
+          //console.info(this.state.sennebogen_api)
         }
       )
     },

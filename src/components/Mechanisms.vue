@@ -128,7 +128,7 @@
 
 <script>
 
-import { shiftNow, dateNow, hoursProgress, separateNumber, tipShift } from "@/functions/functions";
+import { shiftNow, dateNow, hoursProgress, separateNumber, addZero, tipShift } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
 import { BOverlay } from 'bootstrap-vue'
@@ -183,10 +183,13 @@ export default {
         newShift = 2;
         oldDate.setDate(oldDate.getDate() - 1);
       }
-      newDate = oldDate.getDate() + "." + String(oldDate.getMonth() + 1) + "." + oldDate.getFullYear();
+      newDate = addZero(oldDate.getDate()) + "." 
+              + addZero(String(oldDate.getMonth() + 1)) + "." 
+              + oldDate.getFullYear();
       this.$store.dispatch("SET_DATE_SHIFT"  , [newDate, newShift])
       this.clickAnyButtons()
     },
+
     nextDateShift() {
       let newShift = 1
       let parts = this.DATE.split(".");
@@ -198,10 +201,13 @@ export default {
         newShift = 1;
         oldDate.setDate(oldDate.getDate() + 1);
       }
-      newDate = oldDate.getDate() + "." + String(oldDate.getMonth() + 1) + "." + oldDate.getFullYear();
+      newDate = addZero(oldDate.getDate()) + "." 
+              + addZero(String(oldDate.getMonth() + 1)) + "." 
+              + oldDate.getFullYear();
       this.$store.dispatch("SET_DATE_SHIFT"  , [newDate, newShift])
       this.clickAnyButtons()
     },
+
     nowDateShift() {
       this.$store.dispatch("SET_DATE_SHIFT"  , [dateNow(), shiftNow()])
       this.clickAnyButtons()

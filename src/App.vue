@@ -100,12 +100,10 @@ export default {
     audioAlarm() {
       for (let mech in this.LAST_DATA) {
         let mechanism = this.LAST_DATA[mech];
-        // console.log(mechanism.filter, mechanism.alarm, mechanism.type, mechanism.number)
         if (mechanism.filter) {
           if (mechanism.alarm && this.tmpSetAlarm.has(mechanism.id)) {
             this.tmpSetAlarm.delete(mechanism.id);
             if (this.FLAG_AUDIO) {
-              //console.log(mechanism.name, ">audio:", this.FLAG_AUDIO);
               this.playSound();
             }
             if (this.FLAG_NOTIFICATION) {
@@ -134,7 +132,7 @@ export default {
             this.SHIFT,
           ]).then(() =>{
             this.$store.dispatch("GET_" + typeMechanism + "_DATA", true);
-            console.log('%c===>', 'color:red;');
+            //console.log('%c===>', 'color:red;');
           })
         }
       }
