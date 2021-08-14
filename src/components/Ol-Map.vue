@@ -53,7 +53,7 @@ export default {
     return {
       map: null,
       view: null,
-      terminal: true,
+      terminal: false,
       nameTerminal: "ГУТ-2",
       screenWidth: null,
       screenHeight: document.documentElement.clientHeight,
@@ -78,15 +78,20 @@ export default {
       });
       //create view with center postion
 
-      let center = transform([132.8896, 42.8128], "EPSG:4326", "EPSG:3857");
-      let rotationMap;
-      this.screenWidth > 450
-        ? (rotationMap = Math.PI / 2.71)
-        : (rotationMap = 0);
+      let centerMap = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+      let rotationMap=0;
+      let zoomMap=15.8;
+
+      if (this.screenWidth > 450) {
+        rotationMap = Math.PI / 2.71;
+        centerMap = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+        zoomMap = 17.4;
+      }
+
       this.view = new View({
-        center: center,
+        center: centerMap,
         rotation: rotationMap,
-        zoom: 16,
+        zoom: zoomMap,
       });
       let interaction = new DragRotateAndZoom();
       //let control = new FullScreen();
@@ -119,24 +124,37 @@ export default {
     },
     chengeTerminal() {
       this.terminal = !this.terminal;
-      let center;
+      let centerTerminal;
       let zoomTerminal;
-      let rotationMap;
+      let rotationTerminal;
+
       if (this.terminal) {
         this.nameTerminal = "ГУТ-2";
-        this.screenWidth > 400
-          ? (rotationMap = Math.PI / 2.71)
-          : (rotationMap = 0);
-        center = transform([132.8896, 42.8128], "EPSG:4326", "EPSG:3857");
-        zoomTerminal = 16;
+        rotationTerminal = Math.PI / -16;
+        centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
+        zoomTerminal = 15.6;
+
+        if (this.screenWidth > 450) {
+          rotationTerminal = Math.PI / 3.1;
+          centerTerminal = transform([132.9010, 42.8032], "EPSG:4326", "EPSG:3857");
+          zoomTerminal = 17.3;
+        }
       } else {
         this.nameTerminal = "УТ-1";
-        center = transform([132.9006, 42.8031], "EPSG:4326", "EPSG:3857");
-        zoomTerminal = 15.5;
+        centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+        rotationTerminal=0;
+        zoomTerminal=15.8;
+
+        if (this.screenWidth > 450) {
+          rotationTerminal = Math.PI / 2.71;
+          centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+          zoomTerminal = 17.4;
+        }
+
       }
       this.view.animate({
-        center: center,
-        rotation: rotationMap,
+        center: centerTerminal,
+        rotation: rotationTerminal,
         zoom: zoomTerminal,
         duration: 1000,
         //easing: this.bounce,

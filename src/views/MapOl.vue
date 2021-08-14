@@ -1,9 +1,7 @@
 <template>
   <div>
     <olPort />
-
     <div>
-      <!-- bag on safari -->
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
       <b-tooltip show target="bug" variant="light">.</b-tooltip>
     </div>
@@ -11,7 +9,7 @@
 </template>
 
 <script>
-//import olPort from "@/components/Ol-Port";
+import { shiftNow, dateNow } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 const olPort = () => import("@/components/Ol-Port");
 export default {
@@ -20,6 +18,9 @@ export default {
     olPort,
     BTooltip,
   },
+  mounted() {
+    this.$store.dispatch("SET_DATE_SHIFT"  , [dateNow(), shiftNow()])
+  }
 };
 </script>
 
