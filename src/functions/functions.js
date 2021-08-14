@@ -126,3 +126,14 @@ export function separateNumber(n){
   n = ''+ Math.round(n,0)
   return  n.replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ');
 }
+export function tipShift(date, shift){
+  let parts = date.split(".");
+  if (shift==1) {
+    return parts[0] + '.' + parts[1] +' 08:00 - ' + parts[0] + '.' + parts[1] + ' 20:00'
+  }
+  else {
+    let nextDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    nextDate.setDate(nextDate.getDate() + 1);
+    return parts[0] + '.' + parts[1] +' 20:00 - ' + nextDate.getDate() + '.' + (nextDate.getMonth()+1) + ' 08:00'
+  }
+}

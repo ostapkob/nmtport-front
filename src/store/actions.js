@@ -92,13 +92,9 @@ export default {
     }) {
         commit('SET_STATE_FROM_LOCALSTORAGE');
     },
-    SET_FLAG_KRAN_NOW({commit}, value) {
-        commit('CHANGE_FLAG_KRAN_NOW', value)
+    SET_DATE_SHIFT({
+        commit
+    }, value) {
+        commit('CHANGE_DATE_SHIFT', value);
     },
-    SET_FLAG_USM_NOW({commit}, value) {
-        commit('CHANGE_FLAG_USM_NOW', value)
-    },
-    SET_FLAG_SENNEBOGEN_NOW({commit}, value) {
-        commit('CHANGE_FLAG_SENNEBOGEN_NOW', value)
-    }
 }

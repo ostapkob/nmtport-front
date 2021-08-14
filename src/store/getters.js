@@ -1,3 +1,4 @@
+import { shiftNow, dateNow } from "@/functions/functions";
 export default {
   LAST_DATA(state) {
     return state.last_data;
@@ -28,16 +29,16 @@ export default {
   FLAG_NOTIFICATION(state) {
     return state.flagNotification
   },
-  FLAG_KRAN_NOW(state) {
-    return state.flagKranNow
-  },
-  FLAG_USM_NOW(state) {
-    return state.flagUsmNow
-  },
-  FLAG_SENNEBOGEN_NOW(state) {
-    return state.flagUsmNow
-  },
   TOTAL_180(state) {
     return state.total_terminals_180
+  },
+  DATE(state) {
+    return state.date
+  },
+  SHIFT(state) {
+    return state.shift
+  },
+  ISNOW(state) {
+    return (state.shift == shiftNow()  && state.date == dateNow())
   }
 }

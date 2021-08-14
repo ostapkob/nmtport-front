@@ -27,9 +27,16 @@
       <div class="date-header">
         <span
          v-show="flagOverlay"
+         id="tipShift"
           >
-          <strong>{{ date }}</strong> смена:
-          <strong>{{ shift }}</strong>
+          <strong>{{ DATE }}</strong> смена:
+          <strong>{{ SHIFT }}</strong>
+        <b-tooltip 
+          target="tipShift"
+          placement="bottom"
+          variant="secondary">
+          {{ getTipShift }}
+        </b-tooltip>
         </span>
       </div>
       <div class="text-left">
@@ -38,7 +45,7 @@
           variant="secondary"
           @click="nextDateShift()"
           class="ml-3 mr-3 shadow-sm"
-          v-show="!isNow"
+          v-show="!ISNOW"
           :disabled="flagButtonsDisabled"
         >
           &rsaquo;
@@ -48,7 +55,7 @@
           variant="secondary"
           @click="nowDateShift()"
           class="shadow-sm"
-          v-show="!isNow"
+          v-show="!ISNOW"
         >
           &raquo;
         </b-button>
@@ -70,9 +77,9 @@
           rounded="lg"
           class= "border-secondary"
         >
-          <progressKRAN :mech="mech" :shift=shift v-if="typeMECH == 'KRAN'" />
-          <progressUSM :mech="mech" :shift=shift v-if="typeMECH == 'USM'" />
-          <progressSENNEBOGEN :mech="mech" :shift=shift  v-if="typeMECH == 'SENNEBOGEN'" />
+          <progressKRAN :mech="mech" :shift=SHIFT v-if="typeMECH == 'KRAN'" />
+          <progressUSM :mech="mech" :shift=SHIFT v-if="typeMECH == 'USM'" />
+          <progressSENNEBOGEN :mech="mech" :shift=SHIFT  v-if="typeMECH == 'SENNEBOGEN'" />
         </b-overlay>
       </div>
     </div>
@@ -109,7 +116,7 @@
                 <b-tooltip 
                   :target="terminal + 'br'"
                   variant="primary">
-                  {{values.krans}}
+                  {{values.krans.slice(0,-2)}}
                 </b-tooltip>
               </div>
             </div>
@@ -121,8 +128,7 @@
 
 <script>
 
-//v-show="isNow || mech.total_180>5 || mech.total_90 > 5 || mech.total_time>0.1"
-import { shiftNow, dateNow, hoursProgress, separateNumber } from "@/functions/functions";
+import { shiftNow, dateNow, hoursProgress, separateNumber, tipShift } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
 import { BOverlay } from 'bootstrap-vue'
@@ -133,8 +139,6 @@ export default {
   name: "Krans",
   data() {
     return {
-      shift: 1,
-      date: "-",
       hours: "",
       dateCal: dateNow(),
       flagButtonsDisabled: false,
@@ -155,60 +159,62 @@ export default {
     progressSENNEBOGEN: () => import("@/components/ProgressSennebogen"),
   }, 
   computed: {
-    ...mapGetters(["TOTAL_180", "FLAG_EMPTY_MECH"]),
-    isNow: function () {
-      return this.date == dateNow() && this.shift == shiftNow();
-    },
+    ...mapGetters([
+      "TOTAL_180",
+      "FLAG_EMPTY_MECH",
+      "DATE",
+      "SHIFT",
+      "ISNOW"
+
+    ]),
+    getTipShift: function() {
+      return tipShift(this.DATE, this.SHIFT)
+    }
   },
   methods: {
     backDateShift() {
-      if (this.shift == 2) {
-        this.shift = 1;
+      let newShift = 1
+      let parts = this.DATE.split(".");
+      let oldDate = new Date(parts[2], parts[1] - 1, parts[0]);
+      let newDate = oldDate
+      if (this.SHIFT == 2) {
+        newShift = 1;
       } else {
-        let parts = this.date.split(".");
-        let newDate = new Date(parts[2], parts[1] - 1, parts[0]);
-        newDate.setDate(newDate.getDate() - 1);
-        this.date =
-          newDate.getDate() +
-          "." +
-          String(newDate.getMonth() + 1) +
-          "." +
-          newDate.getFullYear();
-        this.shift = 2;
+        newShift = 2;
+        oldDate.setDate(oldDate.getDate() - 1);
       }
+      newDate = oldDate.getDate() + "." + String(oldDate.getMonth() + 1) + "." + oldDate.getFullYear();
+      this.$store.dispatch("SET_DATE_SHIFT"  , [newDate, newShift])
       this.clickAnyButtons()
     },
     nextDateShift() {
-      if (this.shift == 1) {
-        this.shift = 2;
+      let newShift = 1
+      let parts = this.DATE.split(".");
+      let oldDate = new Date(parts[2], parts[1] - 1, parts[0]);
+      let newDate = oldDate
+      if (this.SHIFT == 1) {
+        newShift = 2;
       } else {
-        let parts = this.date.split(".");
-        let newDate = new Date(parts[2], parts[1] - 1, parts[0]);
-        newDate.setDate(newDate.getDate() + 1);
-        this.date =
-          newDate.getDate() +
-          "." +
-          String(newDate.getMonth() + 1) +
-          "." +
-          newDate.getFullYear();
-        this.shift = 1;
+        newShift = 1;
+        oldDate.setDate(oldDate.getDate() + 1);
       }
+      newDate = oldDate.getDate() + "." + String(oldDate.getMonth() + 1) + "." + oldDate.getFullYear();
+      this.$store.dispatch("SET_DATE_SHIFT"  , [newDate, newShift])
       this.clickAnyButtons()
     },
     nowDateShift() {
-      this.shift = shiftNow();
-      this.date = dateNow();
+      this.$store.dispatch("SET_DATE_SHIFT"  , [dateNow(), shiftNow()])
       this.clickAnyButtons()
     },
-    refresh() {
-       if (this.isNow) {
-         this.GET_SET(dateNow(), shiftNow())
-       }
-    },
+    //refresh() {
+      //if (this.isNow) {
+        //console.log('%cisNow', 'color:green;');
+        //this.GET_SET(dateNow(), shiftNow())
+       //}
+    //},
     clickAnyButtons() {
-      this.GET_SET(this.date, this.shift)
+      this.GET_SET(this.DATE, this.SHIFT)
       this.flagButtonsDisabled = true;
-      this.SET_FLAG_MECH();
     },
     GET_SET(date, shift) {
       this.flagOverlay=false
@@ -217,16 +223,7 @@ export default {
         shift,
       ]).then( () => {
         this.GET_MECH()
-      }
-      );
-    },
-    SET_FLAG_MECH() {
-      if (this.isNow) {
-        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
-      }
-      else {
-        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
-      }
+      });
     },
     GET_MECH() {
           this.$store.dispatch("GET_" + this.typeMECH + "_DATA").then(()=>{
@@ -262,32 +259,23 @@ export default {
 
   },
   mounted() {
-    this.shift = shiftNow();
-    this.date = dateNow();
     this.hours = hoursProgress(shiftNow());
-    this.$nextTick(function () {
-      window.addEventListener("focus", this.refresh); // if focus get data
-    });
-    this.GET_SET(dateNow(), shiftNow())
-    setTimeout(()=>{ 
-      console.log('80 sec')
-      this.shift = shiftNow();
-      this.date = dateNow();
-      this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
-      this.GET_SET(dateNow(), shiftNow())
-    }, 80000 ) 
+    //this.$nextTick(function () {
+    //  window.addEventListener("focus", this.refresh); // if focus get data
+    //});
+    this.GET_SET(this.DATE, this.SHIFT)
   },
   watch: {
     dateCal: function () {
-      this.date = this.dateCal.split("-").reverse().join(".");
-      this.shift = 1;
-      this.GET_SET(this.date, 1)
+      let newDate = this.dateCal.split("-").reverse().join(".");
+      this.$store.dispatch("SET_DATE_SHIFT"  , [newDate, 1])
+      this.GET_SET(newDate, 1)
     },
   },
   updated() {
   },
   beforeDestroy() {
-    window.removeEventListener("focus", this.refresh);
+    //window.removeEventListener("focus", this.refresh);
   },
 };
 </script>

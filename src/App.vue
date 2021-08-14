@@ -64,7 +64,6 @@
 import { mapActions, mapGetters } from "vuex";
 import { showNotification } from "@/functions/functions";
 import { BIconGearFill, BIconMap } from "bootstrap-vue";
-import { shiftNow, dateNow  } from "@/functions/functions";
 import {
   BNav,
   BDropdownItem,
@@ -128,17 +127,15 @@ export default {
       return;
     },
     SET_GET_MECH() { //set and get to store data
-      for (let typeMechanism of this.typeMechanisms) {
-        if (this.flagTypeMechanism(typeMechanism)) {
+      if (this.ISNOW){
+        for (let typeMechanism of this.typeMechanisms) {
           this.$store.dispatch("SET_" + typeMechanism + "_API", [
-            dateNow(),
-            shiftNow()
+            this.DATE,
+            this.SHIFT,
           ]).then(() =>{
             this.$store.dispatch("GET_" + typeMechanism + "_DATA", true);
             console.log('%c===>', 'color:red;');
-          }
-
-          )
+          })
         }
       }
     },
@@ -153,29 +150,19 @@ export default {
         this.audioAlarm();
       }, 30000); // timer
     },
-    flagTypeMechanism(type) {
-      if (type=='KRAN') {
-        return  this.FLAG_KRAN_NOW
-      }
-      if (type=='USM') {
-        return  this.FLAG_USM_NOW
-      }
-      if (type=='SENNEBOGEN') {
-        return  this.FLAG_SENNEBOGEN_NOW
-      }
-      return
-    }
   },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-    ...mapGetters(["FLAG_AUDIO",
-                   "FLAG_NOTIFICATION", 
-                   "LAST_DATA",
-                   "FLAG_KRAN_NOW",
-                   "FLAG_USM_NOW",
-                   "FLAG_SENNEBOGEN_NOW"
+    ...mapGetters([
+        "FLAG_AUDIO",
+        "FLAG_NOTIFICATION", 
+        "LAST_DATA",
+        "DATE",
+        "SHIFT",
+        "ISNOW"
+                    
     ]),
   },
   mounted() {

@@ -7,6 +7,8 @@ import { auth } from './auth.module'
 
 Vue.use(Vuex)
 
+import { shiftNow, dateNow } from "@/functions/functions";
+
 export default new Vuex.Store({
   state: {
     last_data: [],
@@ -21,9 +23,8 @@ export default new Vuex.Store({
     tmp_kran_api: '',
     tmp_usm_api: '',
     tmp_sennebogen_api: '',
-    flagKranNow: false,
-    flagUsmNow: false,
-    flagSennebogenNow: false,
+    shift: shiftNow(),
+    date: dateNow(),
     // kran_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/kran',
     // usm_api: 'http://94.154.76.136/api/v1.0/get_data_period_with_fio_now/usm',
     errored_last_data: false,
@@ -31,10 +32,8 @@ export default new Vuex.Store({
     flagNotification: null,
     flagEmptyMech: null,
     mechFilter: ['usm', 'kran'],
-    // total_terminal_180: {},
     listAlarm: [],
     total_terminals_180: {},
-    // mechFilter: [],
   },
   actions,
   mutations,
