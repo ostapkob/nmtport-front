@@ -94,7 +94,7 @@
             )
           }}
         </b-tooltip>
-        <div v-show="item.step > 20" class="time-in-progress text-left">
+        <div v-show="item.step > 30 && item.value!=5" class="time-in-progress text-left">
           {{ item.time }}
         </div>
       </b-progress-bar>
@@ -153,7 +153,7 @@ export default {
         return `c ${timeStep} по ${timeTo} - простой`;
       }
       if (typeStep == 5) {
-        return `c ${timeStep} по ${timeTo} - в работе`;
+        return `c ${timeStep} по ${timeTo} - вращение колонны`;
       }
       if (typeStep == -1) {
         return `c ${timeStep}  по ${timeTo} - нет питания⚡`;
@@ -161,7 +161,7 @@ export default {
       return "";
     },
     stripedProgress: function (val) {
-      if (val == 5 || val == -1) {
+      if (val==0 || val == -1) {
         return true;
       }
       return false;
@@ -170,13 +170,12 @@ export default {
       let resultColor = "danger";
 
       if (val == 0) {
-        resultColor = "warning text-dark";
+        resultColor = "success text-dark";
       } else if (val == 1 || val == 3) {
         resultColor = "dark";
       } else if (val == 2) {
         resultColor = "primary";
       } else if (val == 5) {
-        //resultColor = "success show-progres text-dark";
         resultColor = "warning show-progres text-dark";
       } else {
         resultColor = "danger show-progress";

@@ -25,13 +25,14 @@ $pink:    #e83e8c !default;
 $red:     #ff4136 !default;
 $orange:  #fd7e14 !default;
 $yellow:  #f6ba07 !default;;
+$yellow2:  #fbd975 !default;;
 $green:   #28b62c !default;
 $teal:    #20c997 !default;
 $cyan:    #75caeb !default;
 
 $primary:       $blue !default;
 $secondary:     $gray-200 !default;
-$success:       $green !default;
+$success:       $yellow2 !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;

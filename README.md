@@ -8,6 +8,11 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+if not work:
+  $npm update
+  $npm install
+  $node node_modules/node-sass/scripts/install.js
+  $npm rebuild node-sass
 ```
 
 ### Compiles and minifies for production

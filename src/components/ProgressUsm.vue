@@ -20,7 +20,7 @@
               Время работы в часах
             </b-tooltip>
           </b-badge>
-          <b-badge variant="warning text-dark ml-1 p-1" :id="mech.id + 'notWork'">
+          <b-badge variant="success text-dark ml-1 p-1" :id="mech.id + 'notWork'">
             {{ Math.round((mech.total_time - mech.work_time) * 10) / 10 }}
             <b-tooltip :target="mech.id + 'notWork'" variant="warning">
               Время простоя в часах
@@ -123,7 +123,7 @@ export default {
       return "";
     },
     stripedProgress: function (val) {
-      if (val == -1) {
+      if (val == -1 || val == 0) {
         return true;
       }
       return false;
@@ -132,7 +132,7 @@ export default {
       let resultColor = "danger";
 
       if (val == 0) {
-        resultColor = "warning text-dark";
+        resultColor = "success text-dark";
       } else if (val > 0.1) {
         resultColor = "primary";
       } else {

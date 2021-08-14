@@ -74,8 +74,9 @@ export default {
           if (!total_terminals_180[terminal]) {
             total_terminals_180[terminal] = {}
               total_terminals_180[terminal] = {
-                                                'turns':0,
-                                                'tons':0
+                'turns':0,
+                'tons':0,
+                'krans': [],
               }
             }
           }
@@ -89,6 +90,7 @@ export default {
             }
             total_terminals_180[terminal]['turns'] += values[mech].total_terminals_180[terminal]
             total_terminals_180[terminal]['tons'] += values[mech].total_terminals_180[terminal]*values[mech].grab
+            total_terminals_180[terminal]['krans'] += values[mech].number + ", " 
         }
       }
     }

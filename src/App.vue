@@ -185,9 +185,10 @@ export default {
     this.GET_IP();
     this.SET_FILTER_LAST_DATA_FROM_LOCALSTORAGE();
     this.GET_LAST_DATA();
-    for (let typeMechanism of this.typeMechanisms) {
-        this.$store.dispatch("GET_" + typeMechanism + "_DATA")
-      }
+    this.SET_GET_MECH();
+    //for (let typeMechanism of this.typeMechanisms) {
+    //    this.$store.dispatch("GET_" + typeMechanism + "_DATA")
+    //  }
     //this.$store.dispatch("GET_KRAN_DATA"); 
     //this.$store.dispatch("GET_USM_DATA");
     //this.$store.dispatch("GET_SENNEBOGEN_DATA");

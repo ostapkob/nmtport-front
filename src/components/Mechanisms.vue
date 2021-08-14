@@ -102,9 +102,15 @@
                   variant="primary" 
                   size="lg"
                   class="p-2 mt-1"
+                  :id="terminal + 'br'"
                   >
                   {{separateNumber1(values.tons*1.15)}} тонн
                 </b-badge>
+                <b-tooltip 
+                  :target="terminal + 'br'"
+                  variant="primary">
+                  {{values.krans}}
+                </b-tooltip>
               </div>
             </div>
           </div>
@@ -196,18 +202,13 @@ export default {
     },
     refresh() {
        if (this.isNow) {
-         this.GET_SET( dateNow(), shiftNow(), 10 )
+         this.GET_SET(dateNow(), shiftNow())
        }
     },
     clickAnyButtons() {
-      if (this.isNow) {
-        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
-      }
-      else {
-        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
-      }
       this.GET_SET(this.date, this.shift)
       this.flagButtonsDisabled = true;
+      this.SET_FLAG_MECH();
     },
     GET_SET(date, shift) {
       this.flagOverlay=false
@@ -218,6 +219,14 @@ export default {
         this.GET_MECH()
       }
       );
+    },
+    SET_FLAG_MECH() {
+      if (this.isNow) {
+        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
+      }
+      else {
+        this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", false);
+      }
     },
     GET_MECH() {
           this.$store.dispatch("GET_" + this.typeMECH + "_DATA").then(()=>{
@@ -260,6 +269,13 @@ export default {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
     this.GET_SET(dateNow(), shiftNow())
+    setTimeout(()=>{ 
+      console.log('80 sec')
+      this.shift = shiftNow();
+      this.date = dateNow();
+      this.$store.dispatch("SET_FLAG_" + this.typeMECH + "_NOW", true);
+      this.GET_SET(dateNow(), shiftNow())
+    }, 80000 ) 
   },
   watch: {
     dateCal: function () {
