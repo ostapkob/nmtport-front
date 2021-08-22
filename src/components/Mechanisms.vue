@@ -212,12 +212,17 @@ export default {
       this.$store.dispatch("SET_DATE_SHIFT"  , [dateNow(), shiftNow()])
       this.clickAnyButtons()
     },
-    //refresh() {
-      //if (this.isNow) {
-        //console.log('%cisNow', 'color:green;');
-        //this.GET_SET(dateNow(), shiftNow())
-       //}
-    //},
+    refresh() {
+      setTimeout( () =>
+        {
+        console.log(this.DATE);
+        console.log(this.SHIFT);
+          if (this.ISNOW) {
+            this.GET_SET(this.DATE, this.SHIFT);
+          }
+        }
+        , 5000)
+    },
     clickAnyButtons() {
       this.GET_SET(this.DATE, this.SHIFT)
       this.flagButtonsDisabled = true;
@@ -266,9 +271,9 @@ export default {
   },
   mounted() {
     this.hours = hoursProgress(shiftNow());
-    //this.$nextTick(function () {
-    //  window.addEventListener("focus", this.refresh); // if focus get data
-    //});
+    this.$nextTick(function () {
+      window.addEventListener("focus", this.refresh); // if focus get data
+    });
     this.GET_SET(this.DATE, this.SHIFT)
   },
   watch: {
@@ -281,7 +286,7 @@ export default {
   updated() {
   },
   beforeDestroy() {
-    //window.removeEventListener("focus", this.refresh);
+    window.removeEventListener("focus", this.refresh);
   },
 };
 </script>

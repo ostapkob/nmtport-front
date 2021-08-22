@@ -64,6 +64,7 @@
 import { mapActions, mapGetters } from "vuex";
 import { showNotification } from "@/functions/functions";
 import { BIconGearFill, BIconMap } from "bootstrap-vue";
+import { shiftNow, dateNow  } from "@/functions/functions";
 import {
   BNav,
   BDropdownItem,
@@ -141,11 +142,20 @@ export default {
       let audio = new Audio(require("@/assets/sound/test.mp3"));
       audio.play();
     },
+    updateByTime() {
+      let date = new Date()
+      let time = date.getHours() * 60 + date.getMinutes()
+      if ((time > 480 && time < 482) || (time > 1200 && time < 1202)) {
+        this.$store.dispatch("SET_DATE_SHIFT", [dateNow(), shiftNow()])
+        this.SET_GET_MECH();
+      }
+    },
     pollData() {
       this.polling = setInterval(() => {
         this.GET_LAST_DATA();
         this.SET_GET_MECH();
         this.audioAlarm();
+        this.updateByTime();
       }, 30000); // timer
     },
   },

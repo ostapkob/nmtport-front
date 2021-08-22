@@ -10,16 +10,24 @@ export function shiftNow() {
 }
 export function dateNow() {
   let date = new Date();
+  let result
   if (date.getHours() < 8) {
     date.setDate(date.getDate() - 1)
-    return date.getDate() + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear()
+    result = addZero(date.getDate()) + '.' 
+      + addZero(String(date.getMonth() + 1)) + '.' 
+      + date.getFullYear()
   }
   else if (date.getHours() >= 8 && date.getHours() < 20) {
-    return date.getDate() + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear()
+    result = addZero(date.getDate()) + '.' 
+      + addZero(String(date.getMonth() + 1)) + '.' 
+      + date.getFullYear()
   }
   else {
-    return date.getDate() + '.' + String(date.getMonth() + 1) + '.' + date.getFullYear()
+    result = addZero(date.getDate()) + '.' 
+      + addZero(String(date.getMonth() + 1)) + '.' 
+      + date.getFullYear()
   }
+  return result
 }
 
 export function hoursProgress(shift) {

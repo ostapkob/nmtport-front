@@ -19,6 +19,7 @@ import Overlay from "ol/Overlay";
 import { transform } from "ol/proj";
 import { mapActions, mapGetters } from "vuex";
 import { TimelineLite, TimelineMax, Back, Elastic, Expo } from "gsap/dist/gsap";
+import { shiftNow, dateNow  } from "@/functions/functions";
 
 export default {
   props: {
@@ -67,6 +68,8 @@ export default {
     },
     ...mapActions(["SET_SELECTED_FEATURES"]),
     clickMarker() {
+      console.log(this.marker.name)
+      this.$store.dispatch("SET_DATE_SHIFT", [dateNow(), shiftNow()])
       if (event.shiftKey) {
         let nowSelect = this.SELECTED_FEATURES;
         if (!nowSelect.includes(this.marker.id)) {
