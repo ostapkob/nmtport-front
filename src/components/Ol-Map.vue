@@ -112,7 +112,7 @@ export default {
       this.map.on("click", function (evt) {
         var coord = evt.coordinate;
         var degrees = transform(coord, "EPSG:3857", "EPSG:4326");
-        console.log(coord);
+        //console.log(coord);
         console.log(degrees);
         //console.log(wt(degrees[1], degrees[0] ))
 

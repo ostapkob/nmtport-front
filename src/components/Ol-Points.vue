@@ -30,7 +30,7 @@ export default {
         (15, 132.88772444232788),
       ],
       coords: [
-        [9, [132.89194679066017, 42.81736550995399]],
+        /*[9, [132.89194679066017, 42.81736550995399]],
         [9, [132.89257462348414, 42.81589379423502]],
         [9, [132.88986696392485, 42.81595748772176]],
         [9, [132.89161522194811, 42.81419894232471]],
@@ -75,6 +75,19 @@ export default {
         [15, [132.88585086990005, 42.8070099488533]],
         [15, [132.8864242215921, 42.80840657641383]],
         [15, [132.88706787750513, 42.80854399911098]],
+        */
+
+        [77, [132.90338950538936, 42.80423670519963]],
+        [77, [132.90359329287486, 42.8044524047109]],
+        [77, [132.90360672069272, 42.80470995191081]],
+        [77, [132.9040356204975, 42.80509392568828]],
+        [77, [132.90396288722496, 42.80550387894834]],
+        [77, [132.90381118779726, 42.80618348663111]],
+        [77, [132.90408560231353, 42.807255854801156]],
+        [77, [132.90491305834593, 42.80793970803384]],
+        [77, [132.9045019545139, 42.80851943775832]],
+        [77, [132.90466156941548, 42.80863478628004]],
+
       ],
     };
   },
@@ -103,8 +116,9 @@ export default {
     },
 
     which_terminal(latitude, longitude) {
-      let k1 = 0.5932709085972241;
-      let b1 = 107.49050635162425;
+      let [k1, b1] = [0.339389423498601, 118.37599497658572] // <-- TO BACKEND
+      //let k1 = 0.5932709085972241;
+      //let b1 = 107.49050635162425;
       let res_perpendic = this.perpendicular_line_equation(
         k1,
         b1,
@@ -139,13 +153,11 @@ export default {
       for (let coord of this.coords) {
         console.log(coord[1])
         var pointFeature = new Feature({
-          // geometry: new Point(coord[1], coord[2]),
           geometry: new Point(coord[1])
         });
         let nCoord = this.which_terminal(coord[1][1], coord[1][0])
         console.log("**", nCoord[1], nCoord[0])
         var pointFeature2 = new Feature({
-          // geometry: new Point(coord[1], coord[2]),
           geometry: new Point([nCoord[1], nCoord[0]])
         });
         pointFeature.setStyle(circle);
@@ -166,9 +178,17 @@ export default {
       let longitude = 132.89257462348414;
       // let k1 = 0.5932709085972241;
       // let b1 = 107.49050635162425;
-      // let res  = this.perpendicular_line_equation(k1, b1, latitude, longitude);
-      // let coord = this.intersection_point_of_lines(k1, b1, res[0], res[1])
-      let coord = this.which_terminal(latitude, longitude);
+      //let [y1, x1] = [132.90495818962307, 42.808536624561526]
+      //let [y2, x2] = [132.90343405328102, 42.80409907653009]
+      let [y1, x1] = [132.90340639039908, 42.80400188109169]
+      let [y2, x2] = [132.8949716912258, 42.79902907787681]
+      //let [y1, x1] = [132.9047722748753, 42.80857414034733]
+      //let [y2, x2] = [132.90326500538887, 42.80413301937514]
+      console.log(this.straight_line_equation(x1, y1, x2, y2))
+      let [k1, b1] = this.straight_line_equation(x1, y1, x2, y2) // [0.34346362704350686, 118.20178293212636]
+      let res  = this.perpendicular_line_equation(k1, b1, latitude, longitude);
+      let coord = this.intersection_point_of_lines(k1, b1, res[0], res[1])
+      //let coord = this.which_terminal(latitude, longitude);
       console.log(coord)
       // console.log("coord1", coord[1]);
       // console.log("coord2", coord[2]);
