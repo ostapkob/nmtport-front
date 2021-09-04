@@ -2,18 +2,14 @@
   <div>
     <div class="wrapper">
       <div ref="map" class="ol-map"></div>
-      <!-- <div id="overlay"></div> -->
       <b-button
         @click="chengeTerminal()"
         class="terminal"
         size="sm"
         variant="outline-primary"
-
       >
         {{ nameTerminal }}
       </b-button>
-
-      <!-- <b-button @click="refresh" class="settings" size="sm" variant="outline-info" width=100px>test</b-button> -->
       <b-button
         v-b-toggle.sidebar
         class="slidebar"
@@ -22,14 +18,10 @@
         >Маркеры</b-button
       >
     </div>
-    <!-- <b-button @click="showMap()" class='mt-1' size="sm" variant="info"> -->
-    <!--   showMap -->
-    <!-- </b-button> -->
-    <!-- <b-button @click="screenSize()" class='mt-1 ml-1' size="sm" variant="info"> -->
-    <!--   screenSize -->
     <template v-if="Boolean(this.map)">
       <slot :map="map" />
     </template>
+
   </div>
 </template>
 

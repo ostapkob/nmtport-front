@@ -3,23 +3,35 @@
     <h5>{{ msg }}</h5>
       <div>
         <div class="m-3">
-          <span
-            v-for="(val, terminal) in getPlacement" 
-            :key=terminal
+          <b-card-group deck class="mb-3"
             >
-            <b-card-group deck class="mb-3">
               <b-card
                 header-bg-variant="info"
                 header-text-variant="white"
+                v-for="(val, terminal) in getPlacement" 
+                :key=terminal
                 :header='String(terminal) + " причал" '
                 class="jorder rounded bg-light mb-2 shadow-sm"
-                v-show="val.kran>0 || val.usm>0"
+                v-show="terminal<70 && val.kran>0 || val.usm>0"
               >
                 <b-card-text> {{val.kran}} - кран </b-card-text>
                 <b-card-text> {{val.usm}} - УСМ </b-card-text>
               </b-card>
-            </b-card-group>
-          </span>
+          </b-card-group>
+          <b-card-group deck class="mb-3"
+            >
+              <b-card
+                header-bg-variant="info"
+                header-text-variant="white"
+                v-for="(val, terminal) in getPlacement" 
+                :key=terminal
+                :header='String(terminal) + " причал" '
+                class="jorder rounded bg-light mb-2 shadow-sm"
+                v-show="terminal>70  && val.kran>0"
+              >
+                <b-card-text> {{val.kran}} - кран </b-card-text>
+              </b-card>
+          </b-card-group>
         </div>
       </div>
   <div>
@@ -30,7 +42,7 @@
 
 <script>
 
-            //v-show="getPlacement[13].kran!=0 || getPlacement[13].usm!=0"
+               // v-show="val.kran>0 || val.usm>0 && terminal>70"
 import { BCard, BCardGroup, BCardText } from "bootstrap-vue";
 import { mapActions, mapGetters } from "vuex";
 //import { BOverlay } from 'bootstrap-vue'
