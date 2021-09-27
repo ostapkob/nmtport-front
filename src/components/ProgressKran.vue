@@ -22,7 +22,8 @@
             {{ mech.total_180 }}
 
             <b-tooltip :target="mech.id + '180'" variant="primary">
-              Количество циклов 180° 
+              <!-- Количество циклов 180° --> 
+              <strong>{{Math.round(mech.total_180 * mech.grab * coefficient)}} </strong>тонн
             </b-tooltip>
           </b-badge>
 
@@ -134,6 +135,7 @@ export default {
       totalStep_180: 0, // 2
       totalStep_90_1: 0, // 1
       totalStep_90_3: 0, // 3 after
+      coefficient: 1.15,
       returnValue: "-",
       s: 1,
     };

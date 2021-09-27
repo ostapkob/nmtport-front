@@ -11,7 +11,8 @@
           <b-badge variant="dark ml-1 p-1" :id="mech.id + 'coalTime'">
             {{ mech.time_coal }}
             <b-tooltip :target="mech.id + 'coalTime'" variant="dark">
-              Время нахождения угля на ленте часах
+              <!-- Время нахождения угля на ленте часах -->
+              <strong> {{ Math.round(mech.tons_in_hour * mech.time_coal) }} </strong> тонн
             </b-tooltip>
           </b-badge>
           <b-badge variant="primary ml-1 p-1" :id="mech.id + 'workTime'">

@@ -111,7 +111,7 @@
                   class="p-2 mt-1"
                   :id="terminal + 'br'"
                   >
-                  {{separateNumber1(values.tons*1.15)}} тонн
+                  {{separateNumber1(values.tons*coefficient)}} тонн
                 </b-badge>
                 <b-tooltip 
                   :target="terminal + 'br'"
@@ -143,6 +143,7 @@ export default {
       dateCal: dateNow(),
       flagButtonsDisabled: false,
       flagOverlay: false,
+      coefficient: 1.15,
       today: new Date(),
     };
   },
