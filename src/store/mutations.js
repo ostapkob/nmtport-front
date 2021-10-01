@@ -24,6 +24,9 @@ export default {
     state.flagAudio = localStorage.getItem('flagAudio') == 'true'
     state.flagEmptyMech = localStorage.getItem('flagEmptyMech') == 'true'
     state.flagNotification = localStorage.getItem('flagNotification') == 'true'
+    state.flag2Maps = localStorage.getItem('flag2Maps') == 'true'
+    state.flagTerminal1 = localStorage.getItem('flagTerminal1') == 'true'
+    state.flagTerminal2 = localStorage.getItem('flagTerminal2') == 'true'
   },
   SET_KRAN_DATA_TO_STATE: (state, values) => {
     state.kran_data = values;
@@ -64,7 +67,18 @@ export default {
     state.flagNotification = flag;
     localStorage.setItem('flagNotification', state.flagNotification)
   },
-
+  SET_FLAG_2_MAPS_TO_STATE: (state, flag) => {
+    state.flag2Maps = flag
+    localStorage.setItem('flag2Maps', state.flag2Maps)
+  },
+  SET_FLAG_TERMINAL_1_TO_STATE: (state, value) => {
+    state.flagTerminal1 = value
+    localStorage.setItem('flagTerminal1', state.flagTerminal1)
+  },
+  SET_FLAG_TERMINAL_2_TO_STATE: (state, value) => {
+    state.flagTerminal2 = value
+    localStorage.setItem('flagTerminal2', state.flagTerminal2)
+  },
   SET_TOTAL_180_TO_STATE: (state, values) => {
     // i don't do it in backend
     let total_terminals_180 = {}
@@ -86,7 +100,7 @@ export default {
       if (values[mech].total_terminals_180) {
         for(let terminal in values[mech].total_terminals_180) {
             if (terminal == "9" && ![47, 54, 14, 16, 82].includes(+mech)){
-              continue
+              continue // not count
             }
             total_terminals_180[terminal]['turns'] += values[mech].total_terminals_180[terminal]
             total_terminals_180[terminal]['tons'] += values[mech].total_terminals_180[terminal]*values[mech].grab

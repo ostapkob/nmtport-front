@@ -23,11 +23,27 @@
       </b-form-checkbox>
       <b-form-checkbox 
         v-model="flagEmptyMech" 
-        class="text-left"  
+        class="text-left pb-3"  
         name="check-button" 
         switch 
         >
         Показывать не работающе механизмы 
+      </b-form-checkbox>
+      <b-form-checkbox 
+        v-model="flagTerminal1" 
+        class="text-left pb-3"  
+        name="check-button" 
+        switch 
+        >
+        УТ-1
+      </b-form-checkbox>
+      <b-form-checkbox 
+        v-model="flagTerminal2" 
+        class="text-left"  
+        name="check-button" 
+        switch 
+        >
+        ГУТ-2
       </b-form-checkbox>
     </div>
     <hr />
@@ -64,6 +80,8 @@ export default {
       flagAudio: false,
       flagEmptyMech: false,
       flagNotification: false,
+      flagTerminal1: true,
+      flagTerminal2: false,
     };
   },
   components: {
@@ -77,7 +95,9 @@ export default {
     ...mapGetters([
     "FLAG_AUDIO",
     "FLAG_EMPTY_MECH",
-    "FLAG_NOTIFICATION"
+    "FLAG_NOTIFICATION",
+    "FLAG_TERMINAL_1",
+    "FLAG_TERMINAL_2",
     ]),
     currentUser() {
       return this.$store.state.auth.user;
@@ -88,6 +108,8 @@ export default {
       "SET_FLAG_AUDIO",
       "SET_FLAG_EMPTY_MECH",
       "SET_FLAG_NOTIFICATION",
+      "SET_FLAG_TERMINAL_1",
+      "SET_FLAG_TERMINAL_2",
     ]),
   },
   watch: {
@@ -102,12 +124,20 @@ export default {
         requestPermission()
       }
       this.SET_FLAG_NOTIFICATION(this.flagNotification)
-    }
+    },
+    flagTerminal1: function(){
+      this.SET_FLAG_TERMINAL_1(this.flagTerminal1)
+    },
+    flagTerminal2: function(){
+      this.SET_FLAG_TERMINAL_2(this.flagTerminal2)
+    },
   },
   mounted() {
     this.flagAudio = this.FLAG_AUDIO;
     this.flagEmptyMech = this.FLAG_EMPTY_MECH;
     this.flagNotification = this.FLAG_NOTIFICATION;
+    this.flagTerminal1 = this.FLAG_TERMINAL_1
+    this.flagTerminal2 = this.FLAG_TERMINAL_2;
     if (!this.currentUser) {
       this.$router.push("/login");
     }

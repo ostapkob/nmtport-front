@@ -38,5 +38,14 @@ export default {
   },
   ISNOW(state) {
     return (state.date == dateNow() && state.shift == shiftNow())
+  },
+  FLAG_2_MAPS(state) {
+    return state.flag2Maps
+  },
+  FLAG_TERMINAL_1(state) {
+    return state.flagTerminal1
+  },
+  FLAG_TERMINAL_2(state) {
+    return state.flagTerminal2
   }
 }

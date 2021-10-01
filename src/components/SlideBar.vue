@@ -70,11 +70,14 @@
             stacked
           ></b-form-checkbox-group>
         </b-form-group>
-        <!-- {{selected}} <br/>
-    {{FILTER_LAST_DATA}} -->
-        <b-button variant="danger" class="mt-4 mb-4" block @click="hide"
-          >Закрыть</b-button
+        <b-form-checkbox
+          v-model="flag2Maps"
+          value=true
+          unchecked-value=false
+          class="text-left ml-4" 
         >
+          2 Maps
+        </b-form-checkbox>
       </template>
     </b-sidebar>
   </div>
@@ -82,12 +85,13 @@
 
 <script>
 import { BSidebar } from "bootstrap-vue";
-import { BFormGroup, BFormCheckboxGroup } from "bootstrap-vue";
+import { BFormGroup, BFormCheckbox, BFormCheckboxGroup } from "bootstrap-vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
       selected: [],
+      flag2Maps: true,
       options: [
         { text: "Краны", value: "kran" },
         { text: "УСМ", value: "usm" },
@@ -97,19 +101,25 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["FILTER_LAST_DATA"]),
+    ...mapGetters(["FILTER_LAST_DATA", "FLAG_2_MAPS"]),
   },
   methods: {
-    ...mapActions(["SET_FILTER_LAST_DATA", "GET_LAST_DATA"]),
+    ...mapActions([
+      "SET_FILTER_LAST_DATA",
+      "GET_LAST_DATA",
+      "SET_FLAG_2_MAPS"
+    ]),
   },
   components: {
     BSidebar,
     BFormGroup,
+    BFormCheckbox,
     BFormCheckboxGroup,
   },
   mounted() {
     // this.SET_FILTER_LAST_DATA(['usm', 'kran'])
     this.selected = this.FILTER_LAST_DATA;
+    this.flag2Maps = this.FLAG_2_MAPS;
   },
   watch: {
     selected: function () {
@@ -119,6 +129,9 @@ export default {
       this.GET_LAST_DATA();
       this.SET_FILTER_LAST_DATA(this.selected);
     },
+    flag2Maps: function () {
+     this.SET_FLAG_2_MAPS(this.flag2Maps==='true') 
+    }
   },
 };
 </script>

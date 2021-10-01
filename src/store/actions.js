@@ -62,6 +62,21 @@ export default {
     }, value) {
         commit('SET_FLAG_EMPTY_MECH_TO_STATE', value);
     },
+    SET_FLAG_2_MAPS({
+        commit
+    }, value) {
+        commit('SET_FLAG_2_MAPS_TO_STATE', value);
+    },
+    SET_FLAG_TERMINAL_1({
+        commit
+    }, value) {
+        commit('SET_FLAG_TERMINAL_1_TO_STATE', value);
+    },
+    SET_FLAG_TERMINAL_2({
+        commit
+    }, value) {
+        commit('SET_FLAG_TERMINAL_2_TO_STATE', value);
+    },
     SET_KRAN_API({
         commit
     }, value) {

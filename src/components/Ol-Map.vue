@@ -1,25 +1,22 @@
 <template>
   <div>
     <div class="wrapper">
-      <div ref="map" class="ol-map"></div>
+      <div 
+         ref="map" 
+         :class="olHeight"
+        >
+      </div>
       <b-button
         @click="chengeTerminal()"
         class="terminal"
         size="sm"
         variant="outline-primary"
       >
-        {{ nameTerminal }}
+      {{ nameTerminal }}
       </b-button>
-      <b-button
-        v-b-toggle.sidebar
-        class="slidebar"
-        size="sm"
-        variant="outline-primary"
-        >Маркеры</b-button
-      >
     </div>
     <template v-if="Boolean(this.map)">
-      <slot :map="map" />
+      <slot :map="map"/>
     </template>
 
   </div>
@@ -27,34 +24,44 @@
 
 <script>
 import "ol/ol.css";
-
 import Map from "ol/Map";
 import View from "ol/View";
-//import Overlay from 'ol/Overlay'
-//import {OSM } from 'ol/source';
 import { transform } from "ol/proj";
 import { DragRotateAndZoom } from "ol/interaction";
-//import {FullScreen} from 'ol/control';
 import { Tile as TileLayer } from "ol/layer";
-//import upAndDown from 'ol/easing'
 import XYZ from "ol/source/XYZ";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       map: null,
       view: null,
-      terminal: false,
+      terminal: this.propsterminal=="2",
       nameTerminal: "ГУТ-2",
       screenWidth: null,
       screenHeight: document.documentElement.clientHeight,
-      heightS: 500,
     };
+  },
+  props: {
+    propsterminal: {
+      default() {
+        return 1;
+      },
+    }
   },
   async mounted() {
     this.screenWidth = document.documentElement.clientWidth;
     await this.initiateMap(this.clearSelectedFeatures);
+  },
+  computed: {
+    ...mapGetters(["FLAG_2_MAPS"]),
+    olHeight() {
+      if (this.FLAG_2_MAPS) {
+        return "ol-2map"
+      }
+        return "ol-map"
+    }
   },
   methods: {
     ...mapActions(["SET_SELECTED_FEATURES"]),
@@ -69,45 +76,48 @@ export default {
         }),
       });
       //create view with center postion
-
-      let centerMap = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
-      let rotationMap=0;
-      let zoomMap=15.8;
-
-      if (this.screenWidth > 450) {
-        rotationMap = Math.PI / 2.71;
-        centerMap = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
-        zoomMap = 17.4;
+      let centerTerminal;
+      let rotationTerminal;
+      let zoomTerminal;
+      if (this.terminal) { //! not DRY
+        this.nameTerminal = "УТ-1";
+        rotationTerminal = Math.PI / -16;
+        centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
+        zoomTerminal = 15.6;
+        if (this.screenWidth > 450) {
+          rotationTerminal = Math.PI / 3.1;
+          centerTerminal = transform([132.9010, 42.8032], "EPSG:4326", "EPSG:3857");
+          zoomTerminal = 17.3;
+        }
+      } else {
+        this.nameTerminal = "ГУТ-2";
+        centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+        rotationTerminal=0;
+        zoomTerminal=15.8;
+        if (this.screenWidth > 450) {
+          rotationTerminal = Math.PI / 2.71;
+          centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+          zoomTerminal = 17.4;
+        }
       }
-
       this.view = new View({
-        center: centerMap,
-        rotation: rotationMap,
-        zoom: zoomMap,
+        center: centerTerminal,
+        rotation: rotationTerminal,
+        zoom: zoomTerminal,
       });
       let interaction = new DragRotateAndZoom();
-      //let control = new FullScreen();
-      //let overlay = new Overlay({
-      //  position: center,
-      // element: document.getElementById('overlay')
-      //})
 
       let map = new Map({
         target: this.$refs["map"],
         layers: [layer],
         interaction: [interaction],
-        //        control: [control],
-        //overlay: [overlay],
         view: this.view,
       });
       this.map = map;
       this.map.on("click", function (evt) {
         var coord = evt.coordinate;
         var degrees = transform(coord, "EPSG:3857", "EPSG:4326");
-        //console.log(coord);
         console.log(degrees);
-        //console.log(wt(degrees[1], degrees[0] ))
-
         fun();
       });
     },
@@ -121,7 +131,7 @@ export default {
       let rotationTerminal;
 
       if (this.terminal) {
-        this.nameTerminal = "ГУТ-2";
+        this.nameTerminal = "УТ-1";
         rotationTerminal = Math.PI / -16;
         centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
         zoomTerminal = 15.6;
@@ -132,7 +142,7 @@ export default {
           zoomTerminal = 17.3;
         }
       } else {
-        this.nameTerminal = "УТ-1";
+        this.nameTerminal = "ГУТ-2";
         centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
         rotationTerminal=0;
         zoomTerminal=15.8;
@@ -212,21 +222,14 @@ export default {
   background: #ccc;
   top: -26px;
 }
-#overlay {
-  background: blue;
-  width: 20px;
-  height: 20px;
-  border-radius: 80px;
-}
-.slidebar {
-  position: absolute;
-  bottom: 28px;
-  right: 2px;
-}
-.settings {
-  position: absolute;
-  bottom: 34px;
-  right: 2px;
+.ol-2map {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 45vh;
+  width: 100%; 
+  background: #ccc; 
+  top: -26px;
 }
 .terminal {
   position: absolute;
