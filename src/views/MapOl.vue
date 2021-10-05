@@ -4,14 +4,6 @@
       <olPort :terminal="1"/>
       <olPort :terminal="2" v-if=FLAG_2_MAPS />
       <SlideBar />
-      <b-button
-        v-b-toggle.sidebar
-        class="slidebar"
-        size="sm"
-        variant="outline-primary"
-        v-show="SELECTED_FEATURES.length==0" // i can not stay position
-        >Маркеры
-      </b-button>
     </div>
     <BottomProgress />
     <div>
@@ -53,13 +45,3 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.slidebar {
-  position: absolute;
-  bottom: 76px;
-  right: 3px;
-}
-.main {
-  position: absolute;
-}
-</style>

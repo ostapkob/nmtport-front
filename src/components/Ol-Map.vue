@@ -14,6 +14,14 @@
       >
       {{ nameTerminal }}
       </b-button>
+      <b-button
+        v-b-toggle.sidebar
+        class="slidebar"
+        size="sm"
+        variant="outline-primary"
+        v-show="propsterminal=='1'" 
+        >Маркеры
+      </b-button>
     </div>
     <template v-if="Boolean(this.map)">
       <slot :map="map"/>
@@ -55,7 +63,10 @@ export default {
     await this.initiateMap(this.clearSelectedFeatures);
   },
   computed: {
-    ...mapGetters(["FLAG_2_MAPS"]),
+    ...mapGetters([
+      "FLAG_2_MAPS",
+      "SELECTED_FEATURES",
+    ]),
     olHeight() {
       if (this.FLAG_2_MAPS) {
         return "ol-2map"
@@ -238,5 +249,10 @@ export default {
 }
 .wrapper {
   position: relative;
+}
+.slidebar {
+  position: absolute;
+  bottom: 28px;
+  right: 3px;
 }
 </style>

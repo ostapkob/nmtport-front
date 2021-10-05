@@ -1,6 +1,6 @@
 <template>
   <div>
-    <olMap propsterminal=terminal>
+    <olMap :propsterminal='terminal'>
       <template v-slot="{ map }">
         <Markers
           v-for="marker in LAST_DATA"
