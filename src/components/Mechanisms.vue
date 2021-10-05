@@ -61,14 +61,15 @@
         </b-button>
       </div>
     </div>
+    
 
     <div
-      v-for="mech in $store.getters[typeMECH + '_DATA']"
+      v-for="mech in whichTerminal(1)"
       :key="mech.id"
     >
       <div
         class="p-2 border rounded bg-light mb-2 shadow-sm"
-        v-if="!(!FLAG_EMPTY_MECH && !isMechWork(mech))" 
+        v-if="!(!FLAG_EMPTY_MECH && !isMechWork(mech)) && FLAG_TERMINAL_1" 
       >
         <b-overlay
           :show="!flagOverlay"
@@ -77,12 +78,39 @@
           rounded="lg"
           class= "border-secondary"
         >
+        {{FLAG_TERMINAL_1}} {{ mech.terminal}}
           <progressKRAN :mech="mech" :shift=SHIFT v-if="typeMECH == 'KRAN'" />
           <progressUSM :mech="mech" :shift=SHIFT v-if="typeMECH == 'USM'" />
           <progressSENNEBOGEN :mech="mech" :shift=SHIFT  v-if="typeMECH == 'SENNEBOGEN'" />
         </b-overlay>
       </div>
     </div>
+      <hr>
+    <div
+      v-for="mech in whichTerminal(2)"
+      :key="mech.id"
+    >
+      <div
+        class="p-2 border rounded bg-light mb-2 shadow-sm"
+        v-if="!(!FLAG_EMPTY_MECH && !isMechWork(mech)) && FLAG_TERMINAL_2" 
+      >
+        <b-overlay
+          :show="!flagOverlay"
+          spinner-variant="primary"
+          spinner-small
+          rounded="lg"
+          class= "border-secondary"
+        >
+        {{FLAG_TERMINAL_1}} {{ mech.terminal}}
+          <progressKRAN :mech="mech" :shift=SHIFT v-if="typeMECH == 'KRAN'" />
+          <progressUSM :mech="mech" :shift=SHIFT v-if="typeMECH == 'USM'" />
+          <progressSENNEBOGEN :mech="mech" :shift=SHIFT  v-if="typeMECH == 'SENNEBOGEN'" />
+        </b-overlay>
+      </div>
+    </div>
+
+
+
     <div>
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
       <b-tooltip show target="bug" variant="light">.</b-tooltip>
@@ -165,7 +193,9 @@ export default {
       "FLAG_EMPTY_MECH",
       "DATE",
       "SHIFT",
-      "ISNOW"
+      "ISNOW",
+      "FLAG_TERMINAL_1",
+      "FLAG_TERMINAL_2",
 
     ]),
     getTipShift: function() {
@@ -267,8 +297,25 @@ export default {
           return false
       }
       return true
-    }
+    },
+    whichTerminal(t) {
+      let mehanisms = {}
+      let data = this.$store.getters[this.typeMECH + '_DATA']
+      for (let mech in data) { 
+        if (t==1) {
+          if (data[mech].terminal < 70) {
+            mehanisms[mech] = data[mech] 
+          }
+        }
+        else {
+          if (data[mech].terminal >= 70) {
+            mehanisms[mech] = data[mech] 
+          }
 
+        }
+      }
+      return mehanisms
+    }
   },
   mounted() {
     this.hours = hoursProgress(shiftNow());

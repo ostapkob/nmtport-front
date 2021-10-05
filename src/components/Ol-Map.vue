@@ -96,18 +96,18 @@ export default {
         centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
         zoomTerminal = 15.6;
         if (this.screenWidth > 450) {
-          rotationTerminal = Math.PI / 3.1;
+          rotationTerminal = Math.PI / 3.4;
           centerTerminal = transform([132.9010, 42.8032], "EPSG:4326", "EPSG:3857");
           zoomTerminal = 17.3;
         }
       } else {
         this.nameTerminal = "ГУТ-2";
         centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
-        rotationTerminal=0;
+        rotationTerminal= 0;
         zoomTerminal=15.8;
         if (this.screenWidth > 450) {
           rotationTerminal = Math.PI / 2.71;
-          centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+          centerTerminal = transform([132.8892, 42.8122], "EPSG:4326", "EPSG:3857");
           zoomTerminal = 17.4;
         }
       }
@@ -141,29 +141,26 @@ export default {
       let zoomTerminal;
       let rotationTerminal;
 
-      if (this.terminal) {
+      if (this.terminal) { //! not DRY
         this.nameTerminal = "УТ-1";
         rotationTerminal = Math.PI / -16;
         centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
         zoomTerminal = 15.6;
-
         if (this.screenWidth > 450) {
-          rotationTerminal = Math.PI / 3.1;
+          rotationTerminal = Math.PI / 3.4;
           centerTerminal = transform([132.9010, 42.8032], "EPSG:4326", "EPSG:3857");
           zoomTerminal = 17.3;
         }
       } else {
         this.nameTerminal = "ГУТ-2";
         centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
-        rotationTerminal=0;
+        rotationTerminal= 0;
         zoomTerminal=15.8;
-
         if (this.screenWidth > 450) {
           rotationTerminal = Math.PI / 2.71;
-          centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+          centerTerminal = transform([132.8892, 42.8122], "EPSG:4326", "EPSG:3857");
           zoomTerminal = 17.4;
         }
-
       }
       this.view.animate({
         center: centerTerminal,

@@ -2,7 +2,6 @@
   <div>
     <b-sidebar id="sidebar" aria-labelledby="sidebar" no-header backdrop shadow>
       <template #default="{ hide }">
-        <!-- <div href="/krans" @click="hide">Кран</div> -->
         <h5 class="text-left ml-3">Кран</h5>
         <b-container class="bv-example-row">
           <b-row class="text-left pr-0">
@@ -76,8 +75,15 @@
           unchecked-value=false
           class="text-left ml-4" 
         >
-          2 Maps
+          2 Карты
         </b-form-checkbox>
+        <b-button 
+          variant="danger" 
+          block 
+          class="mt-5"
+          @click="hide">
+          Закрыть 
+        </b-button>
       </template>
     </b-sidebar>
   </div>
