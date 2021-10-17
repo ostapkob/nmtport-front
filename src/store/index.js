@@ -36,7 +36,7 @@ export default new Vuex.Store({
     total_terminals_180: {},
     flag2Maps: false,
     flagTerminal1: true,
-    flagTerminal2: false,
+    flagTerminal2: true,
   },
   actions,
   mutations,

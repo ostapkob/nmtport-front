@@ -66,13 +66,15 @@ export default {
     ...mapGetters([
       "FLAG_2_MAPS",
       "SELECTED_FEATURES",
+      "FLAG_TERMINAL_1",
+      "FLAG_TERMINAL_2",
     ]),
     olHeight() {
       if (this.FLAG_2_MAPS) {
         return "ol-2map"
       }
         return "ol-map"
-    }
+    },
   },
   methods: {
     ...mapActions(["SET_SELECTED_FEATURES"]),
@@ -87,30 +89,8 @@ export default {
         }),
       });
       //create view with center postion
-      let centerTerminal;
-      let rotationTerminal;
-      let zoomTerminal;
-      if (this.terminal) { //! not DRY
-        this.nameTerminal = "УТ-1";
-        rotationTerminal = Math.PI / -16;
-        centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
-        zoomTerminal = 15.6;
-        if (this.screenWidth > 450) {
-          rotationTerminal = Math.PI / 3.4;
-          centerTerminal = transform([132.9010, 42.8032], "EPSG:4326", "EPSG:3857");
-          zoomTerminal = 17.3;
-        }
-      } else {
-        this.nameTerminal = "ГУТ-2";
-        centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
-        rotationTerminal= 0;
-        zoomTerminal=15.8;
-        if (this.screenWidth > 450) {
-          rotationTerminal = Math.PI / 2.71;
-          centerTerminal = transform([132.8892, 42.8122], "EPSG:4326", "EPSG:3857");
-          zoomTerminal = 17.4;
-        }
-      }
+      let [nameTerminal, rotationTerminal, centerTerminal, zoomTerminal] = this.setTerminal(!this.FLAG_TERMINAL_1)
+      this.nameTerminal = nameTerminal
       this.view = new View({
         center: centerTerminal,
         rotation: rotationTerminal,
@@ -137,38 +117,44 @@ export default {
     },
     chengeTerminal() {
       this.terminal = !this.terminal;
-      let centerTerminal;
-      let zoomTerminal;
-      let rotationTerminal;
-
-      if (this.terminal) { //! not DRY
-        this.nameTerminal = "УТ-1";
-        rotationTerminal = Math.PI / -16;
-        centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
-        zoomTerminal = 15.6;
-        if (this.screenWidth > 450) {
-          rotationTerminal = Math.PI / 3.4;
-          centerTerminal = transform([132.9010, 42.8032], "EPSG:4326", "EPSG:3857");
-          zoomTerminal = 17.3;
-        }
-      } else {
-        this.nameTerminal = "ГУТ-2";
-        centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
-        rotationTerminal= 0;
-        zoomTerminal=15.8;
-        if (this.screenWidth > 450) {
-          rotationTerminal = Math.PI / 2.71;
-          centerTerminal = transform([132.8892, 42.8122], "EPSG:4326", "EPSG:3857");
-          zoomTerminal = 17.4;
-        }
-      }
+      let [nameTerminal, rotationTerminal, centerTerminal, zoomTerminal] = this.setTerminal(this.terminal)
+      this.nameTerminal = nameTerminal
       this.view.animate({
         center: centerTerminal,
         rotation: rotationTerminal,
         zoom: zoomTerminal,
         duration: 1000,
-        //easing: this.bounce,
       });
+    },
+    setTerminal(terminal) {
+      let nameTerminal, centerTerminal, zoomTerminal, rotationTerminal
+      if (terminal) { 
+        nameTerminal = "УТ-1";
+        if (this.screenWidth > 450) {
+          rotationTerminal = Math.PI / 3.4;
+          centerTerminal = transform([132.9010, 42.8032], "EPSG:4326", "EPSG:3857");
+          zoomTerminal = 17.3;
+        }
+        else {
+          rotationTerminal = Math.PI / -16;
+          centerTerminal = transform([132.90094, 42.80333], "EPSG:4326", "EPSG:3857");
+          zoomTerminal = 15.6;
+        }
+      } 
+      else {
+        nameTerminal = "ГУТ-2";
+        if (this.screenWidth > 450) {
+          rotationTerminal = Math.PI / 2.71;
+          centerTerminal = transform([132.8892, 42.8122], "EPSG:4326", "EPSG:3857");
+          zoomTerminal = 17.4;
+        }
+        else {
+          centerTerminal = transform([132.8888, 42.8124], "EPSG:4326", "EPSG:3857");
+          rotationTerminal= 0;
+          zoomTerminal=15.8;
+        }
+      }
+      return [nameTerminal, rotationTerminal, centerTerminal, zoomTerminal]
     },
     // showMap() {
     //   let center = this.map.getView().getCenter();
@@ -213,8 +199,6 @@ export default {
     //   );
     //   return result;
     // },
-
-
   },
   components: {},
 };

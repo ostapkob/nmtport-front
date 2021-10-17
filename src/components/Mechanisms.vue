@@ -63,6 +63,9 @@
     </div>
     
 
+      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
+        УТ-1
+      </div>
     <div
       v-for="mech in whichTerminal(1)"
       :key="mech.id"
@@ -78,14 +81,16 @@
           rounded="lg"
           class= "border-secondary"
         >
-        {{FLAG_TERMINAL_1}} {{ mech.terminal}}
           <progressKRAN :mech="mech" :shift=SHIFT v-if="typeMECH == 'KRAN'" />
           <progressUSM :mech="mech" :shift=SHIFT v-if="typeMECH == 'USM'" />
           <progressSENNEBOGEN :mech="mech" :shift=SHIFT  v-if="typeMECH == 'SENNEBOGEN'" />
         </b-overlay>
       </div>
     </div>
-      <hr>
+      <hr v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
+      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
+        ГУТ-2
+      </div>
     <div
       v-for="mech in whichTerminal(2)"
       :key="mech.id"
@@ -101,7 +106,6 @@
           rounded="lg"
           class= "border-secondary"
         >
-        {{FLAG_TERMINAL_1}} {{ mech.terminal}}
           <progressKRAN :mech="mech" :shift=SHIFT v-if="typeMECH == 'KRAN'" />
           <progressUSM :mech="mech" :shift=SHIFT v-if="typeMECH == 'USM'" />
           <progressSENNEBOGEN :mech="mech" :shift=SHIFT  v-if="typeMECH == 'SENNEBOGEN'" />
@@ -171,7 +175,7 @@ export default {
       dateCal: dateNow(),
       flagButtonsDisabled: false,
       flagOverlay: false,
-      coefficient: 1.15,
+      coefficient: 1,
       today: new Date(),
     };
   },

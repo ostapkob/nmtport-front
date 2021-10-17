@@ -126,9 +126,15 @@ export default {
       this.SET_FLAG_NOTIFICATION(this.flagNotification)
     },
     flagTerminal1: function(){
+      if (!this.flagTerminal1) {
+        this.flagTerminal2=true
+      }
       this.SET_FLAG_TERMINAL_1(this.flagTerminal1)
     },
     flagTerminal2: function(){
+      if (!this.flagTerminal2) {
+        this.flagTerminal1=true
+      }
       this.SET_FLAG_TERMINAL_2(this.flagTerminal2)
     },
   },
