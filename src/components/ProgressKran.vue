@@ -135,7 +135,7 @@ export default {
       totalStep_180: 0, // 2
       totalStep_90_1: 0, // 1
       totalStep_90_3: 0, // 3 after
-      coefficient: 1.15,
+      coefficient: 1,
       returnValue: "-",
       s: 1,
     };
@@ -146,19 +146,19 @@ export default {
         if (totalStep === undefined) {
           totalStep = total_180;
         }
-        return `c ${timeStep} - ${totalStep} поворотов по 180°`;
+        return `${timeStep}-${timeTo} - ${totalStep} поворотов по 180°`;
       }
       if (typeStep == 1 || typeStep == 3) {
-        return `c ${timeStep} - ${totalStep} поворотов по 90°`;
+        return `${timeStep}-${timeTo} - ${totalStep}  поворотов по 90°`;
       }
       if (typeStep == 0) {
-        return `c ${timeStep} по ${timeTo} - простой`;
+        return `${timeStep}-${timeTo} - простой`;
       }
       if (typeStep == 5) {
-        return `c ${timeStep} по ${timeTo} - вращение колонны`;
+        return `${timeStep}-${timeTo} - вращение колонны`;
       }
       if (typeStep == -1) {
-        return `c ${timeStep}  по ${timeTo} - нет питания⚡`;
+        return `${timeStep}-${timeTo} - нет питания⚡`;
       }
       return "";
     },

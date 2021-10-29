@@ -89,7 +89,13 @@ export default {
         }),
       });
       //create view with center postion
-      let [nameTerminal, rotationTerminal, centerTerminal, zoomTerminal] = this.setTerminal(!this.FLAG_TERMINAL_1)
+      let nameTerminal, rotationTerminal, centerTerminal, zoomTerminal
+      if (!this.FLAG_2_MAPS){
+        [nameTerminal, rotationTerminal, centerTerminal, zoomTerminal] = this.setTerminal(!this.FLAG_TERMINAL_1)
+      }
+      else {
+        [nameTerminal, rotationTerminal, centerTerminal, zoomTerminal] = this.setTerminal(this.terminal)
+      }
       this.nameTerminal = nameTerminal
       this.view = new View({
         center: centerTerminal,

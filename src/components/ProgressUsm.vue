@@ -55,7 +55,7 @@
         :id="mech.id + '-' + key"
       >
         <b-tooltip 
-          v-if="item.step > 5"
+          v-if="item.step > 2"
           :target="mech.id + '-' + key"
           :variant="colorProgress(item.value)"
         >
@@ -110,16 +110,16 @@ export default {
     showSteps: function (timeStep, timeTo, typeStep, totalStep) {
       if (typeStep == 1 || typeStep == 3) {
         if (totalStep === undefined) {
-          return `c ${timeStep} -  ${this.mech.time_coal} часов уголь на ленте `;
+          return `${timeStep}-${timeTo} - ${this.mech.time_coal} часов уголь на ленте `;
         } else {
-          return `c ${timeStep} - ${totalStep} часов уголь на ленте `;
+          return `${timeStep}-${timeTo} - ${totalStep} часов уголь на ленте `;
         }
       }
       if (typeStep == 0) {
-        return `c ${timeStep} по ${timeTo} - Простой`;
+        return `${timeStep}-${timeTo} - Простой`;
       }
       if (typeStep == -1) {
-        return `c ${timeStep}  по ${timeTo} - Нет питания⚡`;
+        return `${timeStep}-${timeTo} - питания⚡`;
       }
       return "";
     },

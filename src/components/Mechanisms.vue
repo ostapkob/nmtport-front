@@ -168,7 +168,7 @@ import { BBadge } from 'bootstrap-vue'
 import { mapGetters } from "vuex";
 
 export default {
-  name: "Krans",
+  name: "Mechanisms",
   data() {
     return {
       hours: "",
