@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     showSteps: function (timeStep, timeTo, typeStep, totalStep) {
-      if (typeStep == 1 || typeStep == 3) {
+      if (typeStep == 1 || typeStep == 3) { // ? why 3
         if (totalStep === undefined) {
           return `${timeStep}-${timeTo} - ${this.mech.time_coal} часов уголь на ленте `;
         } else {
@@ -117,6 +117,9 @@ export default {
       }
       if (typeStep == 0) {
         return `${timeStep}-${timeTo} - Простой`;
+      }
+      if (typeStep == 3) {
+        return `${timeStep}-${timeTo} - Лента крутится без угля`;
       }
       if (typeStep == -1) {
         return `${timeStep}-${timeTo} - питания⚡`;
@@ -134,8 +137,10 @@ export default {
 
       if (val == 0) {
         resultColor = "success text-dark";
-      } else if (val > 0.1) {
+      } else if (val > 0.1 && val <= 1) {
         resultColor = "primary";
+      } else if (val == 2) {
+        resultColor = "warning show-progres text-dark";
       } else {
         resultColor = "danger show-progress";
       }

@@ -23,7 +23,7 @@
 
             <b-tooltip :target="mech.id + '180'" variant="primary">
               <!-- Количество циклов 180° --> 
-              <strong>{{Math.round(mech.total_180 * mech.grab * coefficient)}} </strong>тонн
+              <strong>{{Math.round(mech.total_180 * mech.grab * GET_COEFFICIENT_COAL)}} </strong>тонн
             </b-tooltip>
           </b-badge>
 
@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import {
   BTooltip,
   BBadge,
@@ -135,10 +136,14 @@ export default {
       totalStep_180: 0, // 2
       totalStep_90_1: 0, // 1
       totalStep_90_3: 0, // 3 after
-      coefficient: 1,
       returnValue: "-",
       s: 1,
     };
+  },
+  computed: {
+    ...mapGetters([
+      "GET_COEFFICIENT_COAL"
+    ]),
   },
   methods: {
     showSteps: function (timeStep, timeTo, typeStep, totalStep, total_180) {

@@ -55,6 +55,7 @@ export default {
     //this.SET_SELECTED_FEATURES([])
   },
   methods: {
+    ...mapActions(["SET_SELECTED_FEATURES"]),
     newMarker() {
       this.overlayIcon = new Overlay({
         element: this.$refs["wrapperIcon"],
@@ -66,7 +67,6 @@ export default {
       });
       this.map.addOverlay(this.overlayIcon);
     },
-    ...mapActions(["SET_SELECTED_FEATURES"]),
     clickMarker() {
       console.log(this.marker.name)
       this.$store.dispatch("SET_DATE_SHIFT", [dateNow(), shiftNow()])

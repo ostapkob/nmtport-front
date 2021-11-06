@@ -1,5 +1,15 @@
 <template>
-  <div class="main">
+  <div class="main" >
+    <b-overlay
+        :show="!flagOverlay"
+        spinner-variant="primary"
+        spinner-small
+        rounded="lg"
+        class='mb-1'
+      >
+      <tonsByTerminals v-if="typeMECH=='KRAN'" />
+    </b-overlay>
+
     <div class="date-toggle">
       <div class="text-right">
         <b-form-datepicker
@@ -63,16 +73,16 @@
     </div>
     
 
-      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
+      <div class=mb-1 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
         УТ-1
       </div>
     <div
-      v-for="mech in whichTerminal(1)"
+      v-for="mech in filterTerminal(TERMINAL_1)"
       :key="mech.id"
     >
       <div
         class="p-2 border rounded bg-light mb-2 shadow-sm"
-        v-if="!(!FLAG_EMPTY_MECH && !isMechWork(mech)) && FLAG_TERMINAL_1" 
+        v-if="FLAG_TERMINAL_1" 
       >
         <b-overlay
           :show="!flagOverlay"
@@ -86,18 +96,19 @@
           <progressSENNEBOGEN :mech="mech" :shift=SHIFT  v-if="typeMECH == 'SENNEBOGEN'" />
         </b-overlay>
       </div>
+
     </div>
       <hr v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
       <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
         ГУТ-2
       </div>
     <div
-      v-for="mech in whichTerminal(2)"
+      v-for="mech in filterTerminal(TERMINAL_2)"
       :key="mech.id"
     >
       <div
         class="p-2 border rounded bg-light mb-2 shadow-sm"
-        v-if="!(!FLAG_EMPTY_MECH && !isMechWork(mech)) && FLAG_TERMINAL_2" 
+        v-if="FLAG_TERMINAL_2" 
       >
         <b-overlay
           :show="!flagOverlay"
@@ -119,53 +130,16 @@
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
       <b-tooltip show target="bug" variant="light">.</b-tooltip>
     </div>
-      <b-overlay
-        :show="!flagOverlay"
-        spinner-variant="primary"
-        spinner-small
-        rounded="lg"
-      >
-          <div
-            v-if="typeMECH=='KRAN'" 
-             class="mt-4 d-flex justify-content-around"
-            >
-            <div
-             v-for="(values, terminal) in filterTurns(TOTAL_180, 15)" 
-             :key=terminal
-            >
-              <div
-              v-if="values.turns>15"
-              > 
-                <div> {{terminal}} причал  </div>
-                <b-badge 
-                  variant="primary" 
-                  size="lg"
-                  class="p-2 mt-1"
-                  :id="terminal + 'br'"
-                  >
-                  {{separateNumber1(values.tons*coefficient)}} тонн
-                </b-badge>
-                <b-tooltip 
-                  :target="terminal + 'br'"
-                  variant="primary">
-                  {{values.krans.slice(0,-2)}}
-                </b-tooltip>
-              </div>
-            </div>
-          </div>
-    </b-overlay>
-  <br>
   </div>
 </template>
 
 <script>
 
-import { shiftNow, dateNow, hoursProgress, separateNumber, addZero, tipShift } from "@/functions/functions";
+import { shiftNow, dateNow, hoursProgress, addZero, tipShift } from "@/functions/functions";
 import { BTooltip } from "bootstrap-vue";
 import { BFormDatepicker } from "bootstrap-vue";
 import { BOverlay } from 'bootstrap-vue'
-import { BBadge } from 'bootstrap-vue'
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Mechanisms",
@@ -175,7 +149,6 @@ export default {
       dateCal: dateNow(),
       flagButtonsDisabled: false,
       flagOverlay: false,
-      coefficient: 1,
       today: new Date(),
     };
   },
@@ -186,10 +159,10 @@ export default {
     BOverlay,
     BTooltip,
     BFormDatepicker,
-    BBadge,
     progressKRAN: () => import("@/components/ProgressKran"),
     progressUSM: () => import("@/components/ProgressUsm"),
     progressSENNEBOGEN: () => import("@/components/ProgressSennebogen"),
+    tonsByTerminals: () => import("@/components/tonsByTerminals"),
   }, 
   computed: {
     ...mapGetters([
@@ -200,13 +173,17 @@ export default {
       "ISNOW",
       "FLAG_TERMINAL_1",
       "FLAG_TERMINAL_2",
-
+      "TERMINAL_1",
+      "TERMINAL_2",
     ]),
     getTipShift: function() {
       return tipShift(this.DATE, this.SHIFT)
     }
   },
   methods: {
+    ...mapActions([
+      "SET_TERMINALS"
+    ]),
     backDateShift() {
       let newShift = 1
       let parts = this.DATE.split(".");
@@ -250,18 +227,18 @@ export default {
     refresh() {
       setTimeout( () =>
         {
-        console.log(this.DATE);
-        console.log(this.SHIFT);
           if (this.ISNOW) {
             this.GET_SET(this.DATE, this.SHIFT);
           }
         }
         , 5000)
     },
+
     clickAnyButtons() {
       this.GET_SET(this.DATE, this.SHIFT)
       this.flagButtonsDisabled = true;
     },
+
     GET_SET(date, shift) {
       this.flagOverlay=false
       this.$store.dispatch("SET_" + this.typeMECH + "_API", [
@@ -271,6 +248,7 @@ export default {
         this.GET_MECH()
       });
     },
+
     GET_MECH() {
           this.$store.dispatch("GET_" + this.typeMECH + "_DATA").then(()=>{
               setTimeout(()=>{this.flagOverlay=true}, 500 ) 
@@ -278,18 +256,7 @@ export default {
             }
           )
     },
-    separateNumber1(n) {
-      return separateNumber(n)
-    },
-    filterTurns(obj, limit) {
-      let filterObj = {}
-      for (let pair of Object.entries(obj)) {
-        if (pair[1].turns>limit) {
-            filterObj[pair[0]] = pair[1]
-        }
-      }
-      return filterObj
-    },
+
     isMechWork(data) {
       if (this.typeMECH=="KRAN" && (data.total_180<5 && data.total_90<15)) {
           return false
@@ -302,25 +269,36 @@ export default {
       }
       return true
     },
-    whichTerminal(t) {
+
+    filterTerminal(arr) {
       let mehanisms = {}
       let data = this.$store.getters[this.typeMECH + '_DATA']
       for (let mech in data) { 
-        if (t==1) {
-          if (data[mech].terminal < 70) {
+        if (arr.includes(data[mech].terminal)) {
             mehanisms[mech] = data[mech] 
-          }
-        }
-        else {
-          if (data[mech].terminal >= 70) {
-            mehanisms[mech] = data[mech] 
-          }
-
         }
       }
-      return mehanisms
+      return this.filterTerminalEmpty(mehanisms)
+    },
+
+    filterTerminalEmpty(data) {
+      if (this.FLAG_EMPTY_MECH) {
+        let filterMechanism= {}
+        for (let mech in data) { 
+          if (this.isMechWork(data[mech])) {
+            filterMechanism[mech] = data[mech] 
+          }
+        }
+        return filterMechanism
+      }
+      return data
+    },
+    test() {
+      console.log('ewqe')
     }
   },
+
+
   mounted() {
     this.hours = hoursProgress(shiftNow());
     this.$nextTick(function () {
