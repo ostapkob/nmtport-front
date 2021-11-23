@@ -118,11 +118,11 @@ export default {
       if (typeStep == 0) {
         return `${timeStep}-${timeTo} - Простой`;
       }
-      if (typeStep == 3) {
+      if (typeStep == 2) {
         return `${timeStep}-${timeTo} - Лента крутится без угля`;
       }
       if (typeStep == -1) {
-        return `${timeStep}-${timeTo} - питания⚡`;
+        return `${timeStep}-${timeTo} - нет питания⚡`;
       }
       return "";
     },

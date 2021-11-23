@@ -47,5 +47,14 @@ export default {
   },
   FLAG_TERMINAL_2(state) {
     return state.flagTerminal2
+  },
+  TERMINAL_1(state) {
+    return state.terminal1
+  },
+  TERMINAL_2(state) {
+    return state.terminal2
+  },
+  GET_COEFFICIENT_COAL(state) {
+    return state.coefficent 
   }
 }

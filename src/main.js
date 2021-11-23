@@ -24,10 +24,12 @@ Vue.component('b-container', BContainer)
 Vue.component('b-row', BRow)
 Vue.component('b-col', BCol)
 Vue.component('b-button', BButton)
-import { VBToggle } from 'bootstrap-vue'
+import { VBToggle, VBPopover } from 'bootstrap-vue'
 Vue.directive('b-toggle', VBToggle)
-import { VBPopover } from 'bootstrap-vue'
 Vue.directive('b-popover', VBPopover)
+// import vClickOutside from 'v-click-outside'
+// Vue.use(vClickOutside)
+
 
 new Vue({
   router,

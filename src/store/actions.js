@@ -112,4 +112,9 @@ export default {
     }, value) {
         commit('CHANGE_DATE_SHIFT', value);
     },
+    SET_TERMINALS({
+        commit
+    }, value) {
+        commit('FILTER_TERMINALS', value);
+    },
 }

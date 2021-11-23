@@ -2,7 +2,7 @@
   <div>
     <div>
       <olPort :terminal="1"/>
-      <olPort :terminal="2" v-if=FLAG_2_MAPS />
+      <olPort class="mt-1" :terminal="2" v-if=FLAG_2_MAPS />
       <SlideBar />
     </div>
     <BottomProgress />
@@ -23,7 +23,6 @@ const olPort = () => import("@/components/Ol-Port");
 export default {
   data() {
     return {
-      shift: 1, // ! fun
     }
   },
   name: "App",

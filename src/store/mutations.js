@@ -90,6 +90,7 @@ export default {
               total_terminals_180[terminal] = {
                 'turns':0,
                 'tons':0,
+                'ids': [],
                 'krans': [],
               }
             }
@@ -105,6 +106,7 @@ export default {
             total_terminals_180[terminal]['turns'] += values[mech].total_terminals_180[terminal]
             total_terminals_180[terminal]['tons'] += values[mech].total_terminals_180[terminal]*values[mech].grab
             total_terminals_180[terminal]['krans'] += values[mech].number + ", " 
+            total_terminals_180[terminal]['ids'].push(values[mech].id)
         }
       }
     }
@@ -147,5 +149,21 @@ export default {
   CHANGE_DATE_SHIFT: (state, date_shift) => {
     state.date = date_shift[0]
     state.shift = date_shift[1]
+  },
+  FILTER_TERMINALS: (state, terminal) => {
+    let ut = [8,9,10,11,12,13,14,15]
+    let gut= [70,71,72,73,74,75,76,77,78]
+    if (ut.includes(+terminal)) {
+      state.terminal1 = terminal
+      state.terminal2 = []
+    }
+    else if (gut.includes(+terminal)) {
+      state.terminal2 = terminal
+      state.terminal1 = []
+    }
+    else {
+      state.terminal1 = ut
+      state.terminal2 = gut
+    }
   },
 }

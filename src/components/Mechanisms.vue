@@ -71,10 +71,8 @@
         </b-button>
       </div>
     </div>
-    
-
-      <div class=mb-1 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
-        УТ-1
+      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2 &&  Object.keys(UT).length>0 && Object.keys(GUT).length>0 ">
+        УТ-1 
       </div>
     <div
       v-for="mech in filterTerminal(TERMINAL_1)"
@@ -98,9 +96,9 @@
       </div>
 
     </div>
-      <hr v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
-      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2">
-        ГУТ-2
+      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2 &&  Object.keys(UT).length>0 && Object.keys(GUT).length>0 ">
+        <hr/>
+        ГУТ-2  
       </div>
     <div
       v-for="mech in filterTerminal(TERMINAL_2)"
@@ -123,9 +121,6 @@
         </b-overlay>
       </div>
     </div>
-
-
-
     <div>
       <span id="bug" variant="primary" class="bug-tooltip">.</span>
       <b-tooltip show target="bug" variant="light">.</b-tooltip>
@@ -150,6 +145,8 @@ export default {
       flagButtonsDisabled: false,
       flagOverlay: false,
       today: new Date(),
+      UT: {}, 
+      GUT: {}, 
     };
   },
   props: {
@@ -250,11 +247,11 @@ export default {
     },
 
     GET_MECH() {
-          this.$store.dispatch("GET_" + this.typeMECH + "_DATA").then(()=>{
-              setTimeout(()=>{this.flagOverlay=true}, 500 ) 
-              this.flagButtonsDisabled = false;
-            }
-          )
+      this.$store.dispatch("GET_" + this.typeMECH + "_DATA").then(()=>{
+          setTimeout(()=>{this.flagOverlay=true}, 500 ) 
+          this.flagButtonsDisabled = false;
+        }
+      )
     },
 
     isMechWork(data) {
@@ -275,14 +272,20 @@ export default {
       let data = this.$store.getters[this.typeMECH + '_DATA']
       for (let mech in data) { 
         if (arr.includes(data[mech].terminal)) {
-            mehanisms[mech] = data[mech] 
+          mehanisms[mech] = data[mech] 
+          if (data[mech].terminal<69)  {
+            this.countTerminal1=1
+          }
+          else {
+            this.countTerminal2=1
+          }
         }
       }
       return this.filterTerminalEmpty(mehanisms)
     },
 
     filterTerminalEmpty(data) {
-      if (this.FLAG_EMPTY_MECH) {
+      if (!this.FLAG_EMPTY_MECH) {
         let filterMechanism= {}
         for (let mech in data) { 
           if (this.isMechWork(data[mech])) {
@@ -293,9 +296,6 @@ export default {
       }
       return data
     },
-    test() {
-      console.log('ewqe')
-    }
   },
 
 
@@ -305,6 +305,8 @@ export default {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
     this.GET_SET(this.DATE, this.SHIFT)
+    this.UT  = this.filterTerminal(this.TERMINAL_1)
+    this.GUT = this.filterTerminal(this.TERMINAL_2)
   },
   watch: {
     dateCal: function () {
@@ -312,6 +314,13 @@ export default {
       this.$store.dispatch("SET_DATE_SHIFT"  , [newDate, 1])
       this.GET_SET(newDate, 1)
     },
+    TERMINAL_1: function() {
+      this.UT = this.filterTerminal(this.TERMINAL_1)
+    },
+    TERMINAL_2: function() {
+      this.GUT = this.filterTerminal(this.TERMINAL_2)
+    }
+    
   },
   updated() {
   },

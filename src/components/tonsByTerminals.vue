@@ -2,8 +2,8 @@
 <div>
 
   <div
-     class="mt-1 d-flex"
-     v-if=FLAG_TERMINAL_1
+      class="mt-1 d-flex "
+      v-if=FLAG_TERMINAL_1
     >
     <div
      v-for="values in filterTerminal(1)" 
@@ -13,12 +13,13 @@
       <div class="text-center mr-2">
         <b-button 
           variant="primary" 
-          class="text-lowercase" 
-          @click='SET_TERMINALS(values[0])'
+          class="text-lowercase p-1" 
+          @click='focus(values[0])'
+          @blur='notFocus'
           >
-          {{values[0]}} <small> пр  </small>
-          <b-badge variant="light" size="lg" class="text-lowercase">
-            {{separateNumber1(values[1].tons*GET_COEFFICIENT_COAL)}} <small> тн. </small>
+          {{values[0]}}<small>пр </small>
+          <b-badge variant="light" class="text-lowercase badge-text">
+            {{separateNumber1(values[1].tons*GET_COEFFICIENT_COAL)}}<small>тн.</small>
           </b-badge>
         </b-button>
       </div>
@@ -43,12 +44,13 @@
       <div class="text-center mr-2">
         <b-button 
           variant="primary" 
-          class="text-lowercase" 
-          @click='SET_TERMINALS(values[0])'
+          class="text-lowercase p-1" 
+          @click='focus(values[0])'
+          @blur='notFocus'
           >
-          {{values[0]}} <small> пр  </small>
-          <b-badge variant="light" size="lg" class="text-lowercase">
-            {{separateNumber1(values[1].tons*GET_COEFFICIENT_COAL)}} <small> тн. </small>
+          {{values[0]}}<small>пр  </small>
+          <b-badge variant="light" class="text-lowercase badge-text">
+            {{separateNumber1(values[1].tons*GET_COEFFICIENT_COAL)}}<small>тн.</small>
           </b-badge>
         </b-button>
       </div>
@@ -76,7 +78,7 @@ export default {
   name: "tonsByTerminals",
   data() {
     return {
-      limitTurns: 1,
+      limitTurns: 10,
     };
   },
   props: {
@@ -113,10 +115,17 @@ export default {
         return []
       }
     },
+    notFocus() {
+      this.SET_TERMINALS(0)
+    },
+    focus(value) {
+      this.SET_TERMINALS(value)
+    }
   },
   mounted() {
   },
   watch: {
+
   },
   updated() {
   },
@@ -126,3 +135,8 @@ export default {
 </script>
 
 
+<style lang="scss">
+.badge-text {
+  font-size: 90%;
+}
+</style>
