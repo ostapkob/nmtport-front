@@ -9,7 +9,6 @@
               <div class="kran-icon-blue mx-auto" />
             </b-col>
             <b-col class="my-row"> Работа на 180° </b-col>
-
             <div class="w-100"></div>
             <b-col cols="2">
               <div class="kran-icon-black mx-auto" />
@@ -17,15 +16,20 @@
             <b-col class="my-row"> Работа на 90° </b-col>
             <div class="w-100"></div>
             <b-col cols="2">
+              <div class="kran-icon-dark-yellow mx-auto" />
+            </b-col>
+            <b-col class="my-row"> Есть поворот колонны</b-col>
+              <div class="w-100"></div>
+            <b-col cols="2">
               <div class="kran-icon-yellow mx-auto" />
             </b-col>
-            <b-col class="my-row"> Нет поворота </b-col>
-            <div class="w-100"></div>
+            <b-col class="my-row"> Нет поворота колонны</b-col>
+              <div class="w-100"></div>
             <b-col cols="2">
               <div class="kran-icon-red mx-auto" />
             </b-col>
             <b-col class="my-row"> Нет питания </b-col>
-            <div class="w-100"></div>
+              <div class="w-100"></div>
             <b-col cols="2">
               <div class="kran-icon-gray mx-auto" />
             </b-col>
@@ -40,10 +44,15 @@
             <b-col class="my-row"> Уголь есть на ленте </b-col>
             <div class="w-100"></div>
             <b-col cols="2">
-              <div class="usm-icon-yellow mx-auto" />
+              <div class="usm-icon-dark-yellow mx-auto" />
             </b-col>
             <b-col class="my-row"> Угля нет на ленте </b-col>
-            <div class="w-100"></div>
+              <div class="w-100"></div>
+            <b-col cols="2">
+              <div class="usm-icon-yellow mx-auto" />
+            </b-col>
+            <b-col class="my-row"> Лента не крутится </b-col>
+              <div class="w-100"></div>
             <b-col cols="2">
               <div class="usm-icon-red mx-auto" />
             </b-col>

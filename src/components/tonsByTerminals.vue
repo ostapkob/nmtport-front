@@ -58,7 +58,6 @@
       <b-tooltip 
         :target="values[0] + 'br'"
         variant="primary"
-        placement="bottom"
         >
         {{values[1].krans.slice(0,-2)}}
       </b-tooltip>

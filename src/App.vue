@@ -78,6 +78,7 @@ export default {
   data() {
     return {
       polling: null,
+      reloading: null, 
       tmpSetAlarm: new Set(),
       typeMechanisms: ['KRAN', 'USM', 'SENNEBOGEN'],
     };
@@ -157,6 +158,9 @@ export default {
         this.audioAlarm();
         this.updateByTime();
       }, 30000); // timer
+      this.reloading = setInterval(() => {
+        location.reload();
+      }, 1000 * 60 * 60 * 5); // timer
     },
   },
   computed: {
@@ -191,6 +195,7 @@ export default {
   },
   beforeDestroy() {
     clearInterval(this.polling);
+    clearInterval(this.reloading);
   },
 };
 </script>

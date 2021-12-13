@@ -71,7 +71,7 @@
         </b-button>
       </div>
     </div>
-      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2 &&  Object.keys(UT).length>0 && Object.keys(GUT).length>0 ">
+    <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2 && TERMINAL_1.length>0 && TERMINAL_2.length">
         УТ-1 
       </div>
     <div
@@ -96,7 +96,7 @@
       </div>
 
     </div>
-      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2 &&  Object.keys(UT).length>0 && Object.keys(GUT).length>0 ">
+      <div class=mb-2 v-if="FLAG_TERMINAL_1 && FLAG_TERMINAL_2 && TERMINAL_1.length>0 && TERMINAL_2.length">
         <hr/>
         ГУТ-2  
       </div>
@@ -145,8 +145,8 @@ export default {
       flagButtonsDisabled: false,
       flagOverlay: false,
       today: new Date(),
-      UT: {}, 
-      GUT: {}, 
+      UT: {1: null}, 
+      GUT: {2: null}, 
     };
   },
   props: {
@@ -305,8 +305,8 @@ export default {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
     this.GET_SET(this.DATE, this.SHIFT)
-    this.UT  = this.filterTerminal(this.TERMINAL_1)
-    this.GUT = this.filterTerminal(this.TERMINAL_2)
+    //this.UT  = this.filterTerminal(this.TERMINAL_1)
+    //this.GUT = this.filterTerminal(this.TERMINAL_2)
   },
   watch: {
     dateCal: function () {
@@ -314,12 +314,6 @@ export default {
       this.$store.dispatch("SET_DATE_SHIFT"  , [newDate, 1])
       this.GET_SET(newDate, 1)
     },
-    TERMINAL_1: function() {
-      this.UT = this.filterTerminal(this.TERMINAL_1)
-    },
-    TERMINAL_2: function() {
-      this.GUT = this.filterTerminal(this.TERMINAL_2)
-    }
     
   },
   updated() {

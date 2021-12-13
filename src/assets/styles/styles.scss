@@ -246,7 +246,13 @@ input {
 
 .usm-icon-yellow {
   @extend %mech-icon;
-  background: #e6de00;
+  background: #fdff96;
+  color: #111;
+}
+
+.usm-icon-dark-yellow {
+  @extend %mech-icon;
+  background: #ffbf41;
   color: #111;
 }
 
@@ -284,7 +290,14 @@ input {
 .kran-icon-yellow {
   @extend %mech-icon;
   border-radius: 0%;
-  background: #fff600;
+  background: #fdff96;
+  color: #111;
+}
+
+.kran-icon-dark-yellow {
+  @extend %mech-icon;
+  border-radius: 0%;
+  background: #ffbf41;
   color: #111;
 }
 
@@ -417,6 +430,9 @@ input {
   .usm-icon-yellow {
     @extend %mech-icon-phone;
   }
+  .usm-icon-dark-yellow {
+    @extend %mech-icon-phone;
+  }
 
   .usm-icon-black {
     @extend %mech-icon-phone;
@@ -445,6 +461,9 @@ input {
   .kran-icon-yellow {
     @extend %mech-icon-phone;
   }
+  .kran-icon-dark-yellow {
+    @extend %mech-icon-phone;
+  }
 
   .kran-icon-black {
     @extend %mech-icon-phone;
@@ -470,6 +489,9 @@ input {
   }
 
   .sennebogen-icon-yellow {
+    @extend %mech-icon-phone;
+  }
+  .sennebogen-icon-dark-yellow {
     @extend %mech-icon-phone;
   }
 
@@ -524,6 +546,10 @@ input {
     @extend %mech-icon-half-screen;
   }
 
+  .usm-icon-dark-yellow {
+    @extend %mech-icon-half-screen;
+  }
+
   .usm-icon-black {
     @extend %mech-icon-half-screen;
   }
@@ -549,6 +575,10 @@ input {
   }
 
   .kran-icon-yellow {
+    @extend %mech-icon-half-screen;
+  }
+
+  .kran-icon-dark-yellow {
     @extend %mech-icon-half-screen;
   }
 

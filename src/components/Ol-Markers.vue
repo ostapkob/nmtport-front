@@ -164,7 +164,7 @@ export default {
         } else if (state == "long_no_power") {
           return `${type}-icon-gray`;
         } else if (state == "move") {
-          return `${type}-icon-yellow`;
+          return `${type}-icon-dark-yellow`;
         } else {
           return `${type}-icon-green`;
         }
@@ -174,6 +174,8 @@ export default {
           return `${type}-icon-blue`;
         } else if (state == "stay") {
           return `${type}-icon-yellow`;
+        } else if (state == "move") {
+          return `${type}-icon-dark-yellow`;
         } else if (state == "no_power") {
           return `${type}-icon-red`;
         } else if (state == "long_no_power") {
