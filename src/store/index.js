@@ -37,7 +37,7 @@ export default new Vuex.Store({
     flag2Maps: false,
     flagTerminal1: true,
     flagTerminal2: true,
-    coefficent: 1.05,
+    coefficent: 1,
     terminal1: [8,9,10,11,12,13,14,15],
     terminal2: [70,71,72,73,74,75,76,77,78],
   },

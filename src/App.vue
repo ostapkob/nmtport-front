@@ -160,7 +160,7 @@ export default {
       }, 30000); // timer
       this.reloading = setInterval(() => {
         location.reload();
-      }, 1000 * 60 * 60 * 5); // timer
+      }, 1000 * 60 * 60 * 2); // timer
     },
   },
   computed: {
