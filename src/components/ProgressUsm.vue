@@ -45,7 +45,27 @@
     </b-list-group>
 
     <div v-for="(item, key) in mech.data" :key="key" />
-    <b-progress class="mt-2" :max="719" show-value>
+
+    <b-progress :max="719" show-value>
+      <b-progress-bar
+        v-for="(item, key) in createAllLength(mech.data)"
+        :key="key+'reson'"
+        :value="item.step"
+        variant="light"
+        :id="mech.id + 'reson' + key"
+      >
+      <!-- <div v-if=item.reson class="text-dark text-left"> -->
+      <!--     {{item.time}} -->
+      <!-- </div> -->
+        <img v-if=item.reson
+          class="catalog-item-img"
+          :src="require('@/assets/img/resons/'+item.reson+'.svg')"
+          height="14"
+        />
+      </b-progress-bar>
+    </b-progress>
+
+    <b-progress :max="719" show-value>
       <b-progress-bar
         v-for="(item, key) in mech.data"
         :key="key"
@@ -61,10 +81,8 @@
         >
           {{
             showSteps(
-              item.time,
-              timeTo(key, mech.data),
-              item.value,
-              item.time_coal
+              item,
+              timeTo(key, mech.data)
             )
           }}
         </b-tooltip>
@@ -95,7 +113,40 @@ export default {
     shift: Number,
   },
   data() {
-    return {};
+    return {
+      resons: {
+        1:	"1 а/п",
+        2	: "перего",
+        3	: "отсутствие грязного, нет крана",
+        4	: "отсутствие грязного, нет а/м",
+        5	: "нет места под чистый, нет крана",
+        6	: "перекрыт ж/д переезд, маневровая работа",
+        7	: "поломка а/п",
+        8	: "смерзшийся уголь",
+        9	: "нет топлива",
+        10:	"уголь с вагонов",
+        11:	"зачистка бункера",
+        12:	"пыление",
+        13:	"зона работы крана",
+        14:	"ТО",
+        15:	"Прочее",
+        16:	"магнит",
+        17:	"бункер",
+        18:	"конвейер",
+        19:	"Валки/грохот",
+        20:	"передвижение",
+        21:	"электрика",
+        22:	"Перекрыт подъезд к УСМ SENNEBOGEN",
+        23:	"Перекрыт подъезд к УСМ",
+        24:	"ЗачисткаУСМ",
+        25:	"Подготовка места под УСМ",
+        26:	"Навешивание пологов",
+        27:	"Поломка крана",
+        28:	"Маневровые работы",
+        29:	"НМУ(неблагприянтые погодные условия)",
+        30:	"отсутствие груза",
+      }
+    };
   },
   components: {
     BProgress,
@@ -107,7 +158,11 @@ export default {
     Hours,
   },
   methods: {
-    showSteps: function (timeStep, timeTo, typeStep, totalStep) {
+    showSteps: function (item, timeTo) {
+      let timeStep = item.time
+      let typeStep = item.value
+      let totalStep = item.time_coal
+
       if (typeStep == 1 || typeStep == 3) { // ? why 3
         if (totalStep === undefined) {
           return `${timeStep}-${timeTo} - ${this.mech.time_coal} часов уголь на ленте `;
@@ -116,7 +171,10 @@ export default {
         }
       }
       if (typeStep == 0) {
-        return `${timeStep}-${timeTo} - Простой`;
+        let reson = item.reson ? this.resons[item.reson] : "Простой";
+        //let reson = item.reson; 
+
+        return `${timeStep}-${timeTo} - ${reson}`;
       }
       if (typeStep == 2) {
         return `${timeStep}-${timeTo} - Лента крутится без угля`;
@@ -150,6 +208,20 @@ export default {
       let newKey = parseInt(key) + 1;
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
+    createAllLength(data) {
+      /*paint grey line*/
+      let steps=0
+      for (let i in data) {
+        steps+=data[i].step
+      }
+      let newObj = {
+        reson: null,
+        step: 719-steps,
+        time: null,
+        value: null,
+      }
+      return {...data, newObj}
+   }
   },
   computed: {},
   mounted() {
@@ -159,5 +231,8 @@ export default {
 </script>
 
 <style lang="scss">
+  .filter-gray{
+      filter: invert(25%) sepia(50%); 
+  }
 </style>
 

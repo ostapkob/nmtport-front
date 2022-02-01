@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 98" width="100" height="98">
+	<title>Без названия (1)</title>
+	<defs>
+		<image  width="92" height="96" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABgAQMAAACqmYfNAAAAAXNSR0IB2cksfwAAAAZQTFRFAAAAAAAApWe5zwAAAAJ0Uk5TAP9bkSK1AAABCElEQVR4nK2Uyw3DIAyGQT3QW0fIGr1lsUrQzegmjMCRA4L6wVN9pU0tJfKnGPvHsiMEmnKi2xoG0HGAnLovc86mwgHAjuBHCM8A/VyTnxBq8mWEdQQ9APkFZGbzLXEtpArEVqUeqpBbyQcw2+Gv1qShnqWD4W6w2dIBMjdD96ElO8G9qfMK7Cx0E5j5phthatVGUM1PP0DsE/YNyFA0SJhLaXligzgDlFl24tjH346jwO7BKdJyoaCI2eGFw6cTgYIUsKP5ipkXXAaocgPwKy4DxFgG1uawpkZQ5ODDN/Wavu4AQUI+geM9TiyHgbXR9UmobBDopOEWeQouLXLUEG4SBajy+4HMd8KZzEoAxshnAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="4" y="2" />
+</svg>
