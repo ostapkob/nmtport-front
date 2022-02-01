@@ -62,6 +62,18 @@
           :src="require('@/assets/img/resons/'+item.reson+'.svg')"
           height="14"
         />
+        <b-tooltip 
+          v-if="item.reson"
+          :target="mech.id + 'reson' + key"
+          :variant="colorProgress(item.value)"
+        >
+          {{
+            showSteps(
+              item,
+              timeTo(key, mech.data)
+            )
+          }}
+        </b-tooltip>
       </b-progress-bar>
     </b-progress>
 
@@ -116,7 +128,7 @@ export default {
     return {
       resons: {
         1:	"1 а/п",
-        2	: "перего",
+        2	: "перегон",
         3	: "отсутствие грязного, нет крана",
         4	: "отсутствие грязного, нет а/м",
         5	: "нет места под чистый, нет крана",
@@ -213,6 +225,9 @@ export default {
       let steps=0
       for (let i in data) {
         steps+=data[i].step
+      }
+      if (steps>710) {
+        return data
       }
       let newObj = {
         reson: null,
