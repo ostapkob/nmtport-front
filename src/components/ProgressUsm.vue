@@ -44,62 +44,58 @@
       </b-list-group-item>
     </b-list-group>
 
-    <div v-for="(item, key) in mech.data" :key="key" />
-
-    <b-progress :max="719" show-value>
+    <!-- <div v-for="(item, key) in mech.data" :key="key" /> -->
+    <b-progress :max="719" 
+      v-if='mech.resons && Object.keys(mech.resons).length>0'
+      show-value>
       <b-progress-bar
-        v-for="(item, key) in createAllLength(mech.data)"
-        :key="key+'reson'"
-        :value="item.step"
+        v-for="(reson, keyReson) in mech.resons"
+        :key="keyReson+'reson'"
+        :value="reson.step"
         variant="light"
-        :id="mech.id + 'reson' + key"
+        :id="mech.id + 'reson' + keyReson"
       >
-      <!-- <div v-if=item.reson class="text-dark text-left"> -->
-      <!--     {{item.time}} -->
-      <!-- </div> -->
-        <img v-if=item.reson
+        <img v-if=reson.reson
           class="catalog-item-img"
-          :src="require('@/assets/img/resons/'+item.reson+'.svg')"
+          :src="require('@/assets/img/resons/'+reson.reson+'.svg')"
           height="14"
         />
         <b-tooltip 
-          v-if="item.reson"
-          :target="mech.id + 'reson' + key"
-          :variant="colorProgress(item.value)"
+          v-if="reson.reson"
+          :target="mech.id + 'reson' + keyReson"
+          variant="light text-dark"
         >
-          {{
-            showSteps(
-              item,
-              timeTo(key, mech.data)
-            )
-          }}
+        {{ reson.start }}-{{ reson.stop }} - {{ listResons[reson.reson] }}
         </b-tooltip>
       </b-progress-bar>
     </b-progress>
+    <div v-else class="text-light m-0 p-0" style="height: 5px">
+      <!-- <small>|</small> -->
+    </div>
 
     <b-progress :max="719" show-value>
       <b-progress-bar
-        v-for="(item, key) in mech.data"
-        :key="key"
-        :value="item.step"
-        :variant="colorProgress(item.value)"
-        :striped="stripedProgress(item.value)"
-        :id="mech.id + '-' + key"
+        v-for="(period, keyPeriod) in mech.data"
+        :key="keyPeriod"
+        :value="period.step"
+        :variant="colorProgress(period.value)"
+        :striped="stripedProgress(period.value)"
+        :id="mech.id + '-' + keyPeriod"
       >
         <b-tooltip 
-          v-if="item.step > 2"
-          :target="mech.id + '-' + key"
-          :variant="colorProgress(item.value)"
+          v-if="period.step > 2"
+          :target="mech.id + '-' + keyPeriod"
+          :variant="colorProgress(period.value)"
         >
           {{
             showSteps(
-              item,
-              timeTo(key, mech.data)
+              period,
+              timeTo(keyPeriod, mech.data)
             )
           }}
         </b-tooltip>
-        <div v-show="item.step > 25" class="time-in-progress text-left">
-          {{ item.time }}
+        <div v-show="period.step > 25" class="time-in-progress text-left">
+          {{ period.time }}
         </div>
       </b-progress-bar>
     </b-progress>
@@ -126,7 +122,7 @@ export default {
   },
   data() {
     return {
-      resons: {
+      listResons: {
         1:	"1 а/п",
         2	: "перегон",
         3	: "отсутствие грязного, нет крана",
@@ -183,10 +179,7 @@ export default {
         }
       }
       if (typeStep == 0) {
-        let reson = item.reson ? this.resons[item.reson] : "Простой";
-        //let reson = item.reson; 
-
-        return `${timeStep}-${timeTo} - ${reson}`;
+        return `${timeStep}-${timeTo} - Простой`;
       }
       if (typeStep == 2) {
         return `${timeStep}-${timeTo} - Лента крутится без угля`;
@@ -220,23 +213,6 @@ export default {
       let newKey = parseInt(key) + 1;
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
-    createAllLength(data) {
-      /*paint grey line*/
-      let steps=0
-      for (let i in data) {
-        steps+=data[i].step
-      }
-      if (steps>710) {
-        return data
-      }
-      let newObj = {
-        reson: null,
-        step: 719-steps,
-        time: null,
-        value: null,
-      }
-      return {...data, newObj}
-   }
   },
   computed: {},
   mounted() {

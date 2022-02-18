@@ -21,7 +21,7 @@
           <b-icon-key-fill />
         </b-input-group-prepend>
         <b-form-input
-          placeholder="Ключь приглашения"
+          placeholder="Ключ приглашения"
           v-model="user.invite"
           :state="inviteValidation"
           id="feedback-invite"

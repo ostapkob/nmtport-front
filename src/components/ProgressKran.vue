@@ -71,7 +71,36 @@
       </b-list-group-item>
     </b-list-group>
 
-    <div v-for="(item, key) in mech.data" :key="key" />
+    <!-- <div v-for="(item, key) in mech.data" :key="key" /> -->
+    <b-progress :max="719" 
+      v-if='mech.resons && Object.keys(mech.resons).length>0'
+      show-value>
+      <b-progress-bar
+        v-for="(reson, keyReson) in mech.resons"
+        :key="keyReson+'reson'"
+        :value="reson.step"
+        variant="light"
+        :id="mech.id + 'reson' + keyReson"
+      >
+        <img v-if=reson.reson
+          class="catalog-item-img"
+          :src="require('@/assets/img/resons/'+reson.reson+'.svg')"
+          height="14"
+        />
+        <b-tooltip 
+          v-if="reson.reson"
+          :target="mech.id + 'reson' + keyReson"
+          variant="light text-dark"
+        >
+        {{ reson.start }}-{{ reson.stop }} - {{ listResons[reson.reson] }}
+        </b-tooltip>
+      </b-progress-bar>
+    </b-progress>
+    <div v-else class="text-light m-0 p-0" style="height: 5px">
+      <!-- <small>|</small> -->
+    </div>
+
+
     <b-progress class="mt-2" :max="719" show-value>
       <b-progress-bar
         v-for="(item, key) in mech.data"
@@ -100,6 +129,11 @@
         </div>
       </b-progress-bar>
     </b-progress>
+
+
+
+
+
     <Hours :shift="shift" />
   </div>
 </template>
@@ -133,11 +167,39 @@ export default {
   },
   data() {
     return {
-      totalStep_180: 0, // 2
-      totalStep_90_1: 0, // 1
-      totalStep_90_3: 0, // 3 after
-      returnValue: "-",
-      s: 1,
+      listResons: {
+        1:	"1 а/п",
+        2	: "перегон",
+        3	: "отсутствие грязного, нет крана",
+        4	: "отсутствие грязного, нет а/м",
+        5	: "нет места под чистый, нет крана",
+        6	: "перекрыт ж/д переезд, маневровая работа",
+        7	: "поломка а/п",
+        8	: "смерзшийся уголь",
+        9	: "нет топлива",
+        10:	"уголь с вагонов",
+        11:	"зачистка бункера",
+        12:	"пыление",
+        13:	"зона работы крана",
+        14:	"ТО",
+        15:	"Прочее",
+        16:	"магнит",
+        17:	"бункер",
+        18:	"конвейер",
+        19:	"Валки/грохот",
+        20:	"передвижение",
+        21:	"электрика",
+        22:	"Перекрыт подъезд к УСМ SENNEBOGEN",
+        23:	"Перекрыт подъезд к УСМ",
+        24:	"ЗачисткаУСМ",
+        25:	"Подготовка места под УСМ",
+        26:	"Навешивание пологов",
+        27:	"Поломка крана",
+        28:	"Маневровые работы",
+        29:	"НМУ(неблагприянтые погодные условия)",
+        30:	"отсутствие груза",
+        undefined: "не ещё" 
+      }
     };
   },
   computed: {
