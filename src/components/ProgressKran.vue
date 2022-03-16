@@ -131,15 +131,12 @@
       </b-progress-bar>
     </b-progress>
 
-
-
-
-
     <Hours :shift="shift" />
   </div>
 </template>
 
 <script>
+import resonsM from '@/mixins/resonsM'
 import { mapGetters } from "vuex";
 import {
   BTooltip,
@@ -153,6 +150,7 @@ const Hours = () => import("@/components/Hours");
 
 export default {
   name: "KranProgress",
+  mixins: [resonsM],
   props: {
     mech: Object,
     shift: Number,
@@ -168,39 +166,6 @@ export default {
   },
   data() {
     return {
-      listResons: {
-        1:	"1 а/п",
-        2	: "перегон",
-        3	: "отсутствие грязного, нет крана",
-        4	: "отсутствие грязного, нет а/м",
-        5	: "нет места под чистый, нет крана",
-        6	: "перекрыт ж/д переезд, маневровая работа",
-        7	: "поломка а/п",
-        8	: "смерзшийся уголь",
-        9	: "нет топлива",
-        10:	"уголь с вагонов",
-        11:	"зачистка бункера",
-        12:	"пыление",
-        13:	"зона работы крана",
-        14:	"ТО",
-        15:	"Прочее",
-        16:	"магнит",
-        17:	"бункер",
-        18:	"конвейер",
-        19:	"Валки/грохот",
-        20:	"передвижение",
-        21:	"электрика",
-        22:	"Перекрыт подъезд к УСМ SENNEBOGEN",
-        23:	"Перекрыт подъезд к УСМ",
-        24:	"ЗачисткаУСМ",
-        25:	"Подготовка места под УСМ",
-        26:	"Навешивание пологов",
-        27:	"Поломка крана",
-        28:	"Маневровые работы",
-        29:	"НМУ(неблагприянтые погодные условия)",
-        30:	"отсутствие груза",
-        undefined: "не ещё" 
-      }
     };
   },
   computed: {
@@ -256,15 +221,6 @@ export default {
       let newKey = parseInt(key) + 1;
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
-    getIcon(reson) {
-      let fileName
-      try {
-          fileName = require('@/assets/img/resons/'+reson+'.svg')
-        } catch (e) {
-          fileName = require('@/assets/img/resons/0.svg') // TODO red ?
-        }
-      return fileName
-    }
   },
 };
 </script>

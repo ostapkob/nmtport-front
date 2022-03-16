@@ -114,50 +114,17 @@ import {
   BListGroupItem,
 } from "bootstrap-vue";
 const Hours = () => import("@/components/Hours");
+import resonsM from '@/mixins/resonsM'
 
 export default {
   name: "UsmProgress",
+  mixins: [resonsM],
   props: {
     mech: Object,
     shift: Number,
   },
   data() {
     return {
-      listResons: {
-        1:	"1 а/п",
-        2	: "перегон",
-        3	: "отсутствие грязного, нет крана",
-        4	: "отсутствие грязного, нет а/м",
-        5	: "нет места под чистый, нет крана",
-        6	: "перекрыт ж/д переезд, маневровая работа",
-        7	: "поломка а/п",
-        8	: "смерзшийся уголь",
-        9	: "нет топлива",
-        10:	"уголь с вагонов",
-        11:	"зачистка бункера",
-        12:	"пыление",
-        13:	"зона работы крана",
-        14:	"ТО",
-        15:	"Прочее",
-        16:	"магнит",
-        17:	"бункер",
-        18:	"конвейер",
-        19:	"Валки/грохот",
-        20:	"передвижение",
-        21:	"электрика",
-        22:	"перекрыт подъезд к УСМ SENNEBOGEN",
-        23:	"перекрыт подъезд к УСМ",
-        24:	"зачистка УСМ",
-        25:	"подготовка места под УСМ",
-        26:	"навешивание пологов",
-        27:	"поломка крана",
-        28:	"маневровые работы",
-        29:	"НМУ",
-        30:	"отсутствие груза",
-        37: "отсутствие а/п", 
-        38: "перерыв", 
-        undefined: "не ещё" 
-      }
     };
   },
   components: {
@@ -201,7 +168,6 @@ export default {
     },
     colorProgress: function (val) {
       let resultColor = "danger";
-
       if (val == 0) {
         resultColor = "success text-dark";
       } else if (val > 0.1 && val <= 1) {
@@ -217,15 +183,6 @@ export default {
       let newKey = parseInt(key) + 1;
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
-    getIcon(reson) {
-      let fileName
-      try {
-          fileName = require('@/assets/img/resons/'+reson+'.svg')
-        } catch (e) {
-          fileName = require('@/assets/img/resons/0.svg') // TODO red ?
-        }
-      return fileName
-    }
   },
   computed: {},
   mounted() {
