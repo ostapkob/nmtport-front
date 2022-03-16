@@ -4,7 +4,7 @@
       <b-list-group-item
         class="d-flex p-0 border-light bg-light align-items-center"
       >
-        <div class="icon-usm">
+        <div class="number-icon">
           <strong>{{ mech.number }} </strong>
         </div>
         <span class="mr-auto mx-1">
@@ -55,9 +55,10 @@
         variant="light"
         :id="mech.id + 'reson' + keyReson"
       >
+          <!-- :src="require('@/assets/img/resons/'+reson.reson+'.svg')" -->
         <img v-if=reson.reson
           class="catalog-item-img"
-          :src="require('@/assets/img/resons/'+reson.reson+'.svg')"
+          :src=getIcon(reson.reson)
           height="14"
         />
         <b-tooltip 
@@ -144,15 +145,18 @@ export default {
         19:	"Валки/грохот",
         20:	"передвижение",
         21:	"электрика",
-        22:	"Перекрыт подъезд к УСМ SENNEBOGEN",
-        23:	"Перекрыт подъезд к УСМ",
-        24:	"ЗачисткаУСМ",
-        25:	"Подготовка места под УСМ",
-        26:	"Навешивание пологов",
-        27:	"Поломка крана",
-        28:	"Маневровые работы",
-        29:	"НМУ(неблагприянтые погодные условия)",
+        22:	"перекрыт подъезд к УСМ SENNEBOGEN",
+        23:	"перекрыт подъезд к УСМ",
+        24:	"зачистка УСМ",
+        25:	"подготовка места под УСМ",
+        26:	"навешивание пологов",
+        27:	"поломка крана",
+        28:	"маневровые работы",
+        29:	"НМУ",
         30:	"отсутствие груза",
+        37: "отсутствие а/п", 
+        38: "перерыв", 
+        undefined: "не ещё" 
       }
     };
   },
@@ -213,6 +217,15 @@ export default {
       let newKey = parseInt(key) + 1;
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
+    getIcon(reson) {
+      let fileName
+      try {
+          fileName = require('@/assets/img/resons/'+reson+'.svg')
+        } catch (e) {
+          fileName = require('@/assets/img/resons/0.svg') // TODO red ?
+        }
+      return fileName
+    }
   },
   computed: {},
   mounted() {

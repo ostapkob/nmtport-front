@@ -1,0 +1,411 @@
+%mech-icon {
+  z-index: 2;
+  position: absolute;
+  cursor: pointer;
+  color: #f5ffff;
+  font-size: $mech-size/1.7;
+  font-family: 'OCRB BT';
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  not supported by any browser */
+-webkit-box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 0.6);
+-moz-box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 0.6);
+box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 0.8);
+}
+
+
+.icon-usm {
+  @extend %mech-icon;
+  border-radius: 50%;
+  border: $mech-size/10 solid #f5ffff;
+  width: $mech-size;
+  height: $mech-size;
+  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.icon-sennebogen {
+  @extend %mech-icon;
+  border-radius: 25%;
+  border: $mech-size/30 solid #f5ffff;
+  width: $mech-size/1.3;
+  height: $mech-size/1.3;
+}
+
+.icon-kran {
+  @extend %mech-icon;
+  border: $mech-size/10 solid #f5ffff;
+  width: $mech-size;
+  height: $mech-size;
+}
+
+
+.usm-icon-red {
+  @extend .icon-usm;
+  background: #c70c05;
+}
+
+.usm-icon-red {
+  @extend .icon-usm;
+  background: #c70c05;
+}
+
+.usm-icon-blue {
+  @extend .icon-usm;
+  background: #005ccc;
+}
+
+.usm-icon-yellow {
+  @extend .icon-usm;
+  background: #fdff96;
+  color: #111;
+}
+
+.usm-icon-dark-yellow {
+  @extend .icon-usm;
+  background: #ffbf41;
+  color: #111;
+}
+
+.usm-icon-black {
+  @extend .icon-usm;
+  background: #1a1a1a;
+}
+
+.usm-icon-gren {
+  @extend .icon-usm;
+  background: #1DD300;
+}
+
+.usm-icon-gray {
+  @extend .icon-usm;
+  background: #737373;
+  width: $mech-size-sm;
+  height: $mech-size-sm;
+  border-width: $mech-size-sm/10;
+  font-size: $mech-size-sm/1.7;
+}
+
+.kran-icon-red {
+  @extend .icon-kran;
+  background: #f80f08;
+}
+
+.kran-icon-blue {
+  @extend .icon-kran;
+  background: #0071fe;
+}
+
+.kran-icon-yellow {
+  @extend .icon-kran;
+  background: #fdff96;
+  color: #111;
+}
+
+.kran-icon-dark-yellow {
+  @extend .icon-kran;
+  background: #ffbf41;
+  color: #111;
+}
+
+.kran-icon-black {
+  @extend .icon-kran;
+  background: #262626;
+}
+
+.kran-icon-green {
+  @extend .icon-kran;
+  background: #1DD300;
+}
+
+.kran-icon-gray {
+  @extend .icon-kran;
+  background: #8c8c8c;
+  width: $mech-size-sm;
+  height: $mech-size-sm;
+  border-width: $mech-size-sm/10;
+  font-size: $mech-size-sm/1.7;
+}
+
+.sennebogen-icon-red {
+  @extend .icon-sennebogen;
+  background: #c70c05;
+  // border-color: transparent transparent #c70c05 transparent;
+}
+
+.sennebogen-icon-blue {
+  @extend .icon-sennebogen;
+  background: #0f5ccc;
+  // border-color: transparent transparent #0f5ccc transparent;
+}
+
+.sennebogen-icon-yellow {
+  @extend .icon-sennebogen;
+  background: #fdff96;
+  color: #111;
+    // border-width: $mech-size-half-screen-sm/6;
+    // font-size: $mech-size-half-screen-sm/1.3;
+  // border-color: transparent transparent #e6de00 transparent;
+}
+
+.sennebogen-icon-black {
+  @extend .icon-sennebogen;
+  background: #1a1a1a;
+}
+
+.sennebogen-icon-gren {
+  @extend .icon-sennebogen;
+  background: #1DD300;
+}
+
+.sennebogen-icon-gray {
+  @extend .icon-sennebogen;
+  background: #737373;
+  width: $mech-size-sm;
+  height: $mech-size-sm;
+  border-width: $mech-size-sm/10;
+  font-size: $mech-size-sm/1.7;
+}
+
+
+
+
+@media screen and (max-width: 765px) {
+  %mech-icon-phone {
+    z-index: 2;
+    width: $mech-size-phone;
+    height: $mech-size-phone;
+    border: $mech-size-phone/10 solid #f5ffff;
+    font-size: $mech-size-phone/1.7;
+    // box-shadow: 0 0 6px rgba(1, 1, 0, 1);
+    -webkit-box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 1);
+    -moz-box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 1);
+   box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 0.7);
+  }
+
+  .usm-icon-red {
+    @extend %mech-icon-phone;
+  }
+
+  .usm-icon-blue {
+    @extend %mech-icon-phone;
+  }
+
+  .usm-icon-yellow {
+    @extend %mech-icon-phone;
+  }
+  .usm-icon-dark-yellow {
+    @extend %mech-icon-phone;
+  }
+
+  .usm-icon-black {
+    @extend %mech-icon-phone;
+  }
+
+  .usm-icon-gren {
+    @extend %mech-icon-phone;
+  }
+
+  .usm-icon-gray {
+    @extend %mech-icon-phone;
+    width: $mech-size-phone-sm;
+    height: $mech-size-phone-sm;
+    border-width: $mech-size-phone-sm/10;
+    font-size: $mech-size-phone-sm/1.7;
+  }
+
+  .kran-icon-red {
+    @extend %mech-icon-phone;
+  }
+
+  .kran-icon-blue {
+    @extend %mech-icon-phone;
+  }
+
+  .kran-icon-yellow {
+    @extend %mech-icon-phone;
+  }
+  .kran-icon-dark-yellow {
+    @extend %mech-icon-phone;
+  }
+
+  .kran-icon-black {
+    @extend %mech-icon-phone;
+  }
+
+  .kran-icon-green {
+    @extend %mech-icon-phone;
+  }
+
+  .kran-icon-gray {
+    @extend %mech-icon-phone;
+    width: $mech-size-phone-sm;
+    height: $mech-size-phone-sm;
+    border-width: $mech-size-phone-sm/10;
+    font-size: $mech-size-phone-sm/1.7;
+  }
+
+  %sennebogen-icon-phone {
+    z-index: 3;
+    width: $mech-size-phone/1.3;
+    height: $mech-size-phone/1.3;
+    border: $mech-size-phone/30 solid #f5ffff;
+    font-size: $mech-size-phone/1.7;
+    -webkit-box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 1);
+    -moz-box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 1);
+   box-shadow: 0px 0px 6px 2px rgba(34, 60, 80, 0.7);
+  }
+
+  .sennebogen-icon-red {
+    @extend %sennebogen-icon-phone;
+  }
+
+  .sennebogen-icon-blue {
+    @extend %sennebogen-icon-phone;
+  }
+
+  .sennebogen-icon-yellow {
+    @extend %sennebogen-icon-phone;
+  }
+  .sennebogen-icon-dark-yellow {
+    @extend %sennebogen-icon-phone;
+  }
+
+  .sennebogen-icon-black {
+    @extend %sennebogen-icon-phone;
+  }
+
+  .sennebogen-icon-gren {
+    @extend %sennebogen-icon-phone;
+  }
+
+  .sennebogen-icon-gray {
+    @extend %sennebogen-icon-phone;
+    width: $mech-size-phone-sm;
+    height: $mech-size-phone-sm;
+    border-width: $mech-size-phone-sm/20;
+    font-size: $mech-size-phone-sm/1.7;
+  }
+}
+
+
+@media (min-width: 765px) and (max-width: 1400px) {
+  %mech-icon-half-screen {
+    z-index: 2;
+    width: $mech-size-half-screen;
+    height: $mech-size-half-screen;
+    border: $mech-size-half-screen/10 solid #f5ffff;
+    font-size: $mech-size-half-screen/1.7;
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(34, 60, 80, 0.6);
+    -moz-box-shadow: 0px 0px 10px 2px rgba(34, 60, 80, 0.6);
+   box-shadow: 0px 0px 10px 2px rgba(34, 60, 80, 0.7);
+  }
+
+  .usm-icon-red {
+    @extend %mech-icon-half-screen;
+  }
+
+  .usm-icon-blue {
+    @extend %mech-icon-half-screen;
+  }
+
+  .usm-icon-yellow {
+    @extend %mech-icon-half-screen;
+  }
+
+  .usm-icon-dark-yellow {
+    @extend %mech-icon-half-screen;
+  }
+
+  .usm-icon-black {
+    @extend %mech-icon-half-screen;
+  }
+
+  .usm-icon-gren {
+    @extend %mech-icon-half-screen;
+  }
+
+  .usm-icon-gray {
+    @extend %mech-icon-half-screen;
+    width: $mech-size-half-screen-sm;
+    height: $mech-size-half-screen-sm;
+    border-width: $mech-size-half-screen-sm/10;
+    font-size: $mech-size-half-screen-sm/1.7;
+  }
+
+  .kran-icon-red {
+    @extend %mech-icon-half-screen;
+  }
+
+  .kran-icon-blue {
+    @extend %mech-icon-half-screen;
+  }
+
+  .kran-icon-yellow {
+    @extend %mech-icon-half-screen;
+  }
+
+  .kran-icon-dark-yellow {
+    @extend %mech-icon-half-screen;
+  }
+
+  .kran-icon-black {
+    @extend %mech-icon-half-screen;
+  }
+
+  .kran-icon-green {
+    @extend %mech-icon-half-screen;
+  }
+
+  .kran-icon-gray {
+    @extend %mech-icon-half-screen;
+    width: $mech-size-half-screen-sm;
+    height: $mech-size-half-screen-sm;
+    border-width: $mech-size-half-screen-sm/10;
+    font-size: $mech-size-half-screen-sm/1.7;
+  }
+
+  %sennebogen-icon-half-screen{
+    // @extend %mech-icon-half-screen;
+    width: $mech-size-half-screen/1.3;
+    height: $mech-size-half-screen/1.3;
+    font-size: $mech-size-half-screen/1.7;
+  }
+
+  .sennebogen-icon-red {
+    @extend %sennebogen-icon-half-screen;
+  }
+
+  .sennebogen-icon-blue {
+    @extend %sennebogen-icon-half-screen;
+  }
+
+  .sennebogen-icon-yellow {
+    @extend %sennebogen-icon-half-screen;
+  }
+
+  .sennebogen-icon-black {
+    @extend %sennebogen-icon-half-screen;
+  }
+
+  .sennebogen-icon-gren {
+    @extend %sennebogen-icon-half-screen;
+  }
+
+  .sennebogen-icon-gray {
+    @extend %mech-icon-half-screen;
+    width: $mech-size-half-screen-sm/1.3;
+    height: $mech-size-half-screen-sm/1.3;
+    border-width: $mech-size-half-screen-sm/20;
+    font-size: $mech-size-half-screen-sm/1.7;
+  }
+}

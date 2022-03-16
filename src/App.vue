@@ -30,6 +30,22 @@
             <span class="text-nav"> Усм</span>
             </b-nav-item
           >
+
+          <b-nav-item
+            to="/sennebogen"
+            exact
+            exact-active-class="active"
+            :disabled="!loggedIn"
+            >
+            <img
+              src="@/assets/img/sennebogen_blue.svg"
+              height="16"
+              class="mb-1"
+            />
+            <span class="text-nav"> Сеннебогены</span>
+            </b-nav-item
+          >
+
           <b-nav-item
             to="/mapol"
             exact

@@ -4,7 +4,7 @@
       <b-list-group-item
         class="d-flex p-0 border-light bg-light align-items-center"
       >
-        <div class="icon-usm">
+        <div class="number-icon">
           <strong>{{ mech.number }} </strong>
         </div>
         <span class="mr-auto mx-3">
@@ -14,9 +14,9 @@
               Время работы в часах
             </b-tooltip>
           </b-badge>
-          <b-badge variant="warning text-dark ml-1 p-1" :id="mech.id + 'notWork'">
+          <b-badge variant="success text-dark ml-1 p-1" :id="mech.id + 'notWork'">
             {{ Math.round((mech.total_time - mech.work_time) * 10) / 10 }}
-            <b-tooltip :target="mech.id + 'notWork'" variant="warning">
+            <b-tooltip :target="mech.id + 'notWork'" variant="success">
               Время простоя в часах
             </b-tooltip>
           </b-badge>
@@ -126,7 +126,7 @@ export default {
       let resultColor = "danger";
 
       if (val == 0) {
-        resultColor = "warning text-dark";
+        resultColor = "success text-dark";
       } else if (val > 0.1) {
         resultColor = "primary";
       } else {

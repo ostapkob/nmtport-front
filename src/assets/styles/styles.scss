@@ -1,4 +1,5 @@
 @import "variables.scss";
+@import "mechanisms-map.scss";
 @import '@/assets/themes/lumen/variables.scss';
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 // @import 'node_modules/@forevolve/bootstrap-dark/scss/bootstrap-dark.scss';
@@ -123,61 +124,6 @@ input {
   font-size: .9em;
 }
 
-.icon-usm {
-  color: $gray-100;
-  background: $info-light;
-  font-size: 1em;
-  height: 25px;
-  width: 25px;
-  border-radius: 5px;
-  text-align: center;
-  vertical-align: middle;
-  padding: 1px;
-  margin: 0 8px 0 0;
-}
-
-.icon-sennebogen {
-  color: $gray-100;
-  background: $info-light;
-  font-size: 1em;
-  height: 25px;
-  width: 25px;
-  border-radius: 5px;
-  text-align: center;
-  vertical-align: middle;
-  padding: 1px;
-  margin: 0 8px 0 0;
-
-}
-
-  .icon-sennebogen:after {
-  content: "";
-  position: absolute;
-  top: 25px;
-  left: -25px;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-color: red transparent transparent transparent;
-  border-width: 70px 50px 0 50px;
-  }
-
-
-
-.icon-kran {
-  color: $gray-100;
-  background: $info-light;
-  font-size: 1em;
-  height: 25px;
-  width: 25px;
-  border-radius: 5px;
-  text-align: center;
-  vertical-align: middle;
-  padding: 1px;
-  margin: 0 8px 0 0;
-}
-
-
 .wrapper-icon {
   position: relative;
   display: flex;
@@ -197,179 +143,28 @@ input {
   width: 15px;
   height: 15px;
   margin: 0 auto;
-  border-radius: 50%;
   opacity: 0;
 }
 
-.mech-icon {
-  z-index: 2;
-  position: absolute;
-  cursor: pointer;
+.number-icon {
+  color: $gray-100;
+  background: $info-light;
+  font-size: 1em;
+  height: 25px;
+  width: 25px;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 1px;
+  margin: 0 8px 0 0;
 }
 
-%mech-icon {
-  z-index: 2;
-  position: absolute;
-  cursor: pointer;
-  width: $mech-size;
-  height: $mech-size;
-  border-radius: 50%;
-  color: #f5ffff;
-  border: $mech-size/10 solid #f5ffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  font-size: $mech-size/1.7;
-  font-family: 'OCRB BT';
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Chrome/Safari/Opera */
-  -khtml-user-select: none;
-  /* Konqueror */
-  -moz-user-select: none;
-  /* Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-  user-select: none;
-  /* Non-prefixed version, currently
-                                  not supported by any browser */
-}
-
-.usm-icon-red {
-  @extend %mech-icon;
-  background: #c70c05;
-}
-
-.usm-icon-blue {
-  @extend %mech-icon;
-  background: #005ccc;
-}
-
-.usm-icon-yellow {
-  @extend %mech-icon;
-  background: #fdff96;
-  color: #111;
-}
-
-.usm-icon-dark-yellow {
-  @extend %mech-icon;
-  background: #ffbf41;
-  color: #111;
-}
-
-.usm-icon-black {
-  @extend %mech-icon;
-  background: #1a1a1a;
-}
-
-.usm-icon-gren {
-  @extend %mech-icon;
-  background: #1DD300;
-}
-
-.usm-icon-gray {
-  @extend %mech-icon;
-  background: #737373;
-  width: $mech-size-sm;
-  height: $mech-size-sm;
-  border-width: $mech-size-sm/10;
-  font-size: $mech-size-sm/1.7;
-}
-
-.kran-icon-red {
-  @extend %mech-icon;
-  border-radius: 0%;
-  background: #f80f08;
-}
-
-.kran-icon-blue {
-  @extend %mech-icon;
-  border-radius: 0%;
-  background: #0071fe;
-}
-
-.kran-icon-yellow {
-  @extend %mech-icon;
-  border-radius: 0%;
-  background: #fdff96;
-  color: #111;
-}
-
-.kran-icon-dark-yellow {
-  @extend %mech-icon;
-  border-radius: 0%;
-  background: #ffbf41;
-  color: #111;
-}
-
-.kran-icon-black {
-  @extend %mech-icon;
-  border-radius: 0%;
-  background: #262626;
-}
-
-.kran-icon-green {
-  @extend %mech-icon;
-  border-radius: 0%;
-  background: #1DD300;
-}
-
-.kran-icon-gray {
-  @extend %mech-icon;
-  border-radius: 0%;
-  background: #8c8c8c;
-  width: $mech-size-sm;
-  height: $mech-size-sm;
-  border-width: $mech-size-sm/10;
-  font-size: $mech-size-sm/1.7;
-}
-
-.sennebogen-icon-red {
-  @extend %mech-icon;
-  border-radius: 33%;
-  background: #c70c05;
-}
-
-.sennebogen-icon-blue {
-  @extend %mech-icon;
-  border-radius: 33%;
-  background: #0f5ccc;
-}
-
-.sennebogen-icon-yellow {
-  @extend %mech-icon;
-  border-radius: 33%;
-  background: #e6de00;
-  color: #111;
-}
-
-.sennebogen-icon-black {
-  @extend %mech-icon;
-  border-radius: 33%;
-  background: #1a1a1a;
-}
-
-.sennebogen-icon-gren {
-  @extend %mech-icon;
-  border-radius: 33%;
-  background: #1DD300;
-}
-
-.sennebogen-icon-gray {
-  @extend %mech-icon;
-  border-radius: 33%;
-  background: #737373;
-  width: $mech-size-sm;
-  height: $mech-size-sm;
-  border-width: $mech-size-sm/10;
-  font-size: $mech-size-sm/1.7;
-}
 .bug-tooltip {
   background: #fff;
   color: #fff;
   position: absolute;
   left: -1000px;
 }
-
 
 @media screen and (max-width: 765px) {
   .time-line-mech {
@@ -402,113 +197,13 @@ input {
     font-size: .7em;
   }
 
-.fioContract {
-  color: $primary;
-  font-size: .7em;
-}
+  .fioContract {
+    color: $primary;
+    font-size: .7em;
+  }
 
   .text-nav {
     display: none;
-  }
-  %mech-icon-phone {
-    z-index: 2;
-    width: $mech-size-phone;
-    height: $mech-size-phone;
-    border: $mech-size-phone/10 solid #f5ffff;
-    font-size: $mech-size-phone/1.7;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-  }
-
-  .usm-icon-red {
-    @extend %mech-icon-phone;
-  }
-
-  .usm-icon-blue {
-    @extend %mech-icon-phone;
-  }
-
-  .usm-icon-yellow {
-    @extend %mech-icon-phone;
-  }
-  .usm-icon-dark-yellow {
-    @extend %mech-icon-phone;
-  }
-
-  .usm-icon-black {
-    @extend %mech-icon-phone;
-  }
-
-  .usm-icon-gren {
-    @extend %mech-icon-phone;
-  }
-
-  .usm-icon-gray {
-    @extend %mech-icon-phone;
-    width: $mech-size-phone-sm;
-    height: $mech-size-phone-sm;
-    border-width: $mech-size-phone-sm/10;
-    font-size: $mech-size-phone-sm/1.7;
-  }
-
-  .kran-icon-red {
-    @extend %mech-icon-phone;
-  }
-
-  .kran-icon-blue {
-    @extend %mech-icon-phone;
-  }
-
-  .kran-icon-yellow {
-    @extend %mech-icon-phone;
-  }
-  .kran-icon-dark-yellow {
-    @extend %mech-icon-phone;
-  }
-
-  .kran-icon-black {
-    @extend %mech-icon-phone;
-  }
-
-  .kran-icon-green {
-    @extend %mech-icon-phone;
-  }
-
-  .kran-icon-gray {
-    @extend %mech-icon-phone;
-    width: $mech-size-phone-sm;
-    height: $mech-size-phone-sm;
-    border-width: $mech-size-phone-sm/10;
-    font-size: $mech-size-phone-sm/1.7;
-  }
-  .sennebogen-icon-red {
-    @extend %mech-icon-phone;
-  }
-
-  .sennebogen-icon-blue {
-    @extend %mech-icon-phone;
-  }
-
-  .sennebogen-icon-yellow {
-    @extend %mech-icon-phone;
-  }
-  .sennebogen-icon-dark-yellow {
-    @extend %mech-icon-phone;
-  }
-
-  .sennebogen-icon-black {
-    @extend %mech-icon-phone;
-  }
-
-  .sennebogen-icon-gren {
-    @extend %mech-icon-phone;
-  }
-
-  .sennebogen-icon-gray {
-    @extend %mech-icon-phone;
-    width: $mech-size-phone-sm;
-    height: $mech-size-phone-sm;
-    border-width: $mech-size-phone-sm/10;
-    font-size: $mech-size-phone-sm/1.7;
   }
 }
 
@@ -524,104 +219,3 @@ input {
   }
 }
 
-@media (min-width: 765px) and (max-width: 1400px) {
-  %mech-icon-half-screen {
-    z-index: 2;
-    width: $mech-size-half-screen;
-    height: $mech-size-half-screen;
-    border: $mech-size-half-screen/10 solid #f5ffff;
-    font-size: $mech-size-half-screen/1.7;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-  }
-
-  .usm-icon-red {
-    @extend %mech-icon-half-screen;
-  }
-
-  .usm-icon-blue {
-    @extend %mech-icon-half-screen;
-  }
-
-  .usm-icon-yellow {
-    @extend %mech-icon-half-screen;
-  }
-
-  .usm-icon-dark-yellow {
-    @extend %mech-icon-half-screen;
-  }
-
-  .usm-icon-black {
-    @extend %mech-icon-half-screen;
-  }
-
-  .usm-icon-gren {
-    @extend %mech-icon-half-screen;
-  }
-
-  .usm-icon-gray {
-    @extend %mech-icon-half-screen;
-    width: $mech-size-half-screen-sm;
-    height: $mech-size-half-screen-sm;
-    border-width: $mech-size-half-screen-sm/10;
-    font-size: $mech-size-half-screen-sm/1.7;
-  }
-
-  .kran-icon-red {
-    @extend %mech-icon-half-screen;
-  }
-
-  .kran-icon-blue {
-    @extend %mech-icon-half-screen;
-  }
-
-  .kran-icon-yellow {
-    @extend %mech-icon-half-screen;
-  }
-
-  .kran-icon-dark-yellow {
-    @extend %mech-icon-half-screen;
-  }
-
-  .kran-icon-black {
-    @extend %mech-icon-half-screen;
-  }
-
-  .kran-icon-green {
-    @extend %mech-icon-half-screen;
-  }
-
-  .kran-icon-gray {
-    @extend %mech-icon-half-screen;
-    width: $mech-size-half-screen-sm;
-    height: $mech-size-half-screen-sm;
-    border-width: $mech-size-half-screen-sm/10;
-    font-size: $mech-size-half-screen-sm/1.7;
-  }
-  .sennebogen-icon-red {
-    @extend %mech-icon-half-screen;
-  }
-
-  .sennebogen-icon-blue {
-    @extend %mech-icon-half-screen;
-  }
-
-  .sennebogen-icon-yellow {
-    @extend %mech-icon-half-screen;
-  }
-
-  .sennebogen-icon-black {
-    @extend %mech-icon-half-screen;
-  }
-
-  .sennebogen-icon-gren {
-    @extend %mech-icon-half-screen;
-  }
-
-  .sennebogen-icon-gray {
-    @extend %mech-icon-half-screen;
-    width: $mech-size-half-screen-sm;
-    height: $mech-size-half-screen-sm;
-    border-width: $mech-size-half-screen-sm/10;
-    font-size: $mech-size-half-screen-sm/1.7;
-  }
-}

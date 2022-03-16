@@ -4,7 +4,7 @@
       <b-list-group-item
         class="d-flex p-0 border-light bg-light align-items-center"
       >
-        <div class="icon-kran">
+        <div class="number-icon">
           <strong>{{ mech.number }} </strong>
         </div>
         <span class="mr-auto mx-1">
@@ -82,9 +82,10 @@
         variant="light"
         :id="mech.id + 'reson' + keyReson"
       >
+          <!-- :src="require('@/assets/img/resons/'+reson.reson+'.svg')" -->
         <img v-if=reson.reson
           class="catalog-item-img"
-          :src="require('@/assets/img/resons/'+reson.reson+'.svg')"
+          :src=getIcon(reson.reson)
           height="14"
         />
         <b-tooltip 
@@ -255,6 +256,15 @@ export default {
       let newKey = parseInt(key) + 1;
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
+    getIcon(reson) {
+      let fileName
+      try {
+          fileName = require('@/assets/img/resons/'+reson+'.svg')
+        } catch (e) {
+          fileName = require('@/assets/img/resons/0.svg') // TODO red ?
+        }
+      return fileName
+    }
   },
 };
 </script>

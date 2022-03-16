@@ -1,0 +1,10 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 274" width="152" height="274">
+	<title>15-svg</title>
+	<defs>
+		<image  width="152" height="274" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJgAAAESAQMAAAA7UI5oAAAAAXNSR0IB2cksfwAAAAZQTFRFAAAA/wAAG/+NIgAAAAJ0Uk5TAP9bkSK1AAABrUlEQVR4nO3VQY7DIAwF0ESMxDJH4CgcjRytR+EIWWYRxVNKAAOfilZKR1OF3Tw1xjaYGYZzliJaCprovmxGwhHtmZmHZT/0PyPamOnDaI40BmIfT9HW+tO0c/o0BZTMQkDFLNRnmG11uLAJD0dUhyO6VeGOjbNwx8Yit7XewidT2A6MkM3Abp1mgS3A1ucWT2+L5iIXtqdG7sFsqiiaP9ZYsKR4Wprbwk9m9jbzE/QWbo4ITZDpho3M4k1kFi6YP2rrLI2AjpYurIoWw/nWLM5u0WS0oTY2PCLYWtj9b5m28IU4S1v4QpwNtf0Ay5Zp2Pam6S+ysi/IWv1714jqZ7rTxpbZ3ESnyWM++JpaNuemgOmW5eRnsDBH+T8lX1phjzI2YEWbJbAwvlUZFqRcmAFtobpc/wyBVAqbQGkKlKZBGQaUQXXK8UVkSwCToIwJpKxAyhqkbEDK1JfyX6X3UkfzVETrwItUJpCKAqkokErvfTRg/EB6aKzGzrFqjtoCrEj5pZdl6LOijFMe//Jhbpl900BbPmbzuTZedtmH7FrfvQR4wy677LJz7P+vX/8dh1HA8ZT3AAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="?
+" href="#img1" x="0" y="0" />
+</svg>
