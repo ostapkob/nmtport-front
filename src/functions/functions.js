@@ -154,3 +154,22 @@ export function tipShift(date, shift){
   }
 }
 
+ export function lastFlag(rfid) {
+      if (rfid.length == 0) {
+        return null
+      } 
+      const last = rfid.slice(-1)[0]
+      const flagRfid = last[2]
+      return flagRfid 
+    }
+export function lastRfid(rfid, fio) {
+      if (rfid.length == 0) {
+        return fio
+      } 
+      const last = rfid.slice(-1)[0]
+      const fioRfid = last[0]
+      const date =new Date(last[1])
+      const hours  = addZero(date.getHours()) - 10 //TimeZone
+      const minutes= addZero(date.getMinutes())
+      return fioRfid + " " + hours + ":" + minutes
+}

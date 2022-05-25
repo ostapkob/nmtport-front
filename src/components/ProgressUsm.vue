@@ -34,10 +34,12 @@
               fioContract: mech.contract == 0,
             }"
           >
-            {{ mech.fio }}
+          <small v-if=isFlag(mech.rfid)> ✔️ </small>
+          <small v-else> ❌ </small>
+          {{fioFromRfidOr1C(mech.rfid, mech.fio)}}
           </small>
           <small class="time-start-finish ml-2" v-if="mech.start">
-            {{ mech.start }} - {{ mech.finish }}
+          | {{ mech.start }} - {{ mech.finish }}
           </small>
         <span class="text-left">
         </span>
@@ -115,6 +117,7 @@ import {
 } from "bootstrap-vue";
 const Hours = () => import("@/components/Hours");
 import resonsM from '@/mixins/resonsM'
+import { lastFlag, lastRfid } from "@/functions/functions";
 
 export default {
   name: "UsmProgress",
@@ -183,10 +186,15 @@ export default {
       let newKey = parseInt(key) + 1;
       return data[newKey] === undefined ? "" : data[newKey]["time"];
     },
+    isFlag(rfid) {
+      return lastFlag(rfid)
+    },
+    fioFromRfidOr1C(rfid, fio) {
+      return lastRfid(rfid, fio)
+    }
   },
   computed: {},
   mounted() {
-    //console.log('usm mounted')
   },
 };
 </script>
