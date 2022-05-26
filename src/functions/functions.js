@@ -159,7 +159,7 @@ export function tipShift(date, shift){
         return null
       } 
       const last = rfid.slice(-1)[0]
-      const flagRfid = last[2]
+      const flagRfid = last['flag']
       return flagRfid 
     }
 export function lastRfid(rfid, fio) {
@@ -167,9 +167,10 @@ export function lastRfid(rfid, fio) {
         return fio
       } 
       const last = rfid.slice(-1)[0]
-      const fioRfid = last[0]
-      const date =new Date(last[1])
-      const hours  = addZero(date.getHours()) - 10 //TimeZone
+      const fioRfid = last['fio']
+      let date = new Date(last['time'])
+      date.setTime(date.getTime() - (10*60*60*1000)); //TimeZone
+      const hours  = addZero(date.getHours()) 
       const minutes= addZero(date.getMinutes())
       return fioRfid + " " + hours + ":" + minutes
 }

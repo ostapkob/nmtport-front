@@ -5,7 +5,9 @@
         class="d-flex p-0 border-light bg-light align-items-center"
       >
         <div class="number-icon">
-          <strong>{{ mech.number }} </strong>
+          <strong 
+            @click.prevent="openLink('usm', mech.number)"
+            >{{ mech.number }} </strong>
         </div>
         <span class="mr-auto mx-1">
           <b-badge variant="dark ml-1 p-1" :id="mech.id + 'coalTime'">
@@ -36,11 +38,8 @@
           >
           <small v-if=isFlag(mech.rfid)> ✔️ </small>
           <small v-else> ❌ </small>
-          {{fioFromRfidOr1C(mech.rfid, mech.fio)}}
-          </small>
-          <small class="time-start-finish ml-2" v-if="mech.start">
-          | {{ mech.start }} - {{ mech.finish }}
-          </small>
+          {{fioFromRfidOr1C(mech.rfid, mech.fio)}}</small>
+          <small class="time-start-finish ml" v-if="mech.start">| {{ mech.start }} - {{ mech.finish }} </small>
         <span class="text-left">
         </span>
       </b-list-group-item>
@@ -191,7 +190,10 @@ export default {
     },
     fioFromRfidOr1C(rfid, fio) {
       return lastRfid(rfid, fio)
-    }
+    },
+    openLink(type, id) {
+      this.$router.push(`rfid/${type}/${id}`);
+    },
   },
   computed: {},
   mounted() {

@@ -17,6 +17,11 @@ const routes = [
     component: () => import('../views/Usm.vue')
   },
   {
+    path: '/rfid/:type/:id',
+    name: 'Rfid',
+    component: () => import('../views/RfidWork.vue')
+  },
+  {
     path: '/krans',
     name: 'Krans',
     component: () => import('../views/Krans.vue')
