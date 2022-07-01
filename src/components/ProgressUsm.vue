@@ -36,8 +36,9 @@
               fioContract: mech.contract == 0,
             }"
           >
-          <small v-if=isFlag(mech.rfid)> ✔️ </small>
-          <small v-else> ❌ </small>
+     <!-- <     <small v-if=isFlag(mech.rfid)> ✔️ </small>
+          <small v-else> ❌ </small> -->
+
           {{fioFromRfidOr1C(mech.rfid, mech.fio)}}</small>
           <small class="time-start-finish ml" v-if="mech.start">| {{ mech.start }} - {{ mech.finish }} </small>
         <span class="text-left">

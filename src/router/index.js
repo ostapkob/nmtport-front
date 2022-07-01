@@ -55,6 +55,11 @@ const routes = [
     path: "*",
     component: () => import('../views/NotFound.vue')
   },
+  {
+    path: '/bi',
+    name: 'PowerBI',
+    component: () => import('../views/PowerBI.vue')
+  },
 ]
 const router = new VueRouter({
   mode: 'history',
