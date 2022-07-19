@@ -151,6 +151,8 @@ export default {
   },
   props: {
     typeMECH: String,
+    propsDateShift: String,
+    propsShift: String,
   },
   components: {
     BOverlay,
@@ -304,6 +306,10 @@ export default {
     this.$nextTick(function () {
       window.addEventListener("focus", this.refresh); // if focus get data
     });
+    if (this.propsDateShift && this.propsShift) {
+      console.log(this.propsDateShift, this.propsShift)
+      this.$store.dispatch("SET_DATE_SHIFT"  , [this.propsDateShift, parseInt(this.propsShift)])
+    }
     this.GET_SET(this.DATE, this.SHIFT)
     //this.UT  = this.filterTerminal(this.TERMINAL_1)
     //this.GUT = this.filterTerminal(this.TERMINAL_2)

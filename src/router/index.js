@@ -17,6 +17,11 @@ const routes = [
     component: () => import('../views/Usm.vue')
   },
   {
+    path: '/usm/:date/:shift',
+    name: 'UsmDate',
+    component: () => import('../views/UsmDate.vue')
+  },
+  {
     path: '/rfid/:type/:id',
     name: 'Rfid',
     component: () => import('../views/RfidWork.vue')
@@ -25,6 +30,11 @@ const routes = [
     path: '/krans',
     name: 'Krans',
     component: () => import('../views/Krans.vue')
+  },
+  {
+    path: '/krans/:date/:shift',
+    name: 'krans_date',
+    component: () => import('../views/KransDate.vue')
   },
   {
     path: '/sennebogen',
