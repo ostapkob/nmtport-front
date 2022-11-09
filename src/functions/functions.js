@@ -168,9 +168,9 @@ export function lastRfid(rfid, fio) {
       } 
       const last = rfid.slice(-1)[0]
       const fioRfid = last['fio']
-      let date = new Date(last['time'])
-      date.setTime(date.getTime() - (10*60*60*1000)); //TimeZone
-      const hours  = addZero(date.getHours()) 
-      const minutes= addZero(date.getMinutes())
-      return fioRfid + " " + hours + ":" + minutes
+  //   let date = new Date(last['time'])
+  //   date.setTime(date.getTime() - (10*60*60*1000)); //TimeZone
+  //   const hours  = addZero(date.getHours()) 
+  //   const minutes= addZero(date.getMinutes())
+      return fioRfid //+ " " + hours + ":" + minutes
 }

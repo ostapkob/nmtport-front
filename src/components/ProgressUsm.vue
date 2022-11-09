@@ -4,9 +4,10 @@
       <b-list-group-item
         class="d-flex p-0 border-light bg-light align-items-center"
       >
-        <div class="number-icon">
-          <strong 
+        <div class="number-icon"
             @click.prevent="openLink('usm', mech.number)"
+          >
+          <strong 
             >{{ mech.number }} </strong>
         </div>
         <span class="mr-auto mx-1">
@@ -36,8 +37,8 @@
               fioContract: mech.contract == 0,
             }"
           >
-     <!-- <     <small v-if=isFlag(mech.rfid)> ✔️ </small>
-          <small v-else> ❌ </small> -->
+          <!-- <small v-if=isFlag(mech.rfid)> ✔️ </small> -->
+          <!-- <small v-else> ❌ </small> --> 
 
           {{fioFromRfidOr1C(mech.rfid, mech.fio)}}</small>
           <small class="time-start-finish ml" v-if="mech.start">| {{ mech.start }} - {{ mech.finish }} </small>

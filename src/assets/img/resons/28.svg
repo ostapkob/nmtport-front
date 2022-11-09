@@ -1,0 +1,11 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 98" width="140" height="98">
+	<title>6311a8166aea9_1662101613_6311a8166ae90</title>
+	<defs>
+		<image  width="92" height="96" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABgAgMAAADtOf0dAAAAAXNSR0IB2cksfwAAAAlQTFRFAAAAj4+P2dnZx6TUegAAAAN0Uk5TAP+2S1AvFQAAARNJREFUeJzNlsERAyEIRfVgCfRjCRykg/RfQ1wNsChcMu4knPTN+kEQ3ZTUoCXPClH1OBChx4nIE8o0bJMqk29SH04RX4V8znR1INjGmgNeAg4uv9E7z2TNETc7gIXzDhYsHlZOvtuY16P8z2yLcmZij37uYC3KNNyKMq2F3MXd8W94HOcZjmHezvAa1usUj87JMQ4Obg/z6+bwEnqS5548AwfpHG2TdVYGTybYcYlVblZdsLwLqq5WmgpdQxQNPUaozxhcXykHvkBHcOx4DiQUZD4XVs4DJsMlP9z3nz5B3ir3TeMpRy6cHuWvjZvEfs31kZNpcbjkR6sq0+zwKnURLnUZivZkNK377XTIarD/EuPzN0qC2uFYyoPeAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+		.s0 { fill: #000000 } 
+	</style>
+	<use id="Background" href="#img1" x="48" y="2"/>
+	<path id="Слой 1" class="s0" d="m24 80.3l-24-30.8 24-30.8zm-6-44.3h22v25h-22zm-129 97h100v100h-100z"/>
+</svg>
